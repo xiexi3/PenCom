@@ -1,0 +1,13 @@
+# Ignorar node_modules (dependencias de Angular)
+/Front/node_modules/
+
+# Ignorar dependencias de Laravel
+/Back/vendor/
+
+# Ignorar archivos de configuración de IDEs
+.idea/
+.vscode/
+
+# Ignorar archivos temporales de OS
+.DS_Store
+Thumbs.db
