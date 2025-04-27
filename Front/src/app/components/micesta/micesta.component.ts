@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
+
 
 @Component({
   selector: 'app-micesta',
-  standalone: false,
+  standalone: true,
+  imports: [RouterModule],
   templateUrl: './micesta.component.html',
   styleUrl: './micesta.component.css'
 })
