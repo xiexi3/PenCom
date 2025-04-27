@@ -26,4 +26,21 @@ export class AuthService {
         })
       );
   }
+
+  signup(name: string, email: string, password: string): Observable<string> {
+    return this.http.post<{ data: { user: { id: string } } }>(`${this.apiUrl}/register`, { name, email, password })
+      .pipe(
+        map(response => {
+          const id = response.data.user.id;
+
+          // Guardamos el token en el localStorage
+          localStorage.setItem('userId', id);
+          return id;
+        }),
+        catchError(error => {
+          return throwError(() => error);
+        })
+      );
+  }
+
 }

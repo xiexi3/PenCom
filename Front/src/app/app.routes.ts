@@ -7,5 +7,6 @@ export const routes: Routes = [
   { path: 'ordenadores', loadComponent: () => import('./components/ordenadores/ordenadores.component').then(m => m.OrdenadoresComponent) },
   { path: 'micuenta', loadComponent: () => import('./components/micuenta/micuenta.component').then(m => m.MicuentaComponent) },
   { path: 'micesta', loadComponent: () => import('./components/micesta/micesta.component').then(m => m.MicestaComponent) },
-  { path: 'login', loadComponent: () => import('./components/login/login.component').then(m => m.LoginComponent) }
+  { path: 'login', loadComponent: () => import('./components/login/login.component').then(m => m.LoginComponent) },
+  { path: 'signup', loadComponent: () => import('./components/signup/signup.component').then(m => m.SignupComponent) }
 ]; 

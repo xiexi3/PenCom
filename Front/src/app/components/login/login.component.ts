@@ -12,6 +12,8 @@ import { AuthService } from '../../auth.service';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+  loginFormVisible: boolean = true;
+  name: string = '';
   email: string = '';
   password: string = '';
   errorMessage = '';
@@ -33,6 +35,65 @@ export class LoginComponent {
       },
     });
   }
+
+  onSignup() {
+    // Implement your signup logic here
+    console.log('Name:', this.name);
+    console.log('Email:', this.email);
+    console.log('Password:', this.password);
+    // Add authentication logic and navigate to the next page upon successful signup
+    this.authService.signup(this.name, this.email, this.password).subscribe({
+      next: (id) => {
+        console.log('Registro exitoso. Id de usuario:', id);
+      },
+      error: (err) => {
+        this.errorMessage = 'Error al registrarse: ' + err.message;
+        console.error(err);
+      },
+    });
+  }
+
+  toggleForms(isLoginForm: boolean) {
+    this.loginFormVisible = isLoginForm;
+  
+    // Cambia el título de la página
+    document.title = isLoginForm ? 'Iniciar sesión' : 'Crear cuenta';
+  
+    // Ajusta las alturas dinámicamente
+    const sectLogo = document.querySelector('.section-logo') as HTMLElement;
+    const loginForm = document.querySelector('.section-login') as HTMLElement;
+    const signupForm = document.querySelector('.section-signup') as HTMLElement;
+    const greyline = document.querySelector('.greyline') as HTMLElement;
+  
+
+      if (isLoginForm) {
+        loginForm.style.display = 'block';
+        signupForm.style.display = 'none';
+        sectLogo.style.height = '42.5em';
+        greyline.style.height = '611px';
+      } else {
+        loginForm.style.display = 'none';
+        signupForm.style.display = 'block';
+        sectLogo.style.height = '56.7em';
+        greyline.style.height = '730px';
+  
+        // Desplaza el botón de registro a la vista
+        setTimeout(() => {
+          const signupButton = document.getElementById('signupButton');
+          if (signupButton) {
+            signupButton.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 50);
+      }
+    }
+
+
+  // Simula el cambio de opacidad (puedes personalizarlo)
+  toggleOpacityDarkmode() {
+    console.log('Dark mode toggle clicked');
+  }
+
+  
 
   // login() {
   //   this.authService.login(this.username, this.password).subscribe({
