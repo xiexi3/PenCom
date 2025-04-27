@@ -1,1 +1,188 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Global Styles */
+:root {
+  /* Colores base */
+  --clr-primary: hsl(193, 50%, 45%);
+  --clr-secondary: hsl(213, 50%, 25%);
+  --clr-dark: #1F2937;
+  --clr-dark-trans: #1f2937bf;
+  --clr-light: #ffffff;
+  --clr-slate: #f2f2f2;
+  --clr-slate-dark: #cccccc70;
+  --clr-sunlight: #FFDE59;
+
+  /* Bordes */
+  --brad-std: 0.3rem;
+  --brd-dark: 2px solid #1F2937;
+  --brd-slate: 2px solid #f2f2f2;
+  --brd-trans: 2px solid #cccccc;
+  --brd-trans-half: 1px solid #cccccc;
+
+  /* Sombras */
+  --bsh-primary: 0px 0px 3px 3px var(--clr-primary);
+  --bsh-secondary: 0px 0px 3px 3px var(--clr-secondary);
+  --bsh-soft: 0 2px 10px rgba(0, 0, 0, 0.1);
+  --bsh-hover: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+  /* Espaciado */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+
+  /* Tamaños de fuente */
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-md: 1rem;
+  --fs-lg: 1.25rem;
+  --fs-xl: 1.5rem;
+  --fs-2xl: 2rem;
+
+  /* Z-index */
+  --z-header: 1000;
+  --z-modal: 2000;
+  --z-tooltip: 3000;
+}
+
+/* Reset y estilos base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: var(--clr-light);
+  color: var(--clr-dark);
+  line-height: 1.6;
+}
+
+/* Tipografía */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--clr-dark);
+  line-height: 1.2;
+  margin-bottom: var(--spacing-md);
+}
+
+p {
+  margin-bottom: var(--spacing-md);
+}
+
+/* Enlaces */
+a {
+  color: var(--clr-primary);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--clr-secondary);
+}
+
+/* Botones */
+.btn {
+  display: inline-block;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--brad-std);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.btn-primary {
+  background-color: var(--clr-primary);
+  color: var(--clr-light);
+}
+
+.btn-primary:hover {
+  background-color: var(--clr-secondary);
+  box-shadow: var(--bsh-primary);
+}
+
+.btn-secondary {
+  background-color: var(--clr-secondary);
+  color: var(--clr-light);
+}
+
+.btn-secondary:hover {
+  background-color: var(--clr-primary);
+  box-shadow: var(--bsh-secondary);
+}
+
+/* Formularios */
+input, textarea, select {
+  padding: var(--spacing-sm);
+  border: var(--brd-trans-half);
+  border-radius: var(--brad-std);
+  background-color: var(--clr-light);
+  transition: all 0.3s ease;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--clr-primary);
+  box-shadow: var(--bsh-soft);
+}
+
+/* Utilidades */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mt-1 { margin-top: var(--spacing-xs); }
+.mt-2 { margin-top: var(--spacing-sm); }
+.mt-3 { margin-top: var(--spacing-md); }
+.mt-4 { margin-top: var(--spacing-lg); }
+.mt-5 { margin-top: var(--spacing-xl); }
+
+.mb-1 { margin-bottom: var(--spacing-xs); }
+.mb-2 { margin-bottom: var(--spacing-sm); }
+.mb-3 { margin-bottom: var(--spacing-md); }
+.mb-4 { margin-bottom: var(--spacing-lg); }
+.mb-5 { margin-bottom: var(--spacing-xl); }
+
+/* Modo oscuro */
+body.dark-mode {
+  --clr-light: #1F2937;
+  --clr-dark: #ffffff;
+  --clr-slate: #2d3748;
+  --clr-slate-dark: #4a5568;
+  background-color: var(--clr-light);
+  color: var(--clr-dark);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  :root {
+    --spacing-lg: 1.25rem;
+    --spacing-xl: 1.75rem;
+  }
+  
+  .container {
+    padding: 0 var(--spacing-sm);
+  }
+}
+
+/* Ensure the header is always on top */
+app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}

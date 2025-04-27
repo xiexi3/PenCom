@@ -1,0 +1,32 @@
+<header>
+    <nav class="nav">
+        <div class="nav__container">
+            <a class="nav__logo" routerLink="/"><img class="logo__img" src="/assets/images/logos/penpenlogo.png" alt="Logo Index"></a>
+
+            <div class="nav__hamburger" (click)="toggleMenu()">&#9776;</div>
+        </div>
+
+        <ul class="nav__list" [class.active]="isMenuOpen">
+            <li><a class="nav__list__anchors" routerLink="/componentes">Componentes</a></li>
+            <li><a class="nav__list__anchors" routerLink="/ordenadores">Ordenadores</a></li>
+            <li><a class="nav__list__anchors" routerLink="/micuenta">Cuenta</a></li>
+            <li><a class="nav__list__anchors cesta" [attr.data-totalitems]="cartItems" routerLink="/micesta">Cesta</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="toggle-container">
+    <div class="theme-toggle" (click)="toggleTheme()">
+        <div class="switch__indicator">
+            <div class="switch__icon-container">
+                <i class="switch__icon fa-solid"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ul class="socials__list">
+    <li><a href="https://www.facebook.com/pencom"><i class="fa-brands fa-facebook-f"></i></a></li>
+    <li><a href="https://www.instagram.com/pencom"><i class="fa-brands fa-instagram"></i></a></li>
+    <li><a href="https://www.twitter.com/pencom"><i class="fa-brands fa-x-twitter"></i></a></li>
+</ul>
