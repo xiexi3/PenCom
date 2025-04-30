@@ -1,0 +1,105 @@
+@startuml Database Schema
+
+' Entities
+entity "users" {
+  + id : integer <<PK>>
+  --
+  name : string
+  email : string <<unique>>
+  email_verified_at : timestamp
+  password : string
+  remember_token : string
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+entity "categorias" {
+  + id : integer <<PK>>
+  --
+  nombre : string
+  descripcion : text
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+entity "productos" {
+  + id : integer <<PK>>
+  --
+  nombre : string
+  descripcion : text
+  precio : decimal(10,2)
+  tipo : enum(componente,ordenador)
+  imagen_url : string
+  categoria_id : integer <<FK>>
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+entity "compatibilidades" {
+  + id : integer <<PK>>
+  --
+  producto_1_id : integer <<FK>>
+  producto_2_id : integer <<FK>>
+  tipo_relacion : string
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+entity "cart_items" {
+  + id : integer <<PK>>
+  --
+  user_id : integer <<FK>>
+  session_id : string
+  product_id : integer <<FK>>
+  quantity : integer
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+entity "orders" {
+  + id : integer <<PK>>
+  --
+  user_id : integer <<FK>>
+  order_number : string <<unique>>
+  total_amount : decimal(10,2)
+  status : enum(pendiente,completado,cancelado)
+  address : text
+  notes : text
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+entity "order_items" {
+  + id : integer <<PK>>
+  --
+  order_id : integer <<FK>>
+  product_id : integer <<FK>>
+  product_name : string
+  quantity : integer
+  unit_price : decimal(10,2)
+  subtotal : decimal(10,2)
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+entity "order_status_history" {
+  + id : integer <<PK>>
+  --
+  order_id : integer <<FK>>
+  status : enum(pendiente,completado,cancelado)
+  notes : text
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+' Relationships
+users ||--o{ cart_items
+users ||--o{ orders
+categorias ||--o{ productos
+productos }o--o{ compatibilidades
+productos ||--o{ cart_items
+productos ||--o{ order_items
+orders ||--o{ order_items
+orders ||--o{ order_status_history
+
+@enduml 
