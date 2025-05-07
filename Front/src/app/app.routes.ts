@@ -8,5 +8,6 @@ export const routes: Routes = [
   { path: 'micuenta', loadComponent: () => import('./components/micuenta/micuenta.component').then(m => m.MicuentaComponent) },
   { path: 'micesta', loadComponent: () => import('./components/micesta/micesta.component').then(m => m.MicestaComponent) },
   { path: 'login', loadComponent: () => import('./components/login/login.component').then(m => m.LoginComponent) },
-  { path: 'signup', loadComponent: () => import('./components/signup/signup.component').then(m => m.SignupComponent) }
+  { path: 'signup', loadComponent: () => import('./components/signup/signup.component').then(m => m.SignupComponent) },
+  { path: 'producto/:id', loadComponent: () => import('./components/detalles/detalles.component').then(m => m.DetallesComponent) },
 ]; 

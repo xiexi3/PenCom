@@ -6,6 +6,7 @@ import { routes } from './app.routes';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { SignupComponent } from './components/signup/signup.component';
+import { DetallesComponent } from './components/detalles/detalles.component';
 
 @NgModule({
   declarations: [

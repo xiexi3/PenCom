@@ -1,0 +1,14 @@
+<body>
+	<div class="container">
+		<div class="card">
+			<div *ngIf="producto">
+				<h1>{{ producto.nombre }}</h1>
+				<img [src]="'/assets/images/componentes/' + producto.imagen_url" alt="{{ producto.nombre }}" class="item" />
+				<p>{{ producto.descripcion }}</p>
+				<p><strong>Precio:</strong> ${{ producto.precio }}</p>
+				<p><strong>Categoría:</strong> {{ producto.categoria.nombre }}</p>
+				<!-- <button (click)="agregarAlCarrito(producto)">Agregar al carrito</button> -->
+			</div>
+		</div>
+	</div>
+</body>

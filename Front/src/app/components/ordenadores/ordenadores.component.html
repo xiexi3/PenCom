@@ -1,1 +1,71 @@
-<p>ordenadores works!</p>
+<!-- <div class="itemlist">
+	<h1>Lista de Productos</h1>
+	<div *ngIf="productos.length === 0">Cargando productos...</div>
+	<div *ngFor="let producto of productos" class="card">
+		<img [src]="'/assets/images/componentes/' + producto.imagen_url" alt="{{ producto.nombre }}" />
+		<h2>{{ producto.nombre }}</h2>
+		<p>{{ producto.descripcion }}</p>
+		<p><strong>Precio: </strong>${{ producto.precio }}</p>
+		<p><strong>Categoría: </strong>{{ producto.categoria.nombre }}</p>
+		<button (click)="agregarAlCarrito(producto)">Agregar al carrito</button>
+	</div>
+</div> -->
+
+
+<main>
+	<section class="carousel-container">
+		<!-- #region Carousel -->
+		<div class="carousel carousel">
+			<div class="wrapper">
+
+				<div class="searchbar-container">
+					<h2 class="title-carousel">Componentes</h2>
+					<div class="searchbar">
+						<input type="search" class="search-input" placeholder="Buscar">
+						<span class="search-icon material-symbols-outlined" onclick="toggleOpacityDarkmode()">Search</span>
+					</div>
+				</div>
+
+				<div class="itemlist">
+					<div *ngIf="productos.length === 0">Cargando productos...</div>
+					<div *ngFor="let producto of productos" class="card">
+						<img [src]="'/assets/images/componentes/' + producto.imagen_url" alt="{{ producto.nombre }}" class="item" />
+						<div class="card__text">
+							<span title="{{ producto.nombre }}" class="card__title">{{ producto.nombre }}</span>
+							<div class="card__add-to-cart">
+								<span class="card__price">${{ producto.precio }}</span>
+							</div>
+							<button class="add-to-cart-btn">
+								+ Añadir
+								<span class="cart-item"></span>
+							</button>
+							<!-- <h2>{{ producto.nombre }}</h2>
+							<p>{{ producto.descripcion }}</p>
+							<p><strong>Precio: </strong>${{ producto.precio }}</p>
+							<p><strong>Categoría: </strong>{{ producto.categoria.nombre }}</p> -->
+						</div>
+					</div>
+				</div>
+				
+
+			</div>
+		</div>
+	</section>
+</main>
+
+<!-- <div class="card" tabindex="0">
+	<img src="../images/componentes/componente1.png" class="item" alt="Componente">
+	<div class="card__text">
+		<span title="AMD Ryzen 7 7800X3D 4.2 GHz/5 GHz" class="card__title">
+			AMD Ryzen 7 7800X3D 4.2 GHz/5 GHz
+		</span>
+		<div class="card__add-to-cart">
+			<span class="card__price">386,90€</span>
+			<button class="add-to-cart-btn">
+				+ Añadir
+				<span class="cart-item"></span>
+			</button>
+		</div>
+	</div>
+
+</div> -->

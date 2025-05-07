@@ -150,16 +150,17 @@ body {
 }
 /* #endregion */
 
-main {
+body {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
     padding-top: 4rem;
+    background-color: var(--clr-slate);
 }
 
 /* #region Carousels */
-.carousel {
-	width: 100%;
-    padding: 0 10% 1px 10%;
-    background-color: var(--clr-slate);
-}
 
 .searchbar-container {
     display: flex;
@@ -235,9 +236,26 @@ main {
     padding: 1rem 0px;
 }
 
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+	position: relative;
+    /* margin-bottom: 2rem; */
+    /* padding: 1rem 0px; */
+    
+}
+
 .item {
-	width: 200px;
-	height: 200px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+	width: 400px;
+	height: 400px;
+    margin: 0 10%;
+
 }
 /* #endregion */
 
@@ -248,7 +266,7 @@ main {
     align-items: center;
     justify-content: space-between;
 
-    height: 400px;
+    height: 800px;
 	padding: 1rem;
 
     font-size: 1.125rem;

@@ -23,6 +23,10 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/regenerate/code', [AuthController::class, 'regenerateCode']);
 Route::post('/regenerate/password', [AuthController::class, 'regeneratePassword']);
 
+// esto aqui de mientras sino no funca sin autorizacion
+Route::get('/productos', [ProductoController::class, 'index']);
+Route::get('/productos/{id}', [ProductoController::class, 'show']);
+
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
@@ -31,8 +35,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout']);
     Route::get('/user', [AuthController::class, 'user']);
 
-    Route::get('/productos', [ProductoController::class, 'index']);
-    Route::get('/productos/{id}', [ProductoController::class, 'show']);
     Route::post('/productos', [ProductoController::class, 'store']);
     Route::put('/productos/{id}', [ProductoController::class, 'update']);
     Route::delete('/productos/{id}', [ProductoController::class, 'destroy']);
