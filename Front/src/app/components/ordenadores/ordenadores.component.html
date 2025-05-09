@@ -29,7 +29,7 @@
 				<div class="itemlist">
 					<div *ngIf="productos.length === 0">Cargando productos...</div>
 					<div *ngFor="let producto of productos" class="card">
-						<img [src]="'/assets/images/componentes/' + producto.imagen_url" alt="{{ producto.nombre }}" class="item" />
+						<img [src]="'/assets/images/ordenadores/' + producto.imagen_url" alt="{{ producto.nombre }}" class="item" />
 						<div class="card__text">
 							<span title="{{ producto.nombre }}" class="card__title">{{ producto.nombre }}</span>
 							<div class="card__add-to-cart">
