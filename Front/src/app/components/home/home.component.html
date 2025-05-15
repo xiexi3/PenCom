@@ -37,7 +37,7 @@
                 <h2 class="title-carousel"><a href="./componentes/componentes.html">Componentes</a></h2>
                 <button id="prev-slide-1" class="slide-button slide-button-1 material-symbols-rounded" (click)="scroll(0, -1)">&#10094;</button>
             
-                <div class="itemlist" #itemlist>
+                <div class="itemlist itemlist-1" #itemlist>
                     <div *ngIf="componentes.length === 0">Cargando componentes...</div>
                     <div *ngFor="let producto of componentes" class="card">
                         <img [src]="'/assets/images/componentes/' + producto.imagen_url" alt="{{ producto.nombre }}" class="item" />
@@ -58,7 +58,7 @@
             </div>
 
             <div class="slider-scrollbar slider-scrollbar-1">
-                <div class="scrollbar-track scrollbar-track-1">
+                <div class="scrollbar-track">
                     <div class="scrollbar-thumb scrollbar-thumb-1" #scrollbarThumb></div>
                 </div>
             </div>
@@ -86,7 +86,7 @@
         <div class="carousel">
             <div class="wrapper">
                 <h2 class="title-carousel"><a href="./ordenadores/ordenadores.html">Ordenadores</a></h2>
-                <button id="prev-slide-2" class="slide-button material-symbols-rounded" (click)="scroll(1, -1)">&#10094;</button>
+                <button id="prev-slide-2" class="slide-button slide-button-2 material-symbols-rounded" (click)="scroll(1, -1)">&#10094;</button>
                 
                 <div class="itemlist" #itemlist>
                     <div *ngIf="ordenadores.length === 0">Cargando ordenadores...</div>
@@ -105,12 +105,12 @@
                     </div>
                 </div>
 
-                <button id="next-slide-2" class="slide-button material-symbols-rounded" (click)="scroll(1, 1)">&#10095;</button>
+                <button id="next-slide-2" class="slide-button slide-button-2 material-symbols-rounded" (click)="scroll(1, 1)">&#10095;</button>
             </div>
 
-            <div class="slider-scrollbar">
+            <div class="slider-scrollbar slider-scrollbar-2">
                 <div class="scrollbar-track">
-                    <div class="scrollbar-thumb" #scrollbarThumb></div>
+                    <div class="scrollbar-thumb scrollbar-thumb-2" #scrollbarThumb></div>
                 </div>
             </div>
 
