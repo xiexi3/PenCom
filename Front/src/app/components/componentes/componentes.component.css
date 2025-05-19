@@ -198,12 +198,16 @@ main {
 
 	margin-right: 2rem;
 
-	font-size: 1.125rem;
+	font-size: 1.5rem;
 	color: var(--clr-dark);
 
 	background: transparent;
 	border: none;
 	outline: none;
+}
+
+._ng-deep {
+    outline: none;
 }
 
 .search-input::placeholder,

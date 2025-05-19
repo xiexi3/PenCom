@@ -18,9 +18,6 @@ export class HomeComponent implements AfterViewInit, OnInit {
   componentes: any[] = [];
   ordenadores: any[] = [];
   maxScrollLefts: number[] = [];
-  isDragging: boolean = false;
-  startX: number = 0;
-  startScrollLeft: number = 0;
 
   constructor(private productService: ProductService) {}
 
@@ -66,22 +63,6 @@ export class HomeComponent implements AfterViewInit, OnInit {
   ngAfterViewInit() {
     this.addAnimation();
 
-    this.itemlists.forEach((itemlist, index) => {
-      const maxScrollLeft = itemlist.nativeElement.scrollWidth - itemlist.nativeElement.clientWidth;
-      this.maxScrollLefts[index] = maxScrollLeft;
-
-      // Actualiza la posición inicial del scrollbar y los botones
-      this.updateScrollThumbPosition(index);
-      this.handleSlideButtons(index);
-
-      // Agrega eventos de arrastre al scrollbar-thumb
-      const scrollbarThumb = this.scrollbarThumbs.toArray()[index].nativeElement;
-      scrollbarThumb.addEventListener('mousedown', (event: MouseEvent) => this.startDrag(event, index));
-    });
-
-    // Agrega eventos globales para manejar el arrastre
-    document.addEventListener('mousemove', (event: MouseEvent) => this.onDrag(event));
-    document.addEventListener('mouseup', () => this.stopDrag());
   }
 
   addAnimation() {
@@ -146,40 +127,6 @@ export class HomeComponent implements AfterViewInit, OnInit {
     //   prevButton.style.display = itemlist.scrollLeft <= 0 ? 'none' : 'flex';
     //   nextButton.style.display = itemlist.scrollLeft >= maxScrollLeft ? 'none' : 'flex';
     // }
-  }
-
-  startDrag(event: MouseEvent, carouselIndex: number): void {
-  this.isDragging = true;
-  this.startX = event.clientX;
-
-  const itemlist = this.itemlists.toArray()[carouselIndex]?.nativeElement;
-  if (itemlist) {
-    this.startScrollLeft = itemlist.scrollLeft;
-  }
-}
-
-  onDrag(event: MouseEvent): void {
-    if (!this.isDragging) return;
-  
-    const deltaX = event.clientX - this.startX;
-  
-    // Encuentra el carrusel que está siendo arrastrado
-    const itemlist = this.itemlists.toArray()[this.startScrollLeft]?.nativeElement;
-  
-    if (itemlist) {
-      itemlist.scrollLeft = this.startScrollLeft - deltaX;
-  
-      // Actualiza el scrollbar-thumb y los botones
-      const carouselIndex = this.itemlists.toArray().indexOf(itemlist);
-      if (carouselIndex !== -1) {
-        this.updateScrollThumbPosition(carouselIndex);
-        this.handleSlideButtons(carouselIndex);
-      }
-    }
-  }
-
-  stopDrag(): void {
-    this.isDragging = false;
   }
 
 }

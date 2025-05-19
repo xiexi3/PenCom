@@ -29,6 +29,11 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::table('compatibilidades', function (Blueprint $table) {
+            $table->dropForeign(['producto_1_id']); // Elimina la clave foránea
+            $table->dropForeign(['producto_2_id']); // Si hay otra clave foránea
+        });
+
         Schema::dropIfExists('compatibilidads');
     }
 };
