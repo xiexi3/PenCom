@@ -410,6 +410,13 @@ main {
 }
 /* #endregion */
 
+.carousel.dark-mode {
+    --clr-light: #ffffff;
+    --clr-dark: #1F2937;
+    --clr-dark-trans: #f2f2f2;
+    --clr-slate: #1f2937bf;
+}
+
 /* #region Media Queries */
 @media (min-width: 1900px) {
     .hero__wrapper {

@@ -57,12 +57,34 @@ html {
   scroll-behavior: smooth;
 }
 
+app-root {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* Permite que el contenido principal ocupe el espacio disponible */
+}
+
+
 body {
+  /* height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column; */
   font-family: 'Montserrat', sans-serif;
-  background-color: var(--clr-light);
+  /* background-color: var(--clr-light); */
   color: var(--clr-dark);
   line-height: 1.6;
 }
+
+/* html, body {
+   height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column; 
+}
+*/
+
+
 
 /* Tipografía */
 h1, h2, h3, h4, h5, h6 {
@@ -157,13 +179,14 @@ input:focus, textarea:focus, select:focus {
 .mb-5 { margin-bottom: var(--spacing-xl); }
 
 /* Modo oscuro */
-body.dark-mode {
+.dark-mode {
   --clr-light: #1F2937;
   --clr-dark: #ffffff;
   --clr-slate: #2d3748;
   --clr-slate-dark: #4a5568;
-  background-color: var(--clr-light);
+  --clr-light3: var(--clr-dark-trans);
   color: var(--clr-dark);
+  /* background-color: var(--clr-light); */
 }
 
 /* Responsive */

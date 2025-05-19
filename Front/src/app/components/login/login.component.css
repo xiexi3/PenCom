@@ -45,7 +45,7 @@
 }
 /* #endregion */
 
-body {
+/* body {
 	overflow-x: hidden;
 	display: flex;
 	flex-direction: column;
@@ -58,7 +58,7 @@ body {
 	font-family: 'Montserrat';
 
 	background-color: var(--clr-light3);
-}
+} */
 /* #endregion */
 
 /* #region Navegation Menu */
@@ -165,10 +165,16 @@ body {
 }
 /* #endregion */
 
-main {
+.main {
+	min-height: 100vh;
+	background-color: var(--clr-light3);
+}
+
+.container-forms {
 	display: flex;
-	flex: 1;
-	color: var(--clr-dark);
+	flex-direction: row;
+	/* align-items: center; */
+	justify-content: center;
 }
 
 section {	

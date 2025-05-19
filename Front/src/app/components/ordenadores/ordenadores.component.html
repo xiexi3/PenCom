@@ -1,13 +1,37 @@
-<main>
+<main class="main">
 	<section class="carousel-container">
 		<div class="carousel carousel">
 			<div class="wrapper">
 
 				<div class="searchbar-container">
-					<h2 class="title-carousel">Componentes</h2>
+					<h2 class="title-carousel">Ordenadores</h2>
 					<div class="searchbar">
 						<input type="search" class="search-input" placeholder="Buscar" [(ngModel)]="textoBusqueda" (input)="filtrarProductos()" />
-						<span class="search-icon material-symbols-outlined">search</span>
+						<i class="fas fa-search search-icon"></i>
+					</div>
+				</div>
+
+				<div class="filters-container">
+					<!-- Filtro por marca -->
+					<div class="filter">
+						<label for="marca">Marca:</label>
+						<select id="marca" [(ngModel)]="marcaSeleccionada" (change)="filtrarProductos()">
+							<option value="">Todas</option>
+							<option *ngFor="let marca of marcas" [value]="marca">{{ marca }}</option>
+						</select>
+					</div>
+
+					<!-- Filtro por precio -->
+					<div class="filter">
+						<label for="precioMin" class="card__title">Precio mínimo:</label>
+						<input id="precioMin" type="number" [(ngModel)]="precioMin" (input)="filtrarProductos()"
+							placeholder="Mínimo" />
+					</div>
+					
+					<div class="filter">
+						<label for="precioMax">Precio máximo:</label>
+						<input id="precioMax" type="number" [(ngModel)]="precioMax" (input)="filtrarProductos()"
+							placeholder="Máximo" />
 					</div>
 				</div>
 
@@ -19,11 +43,11 @@
 							<span title="{{ producto.nombre }}" class="card__title">{{ producto.nombre }}</span>
 							<div class="card__add-to-cart">
 								<span class="card__price">${{ producto.precio }}</span>
+								<button class="add-to-cart-btn">
+									+ Añadir
+									<span class="cart-item"></span>
+								</button>
 							</div>
-							<button class="add-to-cart-btn">
-								+ Añadir
-								<span class="cart-item"></span>
-							</button>
 						</div>
 					</div>
 				</div>

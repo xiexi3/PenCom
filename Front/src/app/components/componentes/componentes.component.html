@@ -1,15 +1,13 @@
 
-<main>
+<main class="main">
 	<section class="carousel-container">
 		<div class="carousel carousel">
 			<div class="wrapper">
-
+				
 				<div class="searchbar-container">
 					<h2 class="title-carousel">Componentes</h2>
 					<div class="searchbar">
 						<input type="search" class="search-input" placeholder="Buscar" [(ngModel)]="textoBusqueda" (input)="filtrarProductos()" />
-							
-						<!-- <span class="search-icon material-symbols-outlined">Search</span> -->
 						<i class="fas fa-search search-icon"></i>
 					</div>
 				</div>
@@ -58,22 +56,3 @@
 		</div>
 	</section>
 </main>
-
-<!-- 
-	<div class="itemlist" #itemlist>
-		<div *ngIf="ordenadores.length === 0">Cargando ordenadores...</div>
-		<div *ngFor="let producto of ordenadores" class="card">
-			<img [src]="'/assets/images/ordenadores/' + producto.imagen_url" alt="{{ producto.nombre }}" class="item" />
-			<div class="card__text">
-				<span title="{{ producto.nombre }}" class="card__title">{{ producto.nombre }}</span>
-				<div class="card__add-to-cart">
-					<span class="card__price">${{ producto.precio }}</span>
-					<button class="add-to-cart-btn">
-						+ Añadir
-						<span class="cart-item"></span>
-					</button>
-				</div>
-			</div>
-		</div>
-	</div>
--->

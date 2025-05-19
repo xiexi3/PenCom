@@ -14,6 +14,9 @@ import { DetallesComponent } from './components/detalles/detalles.component';
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),
+    // RouterModule.forRoot(routes, {
+    //   scrollPositionRestoration: 'enabled' // Habilita el scroll al inicio de la página
+    // }),
     HttpClientModule
   ],
   providers: [],

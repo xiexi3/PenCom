@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { ProductService } from './../../product.service'; // Asegúrate de que la ruta sea correcta
+import { ProductService } from './../../product.service';
 import { FormsModule } from '@angular/forms';
 
 @Component({

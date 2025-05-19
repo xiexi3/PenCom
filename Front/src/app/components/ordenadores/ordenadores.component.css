@@ -41,12 +41,6 @@
 }
 /* #endregion */
 
-body {
-	overflow-x: hidden;
-    min-height: 100vh;
-    font-family: 'Montserrat';
-}
-
 /* #region Navegation Menu */
 .nav {
     position: fixed;
@@ -151,14 +145,17 @@ body {
 /* #endregion */
 
 main {
+    min-height: 100vh;
     padding-top: 4rem;
+    background-color: var(--clr-slate);
 }
 
 /* #region Carousels */
 .carousel {
+    /* min-height: 100vh; */
+    /* flex: 1; */
 	width: 100%;
     padding: 0 10% 1px 10%;
-    background-color: var(--clr-slate);
 }
 
 .searchbar-container {

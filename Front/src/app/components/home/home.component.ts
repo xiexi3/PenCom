@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef, AfterViewInit, ViewChild, ViewChildren, QueryList, HostListener } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, ViewportScroller } from '@angular/common';
 import { ProductService } from './../../product.service';
 
 @Component({
@@ -19,9 +19,12 @@ export class HomeComponent implements AfterViewInit, OnInit {
   ordenadores: any[] = [];
   maxScrollLefts: number[] = [];
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService, private viewportScroller: ViewportScroller) {}
 
   ngOnInit(): void {
+    // document.body.scrollTop = 0;
+    this.viewportScroller.scrollToPosition([0, 0]);
+    
     this.productService.getComponentes().subscribe(
       (data) => {
         this.componentes = data;
@@ -62,7 +65,6 @@ export class HomeComponent implements AfterViewInit, OnInit {
 
   ngAfterViewInit() {
     this.addAnimation();
-
   }
 
   addAnimation() {

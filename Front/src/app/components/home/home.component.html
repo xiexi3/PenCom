@@ -17,7 +17,7 @@
                 </p>
 
                 <div class="hero__wrapper__form">
-                    <button class="btn-signup" onclick="location.href='./micuenta/micuenta.html'" type="Submit">
+                    <button class="btn-signup" routerLink="/login" type="Submit">
                         Sign Up
                     </button>
                 </div>
@@ -34,7 +34,7 @@
         <!-- #region Carousel-1 -->
         <div class="carousel carousel-1">
             <div class="wrapper wrapper-1">
-                <h2 class="title-carousel"><a href="./componentes/componentes.html">Componentes</a></h2>
+                <h2 class="title-carousel"><a routerLink="/componentes">Componentes</a></h2>
                 <button id="prev-slide-1" class="slide-button slide-button-1 material-symbols-rounded" (click)="scroll(0, -1)">&#10094;</button>
             
                 <div class="itemlist itemlist-1" #itemlist>
@@ -79,7 +79,7 @@
         <!-- #region Carousel-2 -->
         <div class="carousel">
             <div class="wrapper">
-                <h2 class="title-carousel"><a href="./ordenadores/ordenadores.html">Ordenadores</a></h2>
+                <h2 class="title-carousel"><a routerLink="/ordenadores">Ordenadores</a></h2>
                 <button id="prev-slide-2" class="slide-button slide-button-2 material-symbols-rounded" (click)="scroll(1, -1)">&#10094;</button>
                 
                 <div class="itemlist" #itemlist>
