@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ProductService } from './../../product.service'; // Asegúrate de que la ruta sea correcta
-import { CommonModule } from '@angular/common';
+import { ProductService } from './../../product.service';
+import { CommonModule, ViewportScroller } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -20,13 +20,16 @@ export class OrdenadoresComponent implements OnInit {
   precioMin: number | null = null; // Precio mínimo para filtrar
   precioMax: number | null = null; // Precio máximo para filtrar
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService, private viewportScroller: ViewportScroller) {}
 
   ngOnInit(): void {
+    this.viewportScroller.scrollToPosition([0, 0]); // Para que al cargar la página se vaya al inicio del scroll
+
+    // Obtenemos los ordenadores
     this.productService.getOrdenadores().subscribe(
       (data) => {
-        this.productos = data; // Asigna los productos a la variable
-        this.productosFiltrados = data; // Asigna los productos a la variable
+        this.productos = data; 
+        this.productosFiltrados = data; 
       },
       (error) => {
         console.error('Hubo un error al obtener los productos', error);

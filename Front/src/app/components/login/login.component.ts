@@ -1,24 +1,29 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule, ViewportScroller } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'app-login',
-  standalone: true,  // <-- ESTA línea si quieres standalone
+  standalone: true, 
   imports: [RouterModule, CommonModule, ReactiveFormsModule, FormsModule], // <-- IMPORTANTE
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loginFormVisible: boolean = true;
   name: string = '';
   email: string = '';
   password: string = '';
   errorMessage = '';
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private viewportScroller: ViewportScroller) {}
+
+  ngOnInit(): void {
+    this.viewportScroller.scrollToPosition([0, 0]); // Para que al cargar la página se vaya al inicio del scroll
+
+  }
 
   onLogin() {
     // Implement your login logic here
@@ -53,6 +58,7 @@ export class LoginComponent {
     });
   }
 
+  // Cambia la visibilidad de los formularios
   toggleForms(isLoginForm: boolean) {
     this.loginFormVisible = isLoginForm;
   
@@ -65,32 +71,25 @@ export class LoginComponent {
     const signupForm = document.querySelector('.section-signup') as HTMLElement;
     const greyline = document.querySelector('.greyline') as HTMLElement;
   
+    if (isLoginForm) {
+      loginForm.style.display = 'block';
+      signupForm.style.display = 'none';
+      sectLogo.style.height = '42.5em';
+      greyline.style.height = '611px';
+    } else {
+      loginForm.style.display = 'none';
+      signupForm.style.display = 'block';
+      sectLogo.style.height = '56.7em';
+      greyline.style.height = '730px';
 
-      if (isLoginForm) {
-        loginForm.style.display = 'block';
-        signupForm.style.display = 'none';
-        sectLogo.style.height = '42.5em';
-        greyline.style.height = '611px';
-      } else {
-        loginForm.style.display = 'none';
-        signupForm.style.display = 'block';
-        sectLogo.style.height = '56.7em';
-        greyline.style.height = '730px';
-  
-        // Desplaza el botón de registro a la vista
-        setTimeout(() => {
-          const signupButton = document.getElementById('signupButton');
-          if (signupButton) {
-            signupButton.scrollIntoView({ behavior: 'smooth' });
-          }
-        }, 50);
-      }
+      // Desplaza el botón de registro a la vista
+      setTimeout(() => {
+        const signupButton = document.getElementById('signupButton');
+        if (signupButton) {
+          signupButton.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 50);
     }
-
-
-  // Simula el cambio de opacidad (puedes personalizarlo)
-  toggleOpacityDarkmode() {
-    console.log('Dark mode toggle clicked');
   }
 
   

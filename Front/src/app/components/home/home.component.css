@@ -1,9 +1,3 @@
-body {
-	overflow-x: hidden;
-    min-height: 100vh;
-    font-family: 'Montserrat';
-}
-
 /* #region Hero  */
 .hero-container {
     overflow: hidden;
@@ -358,40 +352,6 @@ main {
     animation: xAxis 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-.nav__list__anchors.cesta:before {
-    content: attr(data-totalitems);
-
-    position: absolute;
-    top: -12px;
-    right: -12px;
-
-    min-width: 24px;
-    height: 24px;
-
-    font-size: 1rem;
-    font-weight: 600;
-    line-height: 24px;
-    color: var(--clr-light);
-    text-align: center;
-
-    background: var(--clr-secondary);
-    border-radius: 1rem;
-}
-
-@keyframes xAxis {
-    100% {
-        transform: translateX(calc(105px));
-        opacity: 0.75;
-    }
-}
-
-@keyframes yAxis {
-    100% {
-        transform: translateY(calc(-40vh));
-        opacity: 0.75;
-    }
-}
-
 .card:hover .add-to-cart-btn {
     opacity: 1;
 }
@@ -409,13 +369,6 @@ main {
     box-shadow: var(--bsh-secondary );
 }
 /* #endregion */
-
-.carousel.dark-mode {
-    --clr-light: #ffffff;
-    --clr-dark: #1F2937;
-    --clr-dark-trans: #f2f2f2;
-    --clr-slate: #1f2937bf;
-}
 
 /* #region Media Queries */
 @media (min-width: 1900px) {

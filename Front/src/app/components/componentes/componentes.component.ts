@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, ViewportScroller } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ProductService } from './../../product.service';
 import { FormsModule } from '@angular/forms';
@@ -20,13 +20,16 @@ export class ComponentesComponent implements OnInit {
   precioMin: number | null = null; // Precio mínimo para filtrar
   precioMax: number | null = null; // Precio máximo para filtrar
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService, private viewportScroller: ViewportScroller) {}
 
   ngOnInit(): void {
+    this.viewportScroller.scrollToPosition([0, 0]); // Para que al cargar la página se vaya al inicio del scroll
+
+    // Obtenemos los componentes
     this.productService.getComponentes().subscribe(
       (data) => {
         this.productos = data;
-        this.productosFiltrados = data; // Asigna los productos a la variable
+        this.productosFiltrados = data;
       },
       (error) => {
         console.error('Hubo un error al obtener los productos', error);

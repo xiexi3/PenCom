@@ -6,39 +6,44 @@
 				<div class="searchbar-container">
 					<h2 class="title-carousel">Ordenadores</h2>
 					<div class="searchbar">
-						<input type="search" class="search-input" placeholder="Buscar" [(ngModel)]="textoBusqueda" (input)="filtrarProductos()" />
+						<input type="search" class="search-input" placeholder="Buscar" [(ngModel)]="textoBusqueda"
+							(input)="filtrarProductos()" />
 						<i class="fas fa-search search-icon"></i>
 					</div>
 				</div>
 
 				<div class="filters-container">
-					<!-- Filtro por marca -->
+
 					<div class="filter">
-						<label for="marca">Marca:</label>
-						<select id="marca" [(ngModel)]="marcaSeleccionada" (change)="filtrarProductos()">
+						<label class="label-filter" for="marca">Marca: </label>
+						<select class="search-select" id="marca" [(ngModel)]="marcaSeleccionada"
+							(change)="filtrarProductos()">
 							<option value="">Todas</option>
 							<option *ngFor="let marca of marcas" [value]="marca">{{ marca }}</option>
 						</select>
 					</div>
 
-					<!-- Filtro por precio -->
 					<div class="filter">
-						<label for="precioMin" class="card__title">Precio mínimo:</label>
-						<input id="precioMin" type="number" [(ngModel)]="precioMin" (input)="filtrarProductos()"
-							placeholder="Mínimo" />
+						<label class="label-filter" for="precioMin">Precio mínimo: </label>
+						<input class="search-filter" id="precioMin" type="number" [(ngModel)]="precioMin"
+							(input)="filtrarProductos()" placeholder="Mínimo" />
 					</div>
-					
+
 					<div class="filter">
-						<label for="precioMax">Precio máximo:</label>
-						<input id="precioMax" type="number" [(ngModel)]="precioMax" (input)="filtrarProductos()"
-							placeholder="Máximo" />
+						<label class="label-filter" for="precioMax">Precio máximo: </label>
+						<input class="search-filter" id="precioMax" type="number" [(ngModel)]="precioMax"
+							(input)="filtrarProductos()" placeholder="Máximo" />
 					</div>
+
 				</div>
 
 				<div class="itemlist">
 					<div *ngIf="productosFiltrados.length === 0">Cargando productos...</div>
+
 					<div *ngFor="let producto of productosFiltrados" class="card">
-						<img [src]="'/assets/images/ordenadores/' + producto.imagen_url" alt="{{ producto.nombre }}" class="item" [routerLink]="['/producto', producto.id]" />
+						<img [src]="'/assets/images/ordenadores/' + producto.imagen_url" alt="{{ producto.nombre }}"
+							class="item" [routerLink]="['/producto', producto.id]" />
+
 						<div class="card__text">
 							<span title="{{ producto.nombre }}" class="card__title">{{ producto.nombre }}</span>
 							<div class="card__add-to-cart">

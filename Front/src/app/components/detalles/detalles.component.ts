@@ -34,4 +34,14 @@ export class DetallesComponent implements OnInit {
       }
     );
   }
+
+  getImagePath(): string {
+    if (!this.producto) {
+      return '';
+    }
+
+    // Cambia la ruta según el tipo del producto
+    const basePath = this.producto.tipo === 'ordenador' ? '/assets/images/ordenadores/' : '/assets/images/componentes/';
+    return `${basePath}${this.producto.imagen_url}`;
+  }
 }

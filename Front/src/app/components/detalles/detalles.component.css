@@ -1,54 +1,6 @@
-/* #region Resets and variables */
-*,
-*::before,
-*::after {
-    box-sizing:border-box;
-    margin: 0;
-    padding: 0;
-}
-
-* {
-    text-decoration: none;
-    list-style: none;
-    /* outline: 1px solid red; */
-}
-
-:root {
-    /* Colores para facilitar el cambio a modo oscuro*/ 
-    --clr-sunlight: #FFDE59;
-    /* --- */
-
-    --clr-primary: hsl(193, 50%, 45%);
-    --clr-secondary: hsl(213, 50%, 25%);
-
-    --clr-dark: #1F2937; 
-    --clr-dark-trans: #1f2937bf;
-
-    --clr-light: #ffffff;
-    --clr-slate: #f2f2f2;
-	--clr-slate-dark: #cccccc70;
-    
-    --brad-std: 0.3rem;
-    
-    --brd-dark: 2px solid #1F2937;
-    --brd-slate: 2px solid #f2f2f2;
-
-    --brd-trans: 2px solid #cccccc;
-	--brd-trans-half: 1px solid #cccccc;
-
-    --bsh-primary: 0px 0px 3px 3px var(--clr-primary);
-    --bsh-secondary: 0px 0px 3px 3px var(--clr-secondary);
-}
-/* #endregion */
-
-body {
-	overflow-x: hidden;
+.main {
     min-height: 100vh;
-    font-family: 'Montserrat';
-}
 
-
-body {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -67,7 +19,6 @@ body {
 	position: relative;
     /* margin-bottom: 2rem; */
     /* padding: 1rem 0px; */
-    
 }
 
 .item {
@@ -196,52 +147,6 @@ text-overflow: ellipsis;
 .add-to-cart-btn.sendtocart .cart-item:before {
     animation: xAxis 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
-
-.nav__list__anchors.cesta:before {
-    content: attr(data-totalitems);
-
-    position: absolute;
-    top: -12px;
-    right: -12px;
-
-    min-width: 24px;
-    height: 24px;
-
-    font-size: 1rem;
-    font-weight: 600;
-    line-height: 24px;
-    color: var(--clr-light);
-    text-align: center;
-
-    background: var(--clr-secondary);
-    border-radius: 1rem;
-}
-
-@keyframes xAxis {
-    100% {
-        transform: translateX(calc(20vh));
-        opacity: 0.75;
-    }
-}
-
-@keyframes yAxis {
-    100% {
-        transform: translateY(calc(-40vh));
-        opacity: 0.75;
-    }
-}
-
-/* @keyframes xAxis {
-    100% {
-        transform: translateX(calc(50vw + 105px));
-    }
-}
-
-@keyframes yAxis {
-    100% {
-        transform: translateY(calc(-50vh + 75px));
-    }
-} */
 
 .card:hover .add-to-cart-btn {
     opacity: 1;
