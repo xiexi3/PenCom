@@ -170,6 +170,10 @@ input {
 	transition: border 0.3s ease 0s, background-color 0.3s ease 0s, color 0.3s ease 0s, box-shadow 0.3s ease 0s;
 }
 
+#input-email {
+	margin-bottom: 0.25rem;
+}
+
 #input-name:hover,
 #input-email:hover,
 #input-email2:hover,

@@ -40,7 +40,9 @@
                 <div class="itemlist itemlist-1" #itemlist>
                     <div *ngIf="componentes.length === 0">Cargando componentes...</div>
                     <div *ngFor="let producto of componentes" class="card">
-                        <img [src]="'/assets/images/componentes/' + producto.imagen_url" alt="{{ producto.nombre }}" class="item" />
+                        <img [src]="'/assets/images/componentes/' + producto.imagen_url" alt="{{ producto.nombre }}"
+                        class="item" [routerLink]="['/producto', producto.id]" />
+
                         <div class="card__text">
                             <span title="{{ producto.nombre }}" class="card__title">{{ producto.nombre }}</span>
                             <div class="card__add-to-cart">
@@ -85,7 +87,8 @@
                 <div class="itemlist" #itemlist>
                     <div *ngIf="ordenadores.length === 0">Cargando ordenadores...</div>
                     <div *ngFor="let producto of ordenadores" class="card">
-                        <img [src]="'/assets/images/ordenadores/' + producto.imagen_url" alt="{{ producto.nombre }}" class="item" />
+                        <img [src]="'/assets/images/ordenadores/' + producto.imagen_url" alt="{{ producto.nombre }}"
+                        class="item" [routerLink]="['/producto', producto.id]" />
                         <div class="card__text">
                             <span title="{{ producto.nombre }}" class="card__title">{{ producto.nombre }}</span>
                             <div class="card__add-to-cart">

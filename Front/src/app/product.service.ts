@@ -28,23 +28,26 @@ export class ProductService {
 
   constructor(private http: HttpClient) {}
 
-  // Función que retorna un observable con los productos
+  // Función que retorna un observable con tdos los productos
   // getProductos(): Observable<Producto[]> {
   //   return this.http.get<Producto[]>(this.apiUrl);
   // }
 
+  // Fetch de los componentes específicamente
   getComponentes(): Observable<Producto[]> {
     return this.http.get<Producto[]>(this.apiUrl).pipe(
       map((productos) => productos.filter(producto => producto.categoria.nombre === 'Componentes'))
     );
   }
 
+  // Fetch de los ordenadores específicamente
   getOrdenadores(): Observable<Producto[]> {
     return this.http.get<Producto[]>(this.apiUrl).pipe(
       map((productos) => productos.filter(producto => producto.categoria.nombre === 'Ordenadores'))
     );
   }
 
+  // Fetch de los productos por id
   getProductoById(id: number): Observable<Producto> {
     return this.http.get<Producto>(`${this.apiUrl}/${id}`);
   }

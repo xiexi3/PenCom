@@ -155,12 +155,12 @@ input:focus, textarea:focus, select:focus {
 }
 
 /* Utilidades */
-.container {
+/* .container {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 var(--spacing-md);
-}
+} */
 
 .text-center {
   text-align: center;

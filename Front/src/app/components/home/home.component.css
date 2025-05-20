@@ -144,13 +144,15 @@ main {
 
 #prev-slide-1,
 #prev-slide-2 {
-	left: -25px;
+	left: -8.5px;
+    padding-bottom: 0.5rem;
 	display: flex;
 }
 
 #next-slide-1,
 #next-slide-2 {
 	right: -25px;
+    padding-bottom: 0.5rem;
     display: flex;
 }
 
