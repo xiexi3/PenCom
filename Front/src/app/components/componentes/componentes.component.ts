@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, ViewportScroller } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { ProductService } from './../../product.service';
+import { ProductService } from '../../services/product.service';
 import { FormsModule } from '@angular/forms';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-componentes',
@@ -20,7 +21,7 @@ export class ComponentesComponent implements OnInit {
   precioMin: number | null = null; // Precio mínimo para filtrar
   precioMax: number | null = null; // Precio máximo para filtrar
 
-  constructor(private productService: ProductService, private viewportScroller: ViewportScroller) {}
+  constructor(private productService: ProductService, private viewportScroller: ViewportScroller, private cartService: CartService) {}
 
   ngOnInit(): void {
     this.viewportScroller.scrollToPosition([0, 0]); // Para que al cargar la página se vaya al inicio del scroll
@@ -52,4 +53,9 @@ export class ComponentesComponent implements OnInit {
       });
     }
 
+    addToCart(productId: number): void {
+      this.cartService.addToCart(productId).subscribe(() => {
+        alert('Producto añadido al carrito');
+      });
+    }
 }

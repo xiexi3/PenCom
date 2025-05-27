@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule, ViewportScroller } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { AuthService } from '../../auth.service';
+import { AuthService } from '../../services/auth.service';
+import { ThemeService } from '../../services/ThemeService.service';
 
 @Component({
   selector: 'app-login',
@@ -18,11 +19,22 @@ export class LoginComponent implements OnInit {
   password: string = '';
   errorMessage = '';
 
-  constructor(private authService: AuthService, private viewportScroller: ViewportScroller) {}
+   // Estados para mostrar/ocultar contraseñas
+   showPassword: boolean = false; // Para el primer campo de contraseña
+   showPassword2: boolean = false; // Para el segundo campo de contraseña
+   showPassword3: boolean = false; // Para el tercer campo de contraseña 
+
+  constructor(private themeService: ThemeService, private router: Router, private authService: AuthService, private viewportScroller: ViewportScroller) {}
 
   ngOnInit(): void {
     this.viewportScroller.scrollToPosition([0, 0]); // Para que al cargar la página se vaya al inicio del scroll
 
+    const token = localStorage.getItem('token'); // Verifica si hay un token de sesión
+
+    if (token) {
+      // Si hay un token, redirige al panel de usuario
+      this.router.navigate(['/user-panel']);
+    }
   }
 
   onLogin() {
@@ -33,6 +45,9 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.email, this.password).subscribe({
       next: (token) => {
         console.log('Login exitoso. Token:', token);
+
+        // Redirige al panel de usuario
+      this.router.navigate(['/user-panel']);
       },
       error: (err) => {
         this.errorMessage = 'Error al iniciar sesión: ' + err.message;
@@ -89,6 +104,23 @@ export class LoginComponent implements OnInit {
           signupButton.scrollIntoView({ behavior: 'smooth' });
         }
       }, 50);
+    }
+  }
+
+  togglePassword(field: 'showPassword' | 'showPassword2' | 'showPassword3'): void {
+    this[field] = !this[field]; // Cambia el estado del campo correspondiente
+
+    // Cambiar la imagen según el estado y el tema
+    const isDarkMode = this.themeService.isDarkModeEnabled();
+    const imageId = field === 'showPassword' ? 'image--hide' :
+                    field === 'showPassword2' ? 'image--hide2' :
+                    'image--hide3';
+    const imageElement = document.getElementById(imageId) as HTMLImageElement;
+
+    if (imageElement) {
+      imageElement.src = this[field]
+        ? (isDarkMode ? 'assets/images/passimg/hide3.png' : 'assets/images/passimg/hide2.png')
+        : (isDarkMode ? 'assets/images/passimg/show3.png' : 'assets/images/passimg/show2.png');
     }
   }
 

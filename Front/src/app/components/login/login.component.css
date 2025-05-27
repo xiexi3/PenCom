@@ -222,9 +222,9 @@ button:focus {
 	margin-bottom: 2rem;
 }
 
-#input-password3 {
+/* #input-password3 {
 	cursor: not-allowed;
-}
+} */
 
 label {
 	pointer-events: none;;

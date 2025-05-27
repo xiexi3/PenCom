@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, AfterViewInit, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule, ViewportScroller } from '@angular/common';
-import { ProductService } from './../../product.service';
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-home',

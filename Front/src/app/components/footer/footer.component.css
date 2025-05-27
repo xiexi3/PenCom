@@ -1,3 +1,9 @@
+* {
+    text-decoration: none;
+    list-style: none;
+    /* outline: 1px solid red; */
+}
+
 .footer {
     bottom: 0;
     left: 0;
@@ -6,6 +12,7 @@
     flex-direction: column;
     align-items:center;
     justify-content: center;
+    padding-top: 1.5rem; /* nuevo */
 
     height: 128px;
 

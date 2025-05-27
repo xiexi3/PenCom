@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
-import { ThemeService } from '../../ThemeService.service';
+import { ThemeService } from '../../services/ThemeService.service';
 
 @Component({
   selector: 'app-header',

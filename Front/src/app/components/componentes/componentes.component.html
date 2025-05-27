@@ -48,7 +48,7 @@
 							<span title="{{ producto.nombre }}" class="card__title">{{ producto.nombre }}</span>
 							<div class="card__add-to-cart">
 								<span class="card__price">${{ producto.precio }}</span>
-								<button class="add-to-cart-btn">
+								<button (click)="addToCart(producto.id)" class="add-to-cart-btn">
 									+ Añadir
 									<span class="cart-item"></span>
 								</button>

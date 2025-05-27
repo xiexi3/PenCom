@@ -4,9 +4,10 @@ import { RouterModule } from '@angular/router';
 
 import { routes } from './app.routes';
 import { HttpClientModule } from '@angular/common/http';
-import { AuthService } from './auth.service';
-import { SignupComponent } from './components/signup/signup.component';
-import { DetallesComponent } from './components/detalles/detalles.component';
+import { AuthService } from './services/auth.service';
+// import { SignupComponent } from './components/signup/signup.component';
+// import { DetallesComponent } from './components/detalles/detalles.component';
+// import { CartComponent } from './components/cart/cart.component';
 
 @NgModule({
   declarations: [

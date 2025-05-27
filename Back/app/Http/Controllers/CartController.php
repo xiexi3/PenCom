@@ -17,8 +17,7 @@ class CartController extends Controller
             ->get();
 
         return response()->json([
-            'message' => 'Carrito obtenido correctamente',
-            'data' => $cartItems
+            $cartItems
         ], 200);
     }
 

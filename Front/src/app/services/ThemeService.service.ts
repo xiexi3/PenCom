@@ -10,6 +10,7 @@ export class ThemeService {
     // Leer el estado del tema desde localStorage al inicializar el servicio
     const darkMode = localStorage.getItem('darkMode');
     this.isDarkMode = darkMode === 'true';
+    // this.applyDarkMode();
   }
 
   toggleTheme(): void {
@@ -56,6 +57,9 @@ export class ThemeService {
     // Cambiar las imágenes del camion y medalla
     const camionImage = document.querySelector('.small-image-camion') as HTMLImageElement;
     const medallaImage = document.querySelector('.small-image-medalla') as HTMLImageElement;
+    const imgShowOne = document.getElementById('image--show') as HTMLImageElement;
+    const imgShowTwo = document.getElementById('image--show2') as HTMLImageElement;
+    const imgShowThree = document.getElementById('image--show3') as HTMLImageElement;
   
     if (camionImage) {
       camionImage.src = this.isDarkMode
@@ -68,6 +72,26 @@ export class ThemeService {
         ? 'assets/images/logos/medalla2.png' 
         : 'assets/images/logos/medalla.png'; 
     }
+
+    if (imgShowOne) {
+      imgShowOne.src = this.isDarkMode
+        ? 'assets/images/passimg/show3.png' 
+        : 'assets/images/passimg/show2.png';
+    }
+    
+    if (imgShowTwo) {
+      imgShowTwo.src = this.isDarkMode
+        ? 'assets/images/passimg/show3.png' 
+        : 'assets/images/passimg/show2.png';
+    }
+
+    if (imgShowThree) {
+      imgShowThree.src = this.isDarkMode
+        ? 'assets/images/passimg/show3.png' 
+        : 'assets/images/passimg/show2.png';
+    }
+
+    
   }
 
   isDarkModeEnabled(): boolean {

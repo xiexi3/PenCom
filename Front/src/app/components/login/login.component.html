@@ -55,15 +55,28 @@
 					<span class="span-login">O bien</span>
 					<hr class="hr-line" />
 				</div>
+				<div *ngIf="errorMessage" class="error-message">
+					{{ errorMessage }}
+				</div>
 				<div class="container email-container">
 					<input id="input-email" type="email" placeholder="Email*" [(ngModel)]="email" name="email"
 						required />
 					<label for="user">Email*</label>
 				</div>
 				<div class="container password-container">
-					<input id="input-password" type="password" placeholder="Contraseña*" [(ngModel)]="password"
+					<input id="input-password" [type]="showPassword ? 'text' : 'password'" placeholder="Contraseña*" [(ngModel)]="password"
 						name="password" required />
 					<label for="pass">Contraseña*</label>
+
+					<div class="container--hide-show">
+						<button class="btn--hide-show" (click)="togglePassword('showPassword')">
+							<div class="inner-container--hide-show">
+								<img *ngIf="!showPassword" id="image--show" src="../assets/images/passimg/show2.png" alt="EyeShow">
+								<img *ngIf="showPassword" id="image--hide" src="../assets/images/passimg/hide2.png" alt="EyeHide">
+							</div>
+						</button>
+					</div>
+
 				</div>
 				<p class="forget"><a href="#">He olvidado mi contraseña</a></p>
 				<button class="btn btn-login" type="submit">Iniciar sesión</button>
@@ -90,9 +103,36 @@
 					<label for="user">Email*</label>
 				</div>
 				<div class="container password-container">
-					<input id="input-password2" type="password" placeholder="Contraseña*" [(ngModel)]="password"
+					<input id="input-password2" [type]="showPassword2 ? 'text' : 'password'" placeholder="Contraseña*" [(ngModel)]="password"
 						name="password" required />
 					<label for="pass">Contraseña*</label>
+
+					<div class="container--hide-show">
+						<button class="btn--hide-show" (click)="togglePassword('showPassword2')">
+							<div class="inner-container--hide-show">
+								<img *ngIf="!showPassword2" id="image--show2" src="../assets/images/passimg/show2.png" alt="EyeShow">
+								<img *ngIf="showPassword2" id="image--hide2" src="../assets/images/passimg/hide2.png" alt="EyeHide">
+							</div>
+						</button>
+					</div>
+
+					<div class="container password-container">
+						<input id="input-password3" [type]="showPassword3 ? 'text' : 'password'" placeholder="Repetir contrasena*" tabindex="-1"
+						value="" onfocus="changePass(passThree)" onblur="handleBlurPass(passThree)"
+						required/>
+
+						<label for="input-password3">Repetir Contrasena*</label>
+
+						<div class="container--hide-show">
+							<button class="btn--hide-show" (click)="togglePassword('showPassword3')">
+								<div class="inner-container--hide-show">
+									<img *ngIf="!showPassword3" id="image--show3" src="../assets/images/passimg/show2.png" alt="EyeShow">
+									<img *ngIf="showPassword3" id="image--hide3" src="../assets/images/passimg/hide2.png" alt="EyeHide">
+								</div>
+							</button>
+						</div>
+					</div>
+
 				</div>
 				<button class="btn btn-signup" type="submit">Crear Cuenta</button>
 				<div class="span-container">
