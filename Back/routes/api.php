@@ -48,4 +48,16 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/orders', [OrderController::class, 'index']);
     Route::get('/orders/{id}', [OrderController::class, 'show']);
     Route::post('/orders', [OrderController::class, 'store']);
+
+    Route::get('/user-details', [AuthController::class, 'userDetails']);
+
+    //
 });
+
+Route::middleware(['auth:sanctum'])->get('/user-details', [AuthController::class, 'userDetails']);
+
+// Route::middleware(['auth:sanctum', 'admin'])->group(function () {
+//     Route::post('/productos', [ProductoController::class, 'store']);
+//     Route::put('/productos/{id}', [ProductoController::class, 'update']);
+//     Route::delete('/productos/{id}', [ProductoController::class, 'destroy']);
+// });

@@ -231,8 +231,8 @@ label {
 
 	position: absolute;
 	z-index: 1;
-	top: 23px;
-	left: 1rem;
+	top: 1.9rem;
+	left: 0.95rem;
 	transform-origin: left top 0px;
 
 	display: flex;
@@ -303,6 +303,7 @@ input:not(:placeholder-shown) + label {
 	max-height: 20px;
 }
 
+#image--toggle,
 #image--show,
 #image--show2,
 #image--show3,

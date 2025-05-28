@@ -12,13 +12,15 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(email: string, password: string): Observable<string> {
-    return this.http.post<{ data: { accessToken: string } }>(`${this.apiUrl}/login`, { email, password })
+    return this.http.post<{ data: { accessToken: string, user: any } }>(`${this.apiUrl}/login`, { email, password })
       .pipe(
         map(response => {
           const accessToken = response.data.accessToken;
+          const role = response.data.user.role;
 
           // Guardamos el token en el localStorage
           localStorage.setItem('token', accessToken);
+          // localStorage.setItem('role', role);
           return accessToken;
         }),
         catchError(error => {
@@ -41,6 +43,32 @@ export class AuthService {
           return throwError(() => error);
         })
       );
+  }
+
+  // getUserRole(): string {
+  //   const token = localStorage.getItem('token');
+  //   if (!token) return '';
+  
+  //   const payload = JSON.parse(atob(token.split('.')[1])); // Decodifica el token JWT
+  //   return payload.role || ''; // Devuelve el rol del usuario
+  // }
+
+  // getUserRole(): string {
+  //   return localStorage.getItem('role') || ''; // Recupera el rol del usuario
+  // }
+
+  // getUserDetails(): Observable<any> {
+  //   return this.http.get(`${this.apiUrl}/user-details`); // Endpoint para obtener detalles del usuario
+  // }
+
+  getUserDetails(): Observable<any> {
+    const token = localStorage.getItem('token'); // Recupera el token del localStorage
+  
+    const headers = {
+      Authorization: `Bearer ${token}` // Agrega el encabezado Authorization
+    };
+  
+    return this.http.get(`${this.apiUrl}/user-details`, { headers });
   }
 
 }

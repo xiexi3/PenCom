@@ -17,7 +17,7 @@ class AuthController extends Controller
         //validaciones de campos que viajan en la request
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'required|string|email|max:255|unique:users|regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/',
             'password' => 'required|string|min:8'
         ]);
 
@@ -52,10 +52,33 @@ class AuthController extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
 
         //se devuelve respuesta con los datos del usuario logado 
-        return response()->json(['data'=> [
-            'accessToken' => $token,
-            'toke_type' => 'Bearer',
-            'user' => $user]
+        // return response()->json(['data'=> [
+        //     'accessToken' => $token,
+        //     'toke_type' => 'Bearer',
+        //     'user' => $user]
+        // ]);
+        return response()->json([
+            'data' => [
+                'accessToken' => $token,
+                'token_type' => 'Bearer',
+                'user' => [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'role' => $user->role // Incluye el rol del usuario
+                ]
+            ]
+        ]);
+    }
+
+    public function userDetails(Request $request) {
+        return response()->json([
+            'data' => [
+                'id' => $request->user()->id,
+                'name' => $request->user()->name,
+                'email' => $request->user()->email,
+                'role' => $request->user()->role, // Devuelve el rol del usuario
+            ]
         ]);
     }
 

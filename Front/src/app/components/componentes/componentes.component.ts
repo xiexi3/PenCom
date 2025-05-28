@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, ViewportScroller } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -20,11 +21,24 @@ export class ComponentesComponent implements OnInit {
   marcaSeleccionada: string = ''; // Marca seleccionada para filtrar
   precioMin: number | null = null; // Precio mínimo para filtrar
   precioMax: number | null = null; // Precio máximo para filtrar
+  isAdmin: boolean = false; 
 
-  constructor(private productService: ProductService, private viewportScroller: ViewportScroller, private cartService: CartService) {}
+  constructor(private productService: ProductService, private viewportScroller: ViewportScroller, private cartService: CartService, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.viewportScroller.scrollToPosition([0, 0]); // Para que al cargar la página se vaya al inicio del scroll
+
+    // this.isAdmin = this.AuthService.getUserRole() === 'admin';
+
+    this.authService.getUserDetails().subscribe({
+      next: (response) => {
+        this.isAdmin = response.data.role === 'admin'; // Valida el rol directamente desde el backend
+      },
+      error: (err) => {
+        console.error('Error al obtener detalles del usuario:', err);
+        this.isAdmin = false; // En caso de error, asume que no es administrador
+      },
+    });
 
     // Obtenemos los componentes
     this.productService.getComponentes().subscribe(
@@ -57,5 +71,17 @@ export class ComponentesComponent implements OnInit {
       this.cartService.addToCart(productId).subscribe(() => {
         alert('Producto añadido al carrito');
       });
+    }
+
+    addProduct(): void {
+      console.log('Añadir producto');
+    }
+  
+    editProduct(productId: number): void {
+      console.log('Editar producto:', productId);
+    }
+  
+    deleteProduct(productId: number): void {
+      console.log('Eliminar producto:', productId);
     }
 }

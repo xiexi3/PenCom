@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { CommonModule, ViewportScroller } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-ordenadores',
@@ -20,7 +21,7 @@ export class OrdenadoresComponent implements OnInit {
   precioMin: number | null = null; // Precio mínimo para filtrar
   precioMax: number | null = null; // Precio máximo para filtrar
 
-  constructor(private productService: ProductService, private viewportScroller: ViewportScroller) {}
+  constructor(private productService: ProductService, private viewportScroller: ViewportScroller, private cartService: CartService) {}
 
   ngOnInit(): void {
     this.viewportScroller.scrollToPosition([0, 0]); // Para que al cargar la página se vaya al inicio del scroll
@@ -49,6 +50,12 @@ export class OrdenadoresComponent implements OnInit {
         const coincidePrecioMax = this.precioMax !== null ? producto.precio <= this.precioMax : true;
   
         return coincideTexto && coincideMarca && coincidePrecioMin && coincidePrecioMax;
+      });
+    }
+
+    addToCart(productId: number): void {
+      this.cartService.addToCart(productId).subscribe(() => {
+        alert('Producto añadido al carrito');
       });
     }
 }

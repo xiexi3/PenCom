@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef, AfterViewInit, ViewChild, ViewChildren, 
 import { RouterModule } from '@angular/router';
 import { CommonModule, ViewportScroller } from '@angular/common';
 import { ProductService } from '../../services/product.service';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +19,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
   ordenadores: any[] = [];
   maxScrollLefts: number[] = [];
 
-  constructor(private productService: ProductService, private viewportScroller: ViewportScroller) {}
+  constructor(private productService: ProductService, private viewportScroller: ViewportScroller, private cartService: CartService) {}
 
   ngOnInit(): void {
     this.viewportScroller.scrollToPosition([0, 0]); // Para que al cargar la página se vaya al inicio del scroll
@@ -79,5 +80,11 @@ export class HomeComponent implements AfterViewInit, OnInit {
 
     // Desplaza el carrusel
     itemlist.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+  }
+
+  addToCart(productId: number): void {
+    this.cartService.addToCart(productId).subscribe(() => {
+      alert('Producto añadido al carrito');
+    });
   }
 }

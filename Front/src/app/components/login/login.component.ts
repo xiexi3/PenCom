@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   name: string = '';
   email: string = '';
   password: string = '';
+  passwordTwo: string = '';
   errorMessage = '';
 
    // Estados para mostrar/ocultar contraseñas
@@ -24,7 +25,9 @@ export class LoginComponent implements OnInit {
    showPassword2: boolean = false; // Para el segundo campo de contraseña
    showPassword3: boolean = false; // Para el tercer campo de contraseña 
 
-  constructor(private themeService: ThemeService, private router: Router, private authService: AuthService, private viewportScroller: ViewportScroller) {}
+   passwordMismatch: boolean = false; // Indica si las contraseñas no coinciden
+
+  constructor(public themeService: ThemeService, private router: Router, private authService: AuthService, private viewportScroller: ViewportScroller) {}
 
   ngOnInit(): void {
     this.viewportScroller.scrollToPosition([0, 0]); // Para que al cargar la página se vaya al inicio del scroll
@@ -46,7 +49,7 @@ export class LoginComponent implements OnInit {
       next: (token) => {
         console.log('Login exitoso. Token:', token);
 
-        // Redirige al panel de usuario
+      // Redirige al panel de usuario
       this.router.navigate(['/user-panel']);
       },
       error: (err) => {
@@ -61,14 +64,26 @@ export class LoginComponent implements OnInit {
     console.log('Name:', this.name);
     console.log('Email:', this.email);
     console.log('Password:', this.password);
+
+    // Verifica si las contraseñas coinciden
+    if (this.password !== this.passwordTwo) {
+      this.passwordMismatch = true; // Activa el error de contraseñas
+      return; // Detén el proceso de registro
+    }
+
+    this.passwordMismatch = false; // Resetea el error si las contraseñas coinciden
+    
     // Add authentication logic and navigate to the next page upon successful signup
     this.authService.signup(this.name, this.email, this.password).subscribe({
       next: (id) => {
         console.log('Registro exitoso. Id de usuario:', id);
+        alert('Registro exitoso, ya puede iniciar sesión.'); // Mensaje de éxito
+        // this.router.navigate(['/user-panel']);
       },
       error: (err) => {
         this.errorMessage = 'Error al registrarse: ' + err.message;
         console.error(err);
+        alert(this.errorMessage = err.error.message || 'Error desconocido al registrarse.');
       },
     });
   }
@@ -87,13 +102,13 @@ export class LoginComponent implements OnInit {
     const greyline = document.querySelector('.greyline') as HTMLElement;
   
     if (isLoginForm) {
-      loginForm.style.display = 'block';
+      // loginForm.style.display = 'block';
       signupForm.style.display = 'none';
       sectLogo.style.height = '42.5em';
       greyline.style.height = '611px';
     } else {
       loginForm.style.display = 'none';
-      signupForm.style.display = 'block';
+      // signupForm.style.display = 'block';
       sectLogo.style.height = '56.7em';
       greyline.style.height = '730px';
 
@@ -110,18 +125,18 @@ export class LoginComponent implements OnInit {
   togglePassword(field: 'showPassword' | 'showPassword2' | 'showPassword3'): void {
     this[field] = !this[field]; // Cambia el estado del campo correspondiente
 
-    // Cambiar la imagen según el estado y el tema
-    const isDarkMode = this.themeService.isDarkModeEnabled();
-    const imageId = field === 'showPassword' ? 'image--hide' :
-                    field === 'showPassword2' ? 'image--hide2' :
-                    'image--hide3';
-    const imageElement = document.getElementById(imageId) as HTMLImageElement;
+    // // Cambiar la imagen según el estado y el tema
+    // const isDarkMode = this.themeService.isDarkModeEnabled();
+    // const imageId = field === 'showPassword' ? 'image--hide' :
+    //                 field === 'showPassword2' ? 'image--hide2' :
+    //                 'image--hide3';
+    // const imageElement = document.getElementById(imageId) as HTMLImageElement;
 
-    if (imageElement) {
-      imageElement.src = this[field]
-        ? (isDarkMode ? 'assets/images/passimg/hide3.png' : 'assets/images/passimg/hide2.png')
-        : (isDarkMode ? 'assets/images/passimg/show3.png' : 'assets/images/passimg/show2.png');
-    }
+    // if (imageElement) {
+    //   imageElement.src = this[field]
+    //     ? (isDarkMode ? 'assets/images/passimg/hide3.png' : 'assets/images/passimg/hide2.png')
+    //     : (isDarkMode ? 'assets/images/passimg/show3.png' : 'assets/images/passimg/show2.png');
+    // }
   }
 
   

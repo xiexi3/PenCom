@@ -64,15 +64,16 @@
 					<label for="user">Email*</label>
 				</div>
 				<div class="container password-container">
-					<input id="input-password" [type]="showPassword ? 'text' : 'password'" placeholder="Contraseña*" [(ngModel)]="password"
-						name="password" required />
+					<input id="input-password" [type]="showPassword ? 'text' : 'password'" placeholder="Contraseña*"
+						[(ngModel)]="password" name="password" required />
 					<label for="pass">Contraseña*</label>
 
 					<div class="container--hide-show">
 						<button class="btn--hide-show" (click)="togglePassword('showPassword')">
 							<div class="inner-container--hide-show">
-								<img *ngIf="!showPassword" id="image--show" src="../assets/images/passimg/show2.png" alt="EyeShow">
-								<img *ngIf="showPassword" id="image--hide" src="../assets/images/passimg/hide2.png" alt="EyeHide">
+								<img id="image--toggle"
+									[src]="showPassword ? (themeService.isDarkModeEnabled() ? 'assets/images/passimg/hide3.png' : 'assets/images/passimg/hide2.png') : (themeService.isDarkModeEnabled() ? 'assets/images/passimg/show3.png' : 'assets/images/passimg/show2.png')"
+									alt="Toggle Password Visibility" />
 							</div>
 						</button>
 					</div>
@@ -99,38 +100,45 @@
 				</div>
 				<div class="container email-container">
 					<input id="input-email2" type="email" placeholder="Email*" [(ngModel)]="email" name="email"
-						required />
+						required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" #emailInput="ngModel"/>
 					<label for="user">Email*</label>
 				</div>
 				<div class="container password-container">
-					<input id="input-password2" [type]="showPassword2 ? 'text' : 'password'" placeholder="Contraseña*" [(ngModel)]="password"
-						name="password" required />
+					<input id="input-password2" [type]="showPassword2 ? 'text' : 'password'" placeholder="Contraseña*"
+						[(ngModel)]="password" name="password" required />
 					<label for="pass">Contraseña*</label>
 
 					<div class="container--hide-show">
 						<button class="btn--hide-show" (click)="togglePassword('showPassword2')">
 							<div class="inner-container--hide-show">
-								<img *ngIf="!showPassword2" id="image--show2" src="../assets/images/passimg/show2.png" alt="EyeShow">
-								<img *ngIf="showPassword2" id="image--hide2" src="../assets/images/passimg/hide2.png" alt="EyeHide">
+								<img id="image--toggle"
+									[src]="showPassword2 ? (themeService.isDarkModeEnabled() ? 'assets/images/passimg/hide3.png' : 'assets/images/passimg/hide2.png') : (themeService.isDarkModeEnabled() ? 'assets/images/passimg/show3.png' : 'assets/images/passimg/show2.png')"
+									alt="Toggle Password Visibility" />
 							</div>
 						</button>
 					</div>
 
 					<div class="container password-container">
-						<input id="input-password3" [type]="showPassword3 ? 'text' : 'password'" placeholder="Repetir contrasena*" tabindex="-1"
-						value="" onfocus="changePass(passThree)" onblur="handleBlurPass(passThree)"
-						required/>
+						<input id="input-password3" [type]="showPassword3 ? 'text' : 'password'"
+							placeholder="Repetir contraseña*" [(ngModel)]="passwordTwo" name="passwordTwo" required />
 
-						<label for="input-password3">Repetir Contrasena*</label>
+						<label for="input-password3">Repetir Contraseña*</label>
 
 						<div class="container--hide-show">
 							<button class="btn--hide-show" (click)="togglePassword('showPassword3')">
 								<div class="inner-container--hide-show">
-									<img *ngIf="!showPassword3" id="image--show3" src="../assets/images/passimg/show2.png" alt="EyeShow">
-									<img *ngIf="showPassword3" id="image--hide3" src="../assets/images/passimg/hide2.png" alt="EyeHide">
+									<img id="image--toggle"
+										[src]="showPassword3 ? (themeService.isDarkModeEnabled() ? 'assets/images/passimg/hide3.png' : 'assets/images/passimg/hide2.png') : (themeService.isDarkModeEnabled() ? 'assets/images/passimg/show3.png' : 'assets/images/passimg/show2.png')"
+										alt="Toggle Password Visibility" />
 								</div>
 							</button>
 						</div>
+
+						<!-- Mensaje de error si las contraseñas no coinciden -->
+						<p *ngIf="passwordMismatch" class="error-message">Las contraseñas no coinciden.</p>
+						<p *ngIf="emailInput.invalid && emailInput.touched" class="error-message">
+							Por favor, introduce un correo válido.
+						  </p>
 					</div>
 
 				</div>
