@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { routes } from './app.routes';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './services/auth.service';
+// import { AnadirProductoComponent } from './components/anadir-producto/anadir-producto.component';
 // import { SignupComponent } from './components/signup/signup.component';
 // import { DetallesComponent } from './components/detalles/detalles.component';
 // import { CartComponent } from './components/cart/cart.component';

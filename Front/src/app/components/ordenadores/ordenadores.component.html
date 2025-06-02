@@ -54,7 +54,13 @@
 								</button>
 							</div>
 						</div>
+						<div *ngIf="isAdmin" class="admin-actions">
+							<i (click)="editProduct(producto)" class="admin-btn" class="fas fa-edit"></i>
+							<br>
+							<i (click)="deleteProduct(producto.id)" class="admin-btn" class="fas fa-remove"></i>
+						</div>
 					</div>
+					<button *ngIf="isAdmin" (click)="addProduct()" class="admin-btn">Añadir</button>
 				</div>
 			</div>
 		</div>

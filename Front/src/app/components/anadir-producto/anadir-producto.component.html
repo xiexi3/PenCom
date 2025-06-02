@@ -1,0 +1,72 @@
+<main class="main">
+  <div class="add-product-container">
+    <h2>{{ isEditing ? 'Editar Producto' : 'Añadir Producto' }}</h2>
+
+    <form [formGroup]="productForm" (ngSubmit)="addProduct()">
+      <!-- Nombre del Producto -->
+      <div class="form-group">
+        <label for="nombre">Nombre:</label>
+        <textarea id="nombre" type="text" formControlName="nombre" placeholder="Nombre del producto" class="description-box"></textarea>
+        <p *ngIf="productForm.get('nombre')?.invalid && productForm.get('nombre')?.touched" class="error-message">
+          El nombre es obligatorio y debe tener al menos 3 caracteres.
+        </p>
+      </div>
+
+      <!-- Descripción del Producto -->
+      <div class="form-group">
+		<label for="descripcion">Descripción:</label>
+		<textarea 
+		  id="descripcion" 
+		  formControlName="descripcion" 
+		  placeholder="Descripción del producto" 
+		  maxlength="200" 
+		  (input)="updateCharacterCount()"
+		  class="description-box">
+		</textarea>
+		<p *ngIf="productForm.get('descripcion')?.invalid && productForm.get('descripcion')?.touched" class="error-message">
+		  La descripción es obligatoria, debe tener al menos 10 caracteres y no más de 200 caracteres.
+		</p>
+		<p class="character-count">
+		  {{ characterCount }}/200 caracteres
+		</p>
+	  </div>
+
+      <!-- Precio del Producto -->
+      <div class="form-group">
+        <label for="precio">Precio:</label>
+        <input id="precio" type="number" formControlName="precio" placeholder="Precio del producto" />
+        <p *ngIf="productForm.get('precio')?.invalid && productForm.get('precio')?.touched" class="error-message">
+          El precio es obligatorio y debe ser mayor o igual a 0.
+        </p>
+      </div>
+
+      <!-- Tipo de Producto -->
+      <div class="form-group">
+        <label for="tipo">Tipo de Producto:</label>
+        <select id="tipo" formControlName="tipo">
+          <option value="componente">Componente</option>
+          <option value="ordenador">Ordenador</option>
+        </select>
+        <p *ngIf="productForm.get('tipo')?.invalid && productForm.get('tipo')?.touched" class="error-message">
+          El tipo de producto es obligatorio.
+        </p>
+      </div>
+
+      <!-- URL de la Imagen -->
+      <div class="form-group">
+        <label for="imagen_url">URL de la Imagen:</label>
+        <input id="imagen_url" type="text" formControlName="imagen_url" placeholder="URL de la imagen del producto" />
+        <p *ngIf="productForm.get('imagen_url')?.invalid && productForm.get('imagen_url')?.touched" class="error-message">
+          La URL de la imagen es obligatoria.
+        </p>
+      </div>
+
+      <!-- Botón para Enviar -->
+      <button type="submit" class="btn">{{ isEditing ? 'Editar Producto' : 'Añadir Producto' }}</button>
+    </form>
+
+    <!-- Mensajes de Éxito y Error -->
+    <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
+    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+  </div>
+</main>

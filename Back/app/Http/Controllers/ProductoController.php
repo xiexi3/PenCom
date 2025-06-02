@@ -50,7 +50,7 @@ class ProductoController extends Controller
         try {
             $validator = Validator::make($request->all(), [
                 'nombre' => 'required|string|max:255',
-                'descripcion' => 'required|string',
+                'descripcion' => 'required|string|min:10|max:200',
                 'precio' => 'required|numeric|min:0',
                 'tipo' => 'required|string|max:255',
                 'categoria_id' => 'required|exists:categorias,id',

@@ -55,7 +55,8 @@
 							</div>
 						</div>
 						<div *ngIf="isAdmin" class="admin-actions">
-							<i (click)="editProduct(producto.id)" class="admin-btn" class="fas fa-edit"></i>
+							<i (click)="editProduct(producto)" class="admin-btn" class="fas fa-edit"></i>
+							<!-- <br> -->
 							<i (click)="deleteProduct(producto.id)" class="admin-btn" class="fas fa-remove"></i>
 						</div>
 						

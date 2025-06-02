@@ -1,0 +1,132 @@
+main {
+    min-height: 100vh;
+    padding-top: 8rem; /* doble de lo normal */
+    background-color: var(--clr-slate);
+}
+
+.add-product-container {
+	display: flex;
+	flex-direction: column;
+	/* align-items: center;
+	justify-content: center; */
+
+	max-width: 500px;
+	margin: 0rem auto;
+	padding: 2rem;
+	border: 1px solid var(--clr-dark);;
+	border-radius: 0.5rem;
+	background-color: var(--clr-light);
+}
+
+.form-group {
+	margin-bottom: 15px;
+}
+
+label {
+	display: block;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+input {
+	width: 100%;
+	padding: 8px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+
+button {
+	padding: 10px 15px;
+	/* background-color: #007bff;
+	color: white; */
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+button:hover {
+	background-color: #0056b3;
+}
+
+.error-message {
+	color: red;
+	font-size: 0.9em;
+}
+
+.success-message {
+	color: green;
+	font-size: 0.9em;
+}
+
+
+
+.description-box {
+	width: 100%;
+	height: 100px;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	resize: none; /* Evita que el usuario cambie el tamaño de la caja */
+	font-family: Arial, sans-serif;
+	font-size: 14px;
+	color: var(--clr-dark);
+	background-color: var(--clr-slate);
+}
+
+.description-box:focus {
+	border-color: #007bff;
+	outline: none;
+}
+
+
+input {
+	width: 100%;
+	padding: 12px 15px;
+
+	font-size: 1.125rem;
+
+	color: var(--clr-dark);
+	background-color: var(--clr-slate);
+	border-radius: var(--brad-std);
+
+	transition: border 0.3s ease 0s, background-color 0.3s ease 0s, color 0.3s ease 0s, box-shadow 0.3s ease 0s;
+}
+
+label {
+	pointer-events: none;
+	transform-origin: left top 0px;
+
+	display: flex;
+	align-items: center;
+
+	font-weight: 600;
+
+	transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.15s cubic-bezier(0.4, 0, 0.2, 1) 0s, font-size 0.15s cubic-bezier(0.4, 0, 0.2, 1) 0s, line-height 0.15s cubic-bezier(0.4, 0, 0.2, 1) 0s, font-weight 0.15s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+}
+
+input:focus + label,
+input:not(:placeholder-shown) + label {
+	pointer-events: auto;
+	transform: translateY(-200%);
+	color: var(--clr-dark);
+	opacity: 1;
+}
+
+h2 {
+	font-size: 2rem;
+	color: var(--clr-dark);
+}
+
+select {
+	width: 100%;
+	color: var(--clr-dark);
+	background-color: var(--clr-slate);
+}
+
+.btn {
+	width: 100%;
+	color: var(--clr-dark);
+    background-color: var(--clr-slate);
+	border: var(--brd-trans-half);
+	border-radius: var(--brad-std);
+}

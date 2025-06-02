@@ -52,4 +52,19 @@ export class ProductService {
     return this.http.get<Producto>(`${this.apiUrl}/${id}`);
   }
 
+  addProduct(product: any, headers: any): Observable<any> {
+    return this.http.post(this.apiUrl, product, { headers });
+  }
+
+  updateProduct(productId: number, product: any, headers: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${productId}`, product, { headers });
+  }
+
+  deleteProduct(productId: number): Observable<any> {
+    const token = localStorage.getItem('token'); // Recupera el token del localStorage
+    const headers = { Authorization: `Bearer ${token}` }; // Agrega el encabezado Authorization
+  
+    return this.http.delete(`${this.apiUrl}/${productId}`, { headers });
+  }
+  
 }

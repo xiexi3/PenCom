@@ -102,7 +102,7 @@
     position: relative;
 }
 
-.cesta::after {
+/* .cesta::after {
     content: attr(data-totalitems);
     position: absolute;
     top: -8px;
@@ -113,7 +113,7 @@
     padding: 2px 6px;
     font-size: 0.8rem;
     font-weight: bold;
-}
+} */ 
 
 /* Theme Toggle */
 .toggle-container {
