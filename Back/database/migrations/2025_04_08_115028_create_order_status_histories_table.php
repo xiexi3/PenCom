@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('order_status_history', function (Blueprint $table) {
+        Schema::create('order_status_histories', function (Blueprint $table) {
             $table->id();
             $table->foreignId('order_id')->constrained('orders')->onDelete('cascade');
             $table->enum('status', ['pendiente', 'completado', 'cancelado']);
@@ -19,6 +19,6 @@ return new class extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('order_status_history');
+        Schema::dropIfExists('order_status_histories');
     }
 }; 

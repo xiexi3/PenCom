@@ -1,5 +1,37 @@
-<div class="user-panel">
-	<h2>Bienvenido, {{ user.name }}</h2>
-	<p>Email: {{ user.email }}</p>
-	<button (click)="logout()">Cerrar Sesión</button>
-</div>
+<main class="main">
+	<!-- <div class="user-panel">
+		<h2>Bienvenido, {{ user.name }}</h2>
+		<p>Email: {{ user.email }}</p>
+		<button (click)="logout()">Cerrar Sesión</button>
+	</div> -->
+	
+	
+	<div class="user-panel">
+		<h2>Bienvenido, {{ user.name }}</h2>
+		<p>Email: {{ user.email }}</p>
+		<button (click)="logout()">Cerrar Sesión</button>
+		
+		<h3>Historial de Pedidos</h3>
+		
+		<div *ngIf="errorMessage" class="error-message">
+			{{ errorMessage }}
+		</div>
+		
+		<div *ngIf="orders.length === 0 && !errorMessage" class="no-orders">
+			No tienes pedidos en tu historial.
+		</div>
+		<div *ngFor="let order of orders" class="order-card">
+			<h4>Pedido: {{ order.order_number }}</h4>
+			<p>Fecha: {{ order.created_at | date }}</p>
+			<p>Total: {{ order.total_amount | currency }}</p>
+			<p>Dirección: {{ order.address }}</p>
+			<h5>Productos:</h5>
+			<ul>
+				<li *ngFor="let item of order.items">
+					{{ item.product_name }} - {{ item.quantity }} x {{ item.unit_price | currency }}
+				</li>
+			</ul>
+			<p>Estado: {{ order.status_history.length > 0 ? order.status_history[0].status : order.status }}</p>
+		</div>
+	</div>
+</main>

@@ -198,6 +198,11 @@ text-overflow: ellipsis;
     border-radius: var(--brad-std);
 }
 
+.add-btn {
+    cursor: pointer;
+}
+
+
 .cart-item {
     position:absolute;
     /* z-index: 1; */

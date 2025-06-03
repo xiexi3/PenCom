@@ -150,10 +150,13 @@ class AuthController extends Controller
         return ['message' => 'Contraseña modificada correctamente'];
     }
 
-    public function user()
-    {
-        return response()->json(['data'=>['user' => auth()->user()]]);
-    }
+    // public function user()
+    // {
+    //     return response()->json(['data'=>['user' => auth()->user()]]);
+    // }
 
+    public function user() {
+        return response()->json(auth()->user());
+    }
     
 }

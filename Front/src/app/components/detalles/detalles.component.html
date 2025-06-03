@@ -4,7 +4,7 @@
 			<div *ngIf="producto">
 				<h1>{{ producto.nombre }}</h1>
 				<img [src]="getImagePath()" alt="{{ producto.nombre }}" class="item" />
-				<p>{{ producto.descripcion }}</p>
+				<!-- <p>{{ producto.descripcion }}</p> -->
 				<p><strong>Precio:</strong> ${{ producto.precio }}</p>
 				<p><strong>Categoría:</strong> {{ producto.categoria.nombre }}</p>
 				<!-- <button (click)="agregarAlCarrito(producto)">Agregar al carrito</button> -->

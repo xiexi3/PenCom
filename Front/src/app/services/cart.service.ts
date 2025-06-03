@@ -7,6 +7,7 @@ import { map, Observable } from 'rxjs';
 })
 export class CartService {
   private apiUrl = 'http://localhost:8000/api/cart';
+  private apiOrdersUrl = 'http://localhost:8000/api/orders';
 
   constructor(private http: HttpClient) {}
 
@@ -52,5 +53,9 @@ export class CartService {
     return new HttpHeaders({
       Authorization: `Bearer ${token}`,
     });
+  }
+
+  checkout(data: { address: string; notes?: string }): Observable<any> {
+    return this.http.post(this.apiOrdersUrl, data, { headers: this.getAuthHeaders() });
   }
 }

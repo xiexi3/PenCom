@@ -4,11 +4,15 @@ main {
     background-color: var(--clr-slate);
 }
 
+h2 {
+    padding: 3rem 0.2rem 1rem 0;
+    font-size: 2rem;
+}
+
 .carousel {
 	width: 100%;
     padding: 0 10% 1px 10%;
 }
-
 
 .itemlist {
     overflow: visible;

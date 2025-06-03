@@ -19,6 +19,7 @@
 	position: relative;
     /* margin-bottom: 2rem; */
     /* padding: 1rem 0px; */
+    max-width: 500px;
 }
 
 .item {
@@ -26,10 +27,15 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-	width: 400px;
-	height: 400px;
-    margin: 0 10%;
+	/* width: 250px;
+	height: 250px; */
+    margin: 0 auto;
+}
 
+.item img {
+    max-width: 100%; /* Asegura que la imagen no exceda el ancho del contenedor */
+    max-height: 100%; /* Asegura que la imagen no exceda la altura del contenedor */
+    object-fit: contain; /* Ajusta la imagen para que se mantenga dentro del contenedor sin distorsión */
 }
 /* #endregion */
 

@@ -18,10 +18,18 @@ class AdminUserSeeder extends Seeder
     {
         DB::table('users')->insert([
             'name' => 'Admin',
-            'email' => 'admin@example.com',
-            'password' => Hash::make('adminpassword'), // Encripta la contraseña
+            'email' => 'admin@admin.com',
+            'password' => Hash::make('admin'), // Encripta la contraseña
             'role' => 'admin', // Asigna el rol de administrador
             'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'test',
+            'email' => 'test@test.com',
+            'password' => Hash::make('test'), 
+            'role' => 'user', 
             'updated_at' => now(),
         ]);
     }

@@ -36,33 +36,92 @@ class OrderController extends Controller
         ], 200);
     }
 
+    // public function store(Request $request)
+    // {
+    //     try {
+    //         $user = auth()->user();
+    //         $cartItems = CartItem::where('user_id', $user->id)->get();
+
+    //         if ($cartItems->isEmpty()) {
+    //             return response()->json([
+    //                 'message' => 'El carrito está vacío'
+    //             ], 400);
+    //         }
+
+    //         DB::beginTransaction();
+
+    //         // Crear la orden
+    //         $order = Order::create([
+    //             'user_id' => $user->id,
+    //             'order_number' => 'PED-' . date('Ymd') . '-' . str_pad(Order::count() + 1, 4, '0', STR_PAD_LEFT),
+    //             'total_amount' => $cartItems->sum(function($item) {
+    //                 return $item->quantity * $item->product->precio;
+    //             }),
+    //             'status' => 'completado', // Cambiado directamente a completado
+    //             'address' => $request->address,
+    //             'notes' => $request->notes
+    //         ]);
+
+    //         // Crear los items de la orden
+    //         foreach ($cartItems as $cartItem) {
+    //             OrderItem::create([
+    //                 'order_id' => $order->id,
+    //                 'product_id' => $cartItem->product_id,
+    //                 'product_name' => $cartItem->product->nombre,
+    //                 'quantity' => $cartItem->quantity,
+    //                 'unit_price' => $cartItem->product->precio,
+    //                 'subtotal' => $cartItem->quantity * $cartItem->product->precio
+    //             ]);
+    //         }
+
+    //         // Registrar el estado inicial como completado
+    //         OrderStatusHistory::create([
+    //             'order_id' => $order->id,
+    //             'status' => 'completado',
+    //             'notes' => 'Pedido completado automáticamente'
+    //         ]);
+
+    //         // Vaciar el carrito
+    //         CartItem::where('user_id', $user->id)->delete();
+
+    //         DB::commit();
+
+    //         return response()->json([
+    //             'message' => 'Pedido completado correctamente',
+    //             'data' => $order
+    //         ], 201);
+
+    //     } catch (\Exception $e) {
+    //         DB::rollBack();
+    //         return response()->json([
+    //             'message' => 'Error al procesar el pedido',
+    //             'error' => $e->getMessage()
+    //         ], 500);
+    //     }
+    // }
+
     public function store(Request $request)
     {
         try {
             $user = auth()->user();
+
+            // Obtener los elementos del carrito del usuario
             $cartItems = CartItem::where('user_id', $user->id)->get();
 
             if ($cartItems->isEmpty()) {
-                return response()->json([
-                    'message' => 'El carrito está vacío'
-                ], 400);
+                return response()->json(['message' => 'El carrito está vacío.'], 400);
             }
 
-            DB::beginTransaction();
-
-            // Crear la orden
+            // Crear el pedido
             $order = Order::create([
                 'user_id' => $user->id,
-                'order_number' => 'PED-' . date('Ymd') . '-' . str_pad(Order::count() + 1, 4, '0', STR_PAD_LEFT),
-                'total_amount' => $cartItems->sum(function($item) {
-                    return $item->quantity * $item->product->precio;
-                }),
-                'status' => 'completado', // Cambiado directamente a completado
+                'order_number' => uniqid('ORDER-'),
+                'total_amount' => $cartItems->sum(fn($item) => $item->quantity * $item->product->precio),
                 'address' => $request->address,
-                'notes' => $request->notes
+                'notes' => $request->notes ?? null,
             ]);
 
-            // Crear los items de la orden
+            // Crear los elementos del pedido
             foreach ($cartItems as $cartItem) {
                 OrderItem::create([
                     'order_id' => $order->id,
@@ -70,33 +129,17 @@ class OrderController extends Controller
                     'product_name' => $cartItem->product->nombre,
                     'quantity' => $cartItem->quantity,
                     'unit_price' => $cartItem->product->precio,
-                    'subtotal' => $cartItem->quantity * $cartItem->product->precio
+                    'subtotal' => $cartItem->quantity * $cartItem->product->precio,
                 ]);
             }
-
-            // Registrar el estado inicial como completado
-            OrderStatusHistory::create([
-                'order_id' => $order->id,
-                'status' => 'completado',
-                'notes' => 'Pedido completado automáticamente'
-            ]);
 
             // Vaciar el carrito
             CartItem::where('user_id', $user->id)->delete();
 
-            DB::commit();
-
-            return response()->json([
-                'message' => 'Pedido completado correctamente',
-                'data' => $order
-            ], 201);
-
+            return response()->json(['message' => 'Pedido realizado con éxito.', 'order' => $order], 201);
         } catch (\Exception $e) {
-            DB::rollBack();
-            return response()->json([
-                'message' => 'Error al procesar el pedido',
-                'error' => $e->getMessage()
-            ], 500);
+            return response()->json(['message' => 'Error al realizar el pedido.', 'error' => $e->getMessage()], 500);
         }
     }
+
 } 

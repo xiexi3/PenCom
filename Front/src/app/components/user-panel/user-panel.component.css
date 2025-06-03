@@ -1,0 +1,36 @@
+main {
+    min-height: 100vh;
+    padding-top: 4rem;
+    background-color: var(--clr-slate);
+}
+
+.user-panel {
+	max-width: 800px;
+	margin: 0 auto;
+	padding: 2rem;
+	background-color: var(--clr-light);
+	border-radius: 0.5rem;
+  }
+  
+  .order-card {
+	border: 1px solid var(--clr-dark);
+	border-radius: 0.5rem;
+	padding: 1rem;
+	margin-bottom: 1rem;
+	background-color: var(--clr-slate);
+  }
+  
+  .order-card h4 {
+	margin: 0;
+  }
+  
+  .no-orders {
+	text-align: center;
+	font-size: 1.2rem;
+	color: var(--clr-dark);
+  }
+  
+  .error-message {
+	color: red;
+	text-align: center;
+  }
