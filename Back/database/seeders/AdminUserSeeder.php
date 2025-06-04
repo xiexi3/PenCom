@@ -21,6 +21,7 @@ class AdminUserSeeder extends Seeder
             'email' => 'admin@admin.com',
             'password' => Hash::make('admin'), // Encripta la contraseña
             'role' => 'admin', // Asigna el rol de administrador
+            'shipping_address' => '',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -29,7 +30,8 @@ class AdminUserSeeder extends Seeder
             'name' => 'test',
             'email' => 'test@test.com',
             'password' => Hash::make('test'), 
-            'role' => 'user', 
+            'role' => 'user',
+            'shipping_address' => '',
             'updated_at' => now(),
         ]);
     }

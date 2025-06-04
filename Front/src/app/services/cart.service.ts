@@ -8,6 +8,7 @@ import { map, Observable } from 'rxjs';
 export class CartService {
   private apiUrl = 'http://localhost:8000/api/cart';
   private apiOrdersUrl = 'http://localhost:8000/api/orders';
+  private apiShippingUrl = 'http://localhost:8000/api/user/shipping-address';
 
   constructor(private http: HttpClient) {}
 
@@ -57,5 +58,19 @@ export class CartService {
 
   checkout(data: { address: string; notes?: string }): Observable<any> {
     return this.http.post(this.apiOrdersUrl, data, { headers: this.getAuthHeaders() });
+  }
+
+  // getUserShippingAddress(): Observable<any> {
+  //   const token = localStorage.getItem('token'); // Recupera el token del localStorage
+  //   const headers = { Authorization: `Bearer ${token}` }; // Agrega el encabezado Authorization
+
+  //   return this.http.get(this.apiShippingUrl, { headers });
+  // }
+
+  getUserShippingAddress(): Observable<any> {
+    const token = localStorage.getItem('token'); // Recupera el token del localStorage
+    const headers = { Authorization: `Bearer ${token}` }; // Agrega el encabezado Authorization
+
+    return this.http.get(this.apiShippingUrl, { headers });
   }
 }

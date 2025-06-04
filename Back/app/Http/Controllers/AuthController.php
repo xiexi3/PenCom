@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+
 use Carbon\Carbon;
 
 class AuthController extends Controller
@@ -155,8 +157,94 @@ class AuthController extends Controller
     //     return response()->json(['data'=>['user' => auth()->user()]]);
     // }
 
-    public function user() {
-        return response()->json(auth()->user());
+    // public function user() {
+    //     return response()->json(auth()->user());
+    // }
+
+    public function user()
+{
+    $user = auth()->user();
+
+    return response()->json([
+        'name' => $user->name,
+        'email' => $user->email,
+        'shipping_address' => $user->shipping_address,
+        'profile_picture' => $user->profile_picture ? url('storage/profile_pictures/' . $user->profile_picture) : null,
+    ]);
+}
+
+    public function updateShippingAddress(Request $request)
+	{
+		$request->validate([
+			'shipping_address' => 'required|string|max:255',
+		]);
+
+		$user = auth()->user();
+		$user->shipping_address = $request->shipping_address;
+		$user->save();
+
+		return response()->json([
+			'message' => 'Dirección de envío actualizada correctamente.',
+			'shipping_address' => $user->shipping_address,
+		]);
+	}
+
+    // public function updateProfilePicture(Request $request)
+    // {
+    //     $request->validate([
+    //         'profile_picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+    //     ]);
+
+    //     $user = auth()->user();
+
+    //     // Subir la imagen
+    //     if ($request->hasFile('profile_picture')) {
+    //         $file = $request->file('profile_picture');
+    //         $filename = time() . '_' . $file->getClientOriginalName();
+    //         $file->storeAs('public/profile_pictures', $filename);
+
+    //         // Eliminar la imagen anterior si existe
+    //         if ($user->profile_picture) {
+    //             \Storage::delete('public/profile_pictures/' . $user->profile_picture);
+    //         }
+
+    //         $user->profile_picture = $filename;
+    //         $user->save();
+    //     }
+
+    //     return response()->json([
+    //         'message' => 'Foto de perfil actualizada correctamente.',
+    //         'profile_picture' => $user->profile_picture,
+    //     ]);
+    // }
+
+    public function updateProfilePicture(Request $request)
+    {
+        $request->validate([
+            'profile_picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $user = auth()->user();
+
+        // Subir la imagen
+        if ($request->hasFile('profile_picture')) {
+            $file = $request->file('profile_picture');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('public/profile_pictures', $filename);
+
+            // Eliminar la imagen anterior si existe
+            if ($user->profile_picture) {
+                Storage::delete('public/profile_pictures/' . $user->profile_picture);
+            }
+
+            $user->profile_picture = $filename;
+            $user->save();
+        }
+
+        return response()->json([
+            'message' => 'Foto de perfil actualizada correctamente.',
+            'profile_picture' => $user->profile_picture,
+        ]);
     }
     
 }

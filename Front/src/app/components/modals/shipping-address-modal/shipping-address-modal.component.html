@@ -1,0 +1,33 @@
+<!-- <h2>Dirección de Envío</h2>
+<div>
+	<label for="address">Ingresa tu dirección de envío:</label>
+	<input id="address" [(ngModel)]="data.address" placeholder="Dirección de envío" />
+</div>
+<div class="actions">
+	<button (click)="onCancel()">Cancelar</button>
+	<button (click)="onConfirm()">Confirmar</button>
+</div> -->
+
+<!-- <h2>Dirección de Envío</h2>
+<div>
+	<label for="address">Dirección actual:</label>
+	<p *ngIf="data.address">{{ data.address }}</p>
+	<label for="address">Modifica tu dirección (opcional):</label>
+	<input id="address" [(ngModel)]="data.address" placeholder="Dirección de envío" />
+</div>
+<div class="actions">
+	<button (click)="onCancel()">Cancelar</button>
+	<button (click)="onConfirm()">Confirmar</button>
+</div> -->
+
+<h2>Dirección de Envío</h2>
+<div>
+	<label for="address">Dirección actual:</label>
+	<p *ngIf="address">{{ address }}</p>
+	<label for="address">Modifica tu dirección (opcional):</label>
+	<input id="address" [(ngModel)]="address" placeholder="Dirección de envío" />
+</div>
+<div class="actions">
+	<button (click)="onCancel()">Cancelar</button>
+	<button (click)="onConfirm()">Confirmar</button>
+</div>

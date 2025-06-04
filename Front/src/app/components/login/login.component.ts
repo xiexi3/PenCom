@@ -3,7 +3,7 @@ import { CommonModule, ViewportScroller } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { ThemeService } from '../../services/ThemeService.service';
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-login',

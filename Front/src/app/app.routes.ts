@@ -13,4 +13,5 @@ export const routes: Routes = [
   { path: 'user-panel', loadComponent: () => import('./components/user-panel/user-panel.component').then(m => m.UserPanelComponent), canActivate: [AuthGuard] },
   { path: 'producto/:id', loadComponent: () => import('./components/detalles/detalles.component').then(m => m.DetallesComponent) },
   { path: 'producto', loadComponent: () => import('./components/anadir-producto/anadir-producto.component').then(m => m.AnadirProductoComponent) },
+  { path: 'change-password', loadComponent: () => import('./components/change-password/change-password.component').then(m => m.ChangePasswordComponent) },
 ]; 

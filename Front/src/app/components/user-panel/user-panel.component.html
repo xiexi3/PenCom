@@ -4,34 +4,133 @@
 		<p>Email: {{ user.email }}</p>
 		<button (click)="logout()">Cerrar Sesión</button>
 	</div> -->
-	
-	
+
+	<!-- <div class="profile-picture">
+		<img 
+		[src]="user.profile_picture ? user.profile_picture : 'assets/default-profile.png'"
+			alt="Foto de perfil" class="profile-img" />
+		<input type="file" (change)="uploadProfilePicture($event)" />
+	</div> -->
+
+	<!-- <div class="user-details">
+		<div class="profile-picture" (mouseenter)="hovering = true" (mouseleave)="hovering = false">
+			<img [src]="user.profile_picture ? user.profile_picture : 'assets/default-profile.png'" alt="Foto de perfil"
+				class="profile-img" (click)="editingPicture = true" />
+			<input *ngIf="editingPicture" type="file" (change)="onPictureSelected($event)" class="file-input" />
+			<div *ngIf="editingPicture" class="actions">
+				<button (click)="saveProfilePicture()">Guardar</button>
+				<button (click)="cancelProfilePicture()">Cancelar</button>
+			</div>
+			<div *ngIf="hovering && !editingPicture" class="hover-text">Cambiar foto</div>
+		</div>
+
+		<div class="user-info">
+			<h2>Bienvenido, {{ user.name }}</h2>
+			<p>Email: {{ user.email }}</p>
+			<button (click)="logout()">Cerrar Sesión</button>
+			
+			<h3>Dirección de Envío</h3>
+			<div class="shipping-address">
+				<p *ngIf="!editingAddress">Dirección actual: {{ user.shipping_address || 'No tienes una dirección
+				registrada.' }}</p>
+				<input *ngIf="editingAddress" [(ngModel)]="newAddress" placeholder="Ingresa tu nueva dirección" />
+				<button *ngIf="!editingAddress" (click)="editingAddress = true">Editar Dirección</button>
+				<button *ngIf="editingAddress"
+				(click)="updateShippingAddress(newAddress); editingAddress = false">Guardar</button>
+				<button *ngIf="editingAddress" (click)="editingAddress = false">Cancelar</button>
+				</div>
+		</div>
+	</div> -->
+
+	<div *ngIf="loading" class="user-details loading-spinner">
+		<p>Cargando datos...</p>
+	</div>
+
+	<div *ngIf="!loading" class="user-details">
+		<div class="profile-picture" (mouseenter)="hovering = true" (mouseleave)="hovering = false">
+			<img [src]="user.profile_picture ? user.profile_picture : 'assets/default-profile.png'" alt="Foto de perfil"
+				class="profile-img" (click)="editingPicture = true" />
+			<input *ngIf="editingPicture" type="file" (change)="onPictureSelected($event)" class="file-input" />
+			<div *ngIf="editingPicture" class="actions">
+				<button class="btn" (click)="saveProfilePicture()">Guardar</button>
+				<button class="btn" (click)="cancelProfilePicture()">Cancelar</button>
+			</div>
+			<div *ngIf="hovering && !editingPicture" class="hover-text">Cambiar foto</div>
+		</div>
+
+		<div class="user-info">
+			<h2>Bienvenido, {{ user.name }}</h2>
+			<p>Email: {{ user.email }}</p>
+
+			<h3>
+				Dirección de envío
+				<i *ngIf="!editingAddress" (click)="editingAddress = true" class="fas fa-edit"></i>
+			</h3>
+			<!-- <div class="shipping-address">
+				<p *ngIf="!editingAddress">Dirección actual: {{ user.shipping_address || 'No tienes una dirección registrada.' }}</p>
+				<input *ngIf="editingAddress" [(ngModel)]="newAddress" placeholder="Ingresa tu nueva dirección" />
+				<button *ngIf="!editingAddress" (click)="editingAddress = true">Editar Dirección</button>
+				<button *ngIf="editingAddress"
+					(click)="updateShippingAddress(newAddress); editingAddress = false">Guardar</button>
+				<button *ngIf="editingAddress" (click)="editingAddress = false">Cancelar</button>
+			</div> -->
+
+			<div class="shipping-address">
+				<div class="address-display">
+					<p *ngIf="!editingAddress">
+						{{ user.shipping_address || 'Aun no tienes una dirección registrada.' }}
+					</p>
+
+					<!-- <div class="address-actions">
+						<button *ngIf="!editingAddress" (click)="editingAddress = true" class="fas fa-edit"></button>
+						<button *ngIf="!editingAddress" (click)="addNewAddress()">Añadir Dirección</button>
+					</div> -->
+				</div>
+				<input *ngIf="editingAddress" [(ngModel)]="newAddress" placeholder="Ingresa tu nueva dirección" />
+				<div *ngIf="editingAddress" class="edit-actions">
+					<button (click)="updateShippingAddress(newAddress); editingAddress = false">Guardar</button>
+					<button (click)="editingAddress = false">Cancelar</button>
+				</div>
+			</div>
+			<a routerLink="/change-password" class="btn">Cambiar Contraseña</a>
+			<br>
+			<br>
+			<button class="btn" (click)="logout()">Cerrar Sesión</button>
+		</div>
+
+	</div>
+
+
 	<div class="user-panel">
-		<h2>Bienvenido, {{ user.name }}</h2>
-		<p>Email: {{ user.email }}</p>
-		<button (click)="logout()">Cerrar Sesión</button>
-		
+
+
 		<h3>Historial de Pedidos</h3>
-		
+
+		<div *ngIf="loadingOrders" class="loading-spinner">
+			<p>Cargando datos...</p>
+		</div>
+
 		<div *ngIf="errorMessage" class="error-message">
 			{{ errorMessage }}
 		</div>
-		
-		<div *ngIf="orders.length === 0 && !errorMessage" class="no-orders">
+
+		<!-- <div *ngIf="orders.length === 0 && !errorMessage" class="no-orders"> -->
+		<div *ngIf="orders.length === 0 && !loadingOrders && !errorMessage" class="no-orders">
 			No tienes pedidos en tu historial.
 		</div>
 		<div *ngFor="let order of orders" class="order-card">
 			<h4>Pedido: {{ order.order_number }}</h4>
-			<p>Fecha: {{ order.created_at | date }}</p>
-			<p>Total: {{ order.total_amount | currency }}</p>
-			<p>Dirección: {{ order.address }}</p>
-			<h5>Productos:</h5>
+			<p> <strong>Fecha: </strong> {{ order.created_at | date }}</p>
+			<!-- <p>Total: {{ order.total_amount | currency }}</p> -->
+			<p><strong>Dirección: </strong> {{ order.address }}</p>
+			<h4>Productos: </h4>
 			<ul>
 				<li *ngFor="let item of order.items">
 					{{ item.product_name }} - {{ item.quantity }} x {{ item.unit_price | currency }}
 				</li>
 			</ul>
-			<p>Estado: {{ order.status_history.length > 0 ? order.status_history[0].status : order.status }}</p>
+			<strong>Total: {{ order.total_amount | currency }}</strong>
+			<!-- <p>Estado: {{ order.status_history.length > 0 ? order.status_history[0].status : order.status }}</p> -->
 		</div>
 	</div>
 </main>

@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +51,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/orders', [OrderController::class, 'store']);
 
     Route::get('/user-details', [AuthController::class, 'userDetails']);
+    Route::put('/user/shipping-address', [AuthController::class, 'updateShippingAddress']);
+    Route::post('/user/profile-picture', [AuthController::class, 'updateProfilePicture']);
+    Route::get('/user/shipping-address', [UserController::class, 'getShippingAddress']);
+    Route::post('/change-password', [UserController::class, 'changePassword']);
 
     //
 });
