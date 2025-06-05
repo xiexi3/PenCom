@@ -21,6 +21,15 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users|regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/',
             'password' => 'required|string|min:8'
+        ],
+        [
+            'name.required' => 'El nombre es obligatorio.',
+            'email.required' => 'El correo es obligatorio.',
+            'email.email' => 'El correo debe ser una dirección válida.',
+            'email.unique' => 'El correo ya está registrado.',
+            'email.regex' => 'El formato del correo no es válido.',
+            'password.required' => 'La contraseña es obligatoria.',
+            'password.min' => 'La contraseña debe tener al menos 8 caracteres.'
         ]);
 
         //en caso de cumplir las validaciones, se crea el nuevo usuario en bbdd
@@ -34,31 +43,74 @@ class AuthController extends Controller
         return response()->json(['data' => ['user'=>$user]]);
     }
 
+    // public function login(Request $request)
+    // {
+    //     //validaciones de campos que viajan en la request
+    //     $request->validate([
+    //         'email' => 'required|string',
+    //         'password' => 'required|string'
+    //     ]);
+
+    //     //en caso de cumplir las validaciones, se comprueban las credenciales
+    //     if (!Auth::attempt($request->only('email', 'password'))) {
+    //         return response()->json(['message' => 'Credenciales incorrectas'], 401);
+    //     }
+
+    //     //en caso de credenciales correctas, se recupera la información del usuario
+    //     $user = User::where('email', $request['email'])->firstOrFail();
+
+    //     //se crea y almacena el token de autenticación
+    //     $token = $user->createToken('auth_token')->plainTextToken;
+
+    //     //se devuelve respuesta con los datos del usuario logado 
+    //     // return response()->json(['data'=> [
+    //     //     'accessToken' => $token,
+    //     //     'toke_type' => 'Bearer',
+    //     //     'user' => $user]
+    //     // ]);
+    //     return response()->json([
+    //         'data' => [
+    //             'accessToken' => $token,
+    //             'token_type' => 'Bearer',
+    //             'user' => [
+    //                 'id' => $user->id,
+    //                 'name' => $user->name,
+    //                 'email' => $user->email,
+    //                 'role' => $user->role // Incluye el rol del usuario
+    //             ]
+    //         ]
+    //     ]);
+    // }
+
     public function login(Request $request)
     {
-        //validaciones de campos que viajan en la request
         $request->validate([
-            'email' => 'required|string',
-            'password' => 'required|string'
+            'email' => 'required|email|regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/',
+            'password' => 'required',
+        ], [
+            'email.required' => 'El correo es obligatorio.',
+            'email.email' => 'El correo debe ser una dirección válida.',
+            'email.unique' => 'El correo ya está registrado.',
+            'email.regex' => 'El formato del correo no es válido.',
+            'password.required' => 'La contraseña es obligatoria.',
+            'password.min' => 'La contraseña debe tener al menos 8 caracteres.'
         ]);
 
-        //en caso de cumplir las validaciones, se comprueban las credenciales
-        if (!Auth::attempt($request->only('email', 'password'))) {
-            return response()->json(['message' => 'Credenciales incorrectas'], 401);
+        // Comprueba si el correo existe
+        $user = User::where('email', $request->email)->first();
+        if (!$user) {
+            return response()->json(['error' => 'El correo no existe.'], 404);
         }
 
-        //en caso de credenciales correctas, se recupera la información del usuario
-        $user = User::where('email', $request['email'])->firstOrFail();
+        // Intenta autenticar al usuario
+        if (!Auth::attempt($request->only('email', 'password'))) {
+            return response()->json(['error' => 'La contraseña es incorrecta.'], 401);
+        }
 
-        //se crea y almacena el token de autenticación
-        $token = $user->createToken('auth_token')->plainTextToken;
+        // Genera un token de acceso
+        $token = $user->createToken('authToken')->plainTextToken;
 
-        //se devuelve respuesta con los datos del usuario logado 
-        // return response()->json(['data'=> [
-        //     'accessToken' => $token,
-        //     'toke_type' => 'Bearer',
-        //     'user' => $user]
-        // ]);
+        // return response()->json(['token' => $token], 200);
         return response()->json([
             'data' => [
                 'accessToken' => $token,
@@ -139,7 +191,7 @@ class AuthController extends Controller
         //en este caso se implementa para que expire en un minuto
         //en caso de haber expirado se devuelve error
         $fechaActual=Carbon::now();
-        $fechaCodMasUnMin=Carbon::parse($updatePassword->created_at)->addMinute(1);
+        $fechaCodMasUnMin=Carbon::parse($updatePassword->created_at)->addMinute(5);
         if($fechaActual->gt($fechaCodMasUnMin)) {return response()->json(['message' => 'Código expirado'], 401);}
 
         //en caso de superar todas las validaciones, se actualiza la password hasheada en bbdd

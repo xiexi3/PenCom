@@ -180,7 +180,9 @@ input {
 #input-password:hover,
 #input-password2:hover,
 #input-password3:hover {
-	border: 1px solid var(--clr-primary);
+	border: 1px solid transparent;
+	outline: none;
+	box-shadow: var(--bsh-primary);
 }
 
 #input-name:focus,
@@ -221,10 +223,6 @@ button:focus {
 #input-password3 {
 	margin-bottom: 2rem;
 }
-
-/* #input-password3 {
-	cursor: not-allowed;
-} */
 
 label {
 	pointer-events: none;;
@@ -379,6 +377,11 @@ input:not(:placeholder-shown) + label {
 
 .btn-signup:hover {
 	background-color: var(--clr-slate-dark2);
+}
+
+.error-message {
+	font-size: 1.1rem;
+	padding-bottom: 1.5rem;
 }
 /* #endregion */
 

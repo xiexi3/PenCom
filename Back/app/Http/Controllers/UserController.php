@@ -40,6 +40,11 @@ class UserController extends Controller
     $request->validate([
         'current_password' => 'required',
         'new_password' => 'required|min:8',
+    ], 
+	[
+        'current_password.required' => 'La contraseña actual es obligatoria.',
+        'new_password.required' => 'La nueva contraseña es obligatoria.',
+        'new_password.min' => 'La nueva contraseña debe tener al menos 8 caracteres.',
     ]);
 
     $user = auth()->user();

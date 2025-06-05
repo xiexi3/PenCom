@@ -20,14 +20,119 @@
 	<button (click)="onConfirm()">Confirmar</button>
 </div> -->
 
-<h2>Dirección de Envío</h2>
-<div>
-	<label for="address">Dirección actual:</label>
-	<p *ngIf="address">{{ address }}</p>
-	<label for="address">Modifica tu dirección (opcional):</label>
-	<input id="address" [(ngModel)]="address" placeholder="Dirección de envío" />
-</div>
-<div class="actions">
-	<button (click)="onCancel()">Cancelar</button>
-	<button (click)="onConfirm()">Confirmar</button>
+<!-- <div class="modal">
+	<h2>Dirección de Envío</h2>
+	<div>
+		<label for="address">Dirección actual:</label>
+		<p *ngIf="address">{{ address }}</p>
+		<label for="address">Modifica tu dirección (opcional):</label>
+		<input id="address" [(ngModel)]="address" placeholder="Dirección de envío" />
+	</div>
+	<div class="actions">
+		<button (click)="onCancel()">Cancelar</button>
+		<button (click)="onConfirm()">Confirmar</button>
+	</div>
+</div> -->
+
+<!-- <div class="modal-overlay">
+		<div class="modal-container">
+			<h2>Dirección de Envío</h2>
+			<label for="address">Dirección actual:</label>
+			<p *ngIf="fullAddress">{{ fullAddress }}</p>
+
+			<div class="modal-content">
+				<div class="container">
+					<input type="text" placeholder="Dirección" [(ngModel)]="address" name="address" required />
+					<label for="address">Dirección</label>
+				</div>
+				<div class="container">
+					<input type="text" placeholder="Ciudad" [(ngModel)]="city" name="city" required />
+					<label for="city">Ciudad</label>
+				</div>
+				<div class="container">
+					<input type="text" placeholder="Código Postal" [(ngModel)]="postalCode" name="postalCode" required />
+					<label for="postalCode">Código Postal</label>
+				</div>
+			</div>
+
+			<div class="actions">
+				<button class="btn-save" (click)="saveAddress()">Guardar</button>
+				<button class="btn-cancel" (click)="closeModal()">Cancelar</button>
+			</div>
+		</div>
+	</div> -->
+
+<!-- <div class="modal-overlay"></div>
+<div class="modal-container">
+	<h2>Dirección de Envío</h2>
+	<p class="current-address"><strong>Dirección actual:</strong> {{ fullAddress }}</p>
+	<div class="modal-content">
+		<div class="input-container">
+			<input type="text" id="address" placeholder="Dirección" [(ngModel)]="address" name="address" (input)="updateFullAddress()" required />
+			<label for="address">Dirección</label>
+		</div>
+		<div class="input-container">
+			<input type="text" id="city" placeholder="Ciudad" [(ngModel)]="city" name="city" (input)="updateFullAddress()" required />
+			<label for="city">Ciudad</label>
+		</div>
+		<div class="input-container">
+			<input type="text" id="postalCode" placeholder="Código Postal" [(ngModel)]="postalCode" name="postalCode" (input)="updateFullAddress()" required />
+			<label for="postalCode">Código Postal</label>
+		</div>
+	</div>
+	<div class="actions">
+		<button class="btn-save" (click)="saveAddress()">Guardar</button>
+		<button class="btn-cancel" (click)="closeModal()">Cancelar</button>
+	</div>
+</div> -->
+
+<div class="modal-overlay"></div>
+<div class="modal-container" [ngClass]="{ 'dark-mode': isDarkMode }">
+  <h2 [ngClass]="{ 'dark-mode': isDarkMode }">Dirección de Envío</h2>
+  <p class="current-address"><strong>Dirección actual:</strong> {{ fullAddress }}</p>
+  <div class="modal-content">
+    <div class="input-container">
+      <input
+        type="text"
+        id="address"
+        placeholder=" "
+        [(ngModel)]="address"
+        (input)="updateFullAddress()"
+        [ngClass]="{ 'dark-mode': isDarkMode }"
+        name="address"
+        required
+      />
+      <label for="address">Dirección</label>
+    </div>
+    <div class="input-container">
+      <input
+        type="text"
+        id="city"
+        placeholder=" "
+        [(ngModel)]="city"
+        (input)="updateFullAddress()"
+        [ngClass]="{ 'dark-mode': isDarkMode }"
+        name="city"
+        required
+      />
+      <label for="city">Ciudad</label>
+    </div>
+    <div class="input-container">
+      <input
+        type="text"
+        id="postalCode"
+        placeholder=" "
+        [(ngModel)]="postalCode"
+        (input)="updateFullAddress()"
+        [ngClass]="{ 'dark-mode': isDarkMode }"
+        name="postalCode"
+        required
+      />
+      <label for="postalCode">Código Postal</label>
+    </div>
+  </div>
+  <div class="actions">
+    <button class="btn-save" (click)="saveAddress()" [ngClass]="{ 'dark-mode': isDarkMode }">Guardar</button>
+    <button class="btn-cancel" (click)="closeModal()" [ngClass]="{ 'dark-mode': isDarkMode }">Cancelar</button>
+  </div>
 </div>

@@ -1,10 +1,11 @@
-import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, ViewportScroller } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
-import { ProductService } from '../../services/product.service';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from './../../services/auth.service';
 import { CartService } from '../../services/cart.service';
+import { ProductService } from '../../services/product.service';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-componentes',
@@ -13,6 +14,7 @@ import { CartService } from '../../services/cart.service';
   templateUrl: './componentes.component.html',
   styleUrl: './componentes.component.css'
 })
+
 export class ComponentesComponent implements OnInit {
   productos: any[] = []; // Array para almacenar los productos
   productosFiltrados: any[] = []; // Lista filtrada de productos
@@ -23,12 +25,17 @@ export class ComponentesComponent implements OnInit {
   precioMax: number | null = null; // Precio máximo para filtrar
   isAdmin: boolean = false; 
 
-  constructor(private router: Router, private productService: ProductService, private viewportScroller: ViewportScroller, private cartService: CartService, private authService: AuthService) {}
+  constructor(
+    private router: Router, 
+    private productService: ProductService, 
+    private viewportScroller: ViewportScroller, 
+    private authService: AuthService,
+    private cartService: CartService, 
+    private toastService: ToastService ,
+  ) {}
 
   ngOnInit(): void {
     this.viewportScroller.scrollToPosition([0, 0]); // Para que al cargar la página se vaya al inicio del scroll
-
-    // this.isAdmin = this.AuthService.getUserRole() === 'admin';
 
     this.authService.getUserDetails().subscribe({
       next: (response) => {
@@ -69,17 +76,13 @@ export class ComponentesComponent implements OnInit {
 
   addToCart(productId: number): void {
     this.cartService.addToCart(productId).subscribe(() => {
-      alert('Producto añadido al carrito');
+      this.toastService.show('Producto añadido al carrito.', 'Cerrar');    
     });
   }
 
   addProduct(): void {
     this.router.navigate(['/producto']);
   }
-
-  // editProduct(productId: number): void {
-  //   console.log('Editar producto:', productId);
-  // }
 
   editProduct(producto: any): void {
     if (!producto) {

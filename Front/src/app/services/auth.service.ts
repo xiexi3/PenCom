@@ -11,6 +11,10 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
+  isAuthenticated(): boolean {
+    return !!localStorage.getItem('token'); // Devuelve true si hay un token
+  }
+
   login(email: string, password: string): Observable<string> {
     return this.http.post<{ data: { accessToken: string, user: any } }>(`${this.apiUrl}/login`, { email, password })
       .pipe(

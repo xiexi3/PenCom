@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
-import { ProductService } from '../../services/product.service';
 import { CommonModule, ViewportScroller } from '@angular/common';
+import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from './../../services/auth.service';
 import { CartService } from '../../services/cart.service';
-import { AuthService } from '../../services/auth.service';
+import { ProductService } from '../../services/product.service';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-ordenadores',
@@ -24,7 +25,14 @@ export class OrdenadoresComponent implements OnInit {
   precioMax: number | null = null; // Precio máximo para filtrar
   isAdmin: boolean = false; 
 
-  constructor(private router: Router, private productService: ProductService, private viewportScroller: ViewportScroller, private cartService: CartService, private authService: AuthService) {}
+  constructor(
+    private router: Router, 
+    private productService: ProductService, 
+    private viewportScroller: ViewportScroller, 
+    private authService: AuthService,
+    private cartService: CartService, 
+    private toastService: ToastService,
+  ) {}
 
   ngOnInit(): void {
     this.viewportScroller.scrollToPosition([0, 0]); // Para que al cargar la página se vaya al inicio del scroll
@@ -68,17 +76,13 @@ export class OrdenadoresComponent implements OnInit {
 
   addToCart(productId: number): void {
     this.cartService.addToCart(productId).subscribe(() => {
-      alert('Producto añadido al carrito');
+      this.toastService.show('Producto añadido al carrito.', 'Cerrar');    
     });
   }
 
   addProduct(): void {
     this.router.navigate(['/producto']);
   }
-
-  // editProduct(productId: number): void {
-  //   console.log('Editar producto:', productId);
-  // }
 
   editProduct(producto: any): void {
     if (!producto) {

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { ThemeService } from '../../services/theme.service';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-header',
@@ -10,23 +10,13 @@ import { CommonModule } from '@angular/common';
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
+
 export class HeaderComponent {
   isMenuOpen = false;
   isDarkMode = false;
   cartItems = 0;
-
-  // Función para el menu hamburguesa en el diseno responsivo
-  toggleMenu() {
-    this.isMenuOpen = !this.isMenuOpen;
-  }
-
   constructor(private router: Router, private themeService: ThemeService) {}
-
-  // Función para cambiar el tema
-  toggleTheme(): void {
-    this.themeService.toggleTheme();
-  }
-
+  
   ngOnInit(): void {
     // Aplicar el tema oscuro al cargar la aplicación
     this.themeService.applyDarkMode();
@@ -38,4 +28,15 @@ export class HeaderComponent {
       }
     });
   }
+  
+  // Función para el menu hamburguesa en el diseno responsivo
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  // Función para cambiar el tema
+  toggleTheme(): void {
+    this.themeService.toggleTheme();
+  }
+
 }

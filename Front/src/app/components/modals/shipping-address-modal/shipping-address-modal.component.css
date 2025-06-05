@@ -1,12 +1,210 @@
-h2 {
+/* h2 {
 	text-align: center;
-  }
+}
   
-  div {
-	margin: 1rem 0;
-  }
-  
-  .actions {
+div {
+  margin: 1rem 0;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+} */
+
+/* Estilo general del modal */
+.modal-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 500px;
+    background-color: var(--clr-light);
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    z-index: 1000;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+/* Título del modal */
+h2 {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    color: var(--clr-dark);
+}
+
+/* Contenedor de los campos del formulario */
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Estilo de los inputs */
+/* .modal-content input {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+    color: var(--clr-dark);
+    background-color: var(--clr-slate);
+    border: var(--brd-trans-half);
+    border-radius: var(--brad-std);
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+} */
+
+/* .modal-content input:focus {
+    border: 1px solid var(--clr-primary);
+    box-shadow: var(--bsh-primary);
+    outline: none;
+} */
+
+/* Botones de acción */
+.actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.actions button {
+    flex: 1;
+    padding: 0.8rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--clr-light);
+    background-color: var(--clr-primary);
+    border: none;
+    border-radius: var(--brad-std);
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.actions button:hover {
+    background-color: var(--clr-primary-dark);
+    box-shadow: var(--bsh-primary);
+}
+
+/* Botón de cancelar */
+
+
+.actions .btn-save {
+  /* color: var(--clr-dark);
+  background-color: var(--clr-primary); */
+  color: var(--clr-dark);
+  background: var(--clr-slate-dark);
+}
+
+.actions .btn-save:hover {
+  /* color: var(--clr-light);
+  background-color: var(--clr-secondary); */
+  /* color: var(--clr-light); */
+    background: var(--clr-primary);
+} 
+
+.actions .btn-cancel {
+  color: var(--clr-dark);
+    background-color: var(--clr-slate);
+}
+
+.actions .btn-cancel:hover {
+  /* color: var(--clr-light); */
+    background: var(--clr-secondary);
+}
+
+/* Responsive: Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
+    .modal-container {
+        width: 95%;
+        padding: 1.5rem;
+    }
+
+    .actions {
+        flex-direction: column;
+    }
+
+    .actions button {
+        width: 100%;
+    }
+}
+
+input {
+	width: 100%;
+	padding: 12px 15px;
+
+	font-size: 1.125rem;
+
+	background-color: var(--clr-slate);
+	border-radius: var(--brad-std);
+
+	transition: border 0.3s ease 0s, background-color 0.3s ease 0s, color 0.3s ease 0s, box-shadow 0.3s ease 0s;
+}
+
+input:hover {
+	border: 1px solid transparent;
+	outline: none;
+	box-shadow: var(--bsh-primary);
+}
+
+input:focus,
+button:focus {
+	border: none;
+	outline: none;
+	box-shadow: var(--bsh-secondary);
+}
+
+
+label {
+	pointer-events: none;
+
+	/* position: absolute;
+	z-index: 1;
+	top: 1.9rem;
+	left: 0.95rem; */
+	transform-origin: left top 0px;
+
 	display: flex;
-	justify-content: space-between;
-  }
+	align-items: center;
+
+	font-weight: 600;
+	color: transparent;
+
+	opacity: 1;
+
+  margin-left: 0.95rem;
+
+	transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.15s cubic-bezier(0.4, 0, 0.2, 1) 0s, font-size 0.15s cubic-bezier(0.4, 0, 0.2, 1) 0s, line-height 0.15s cubic-bezier(0.4, 0, 0.2, 1) 0s, font-weight 0.15s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+}
+
+input:focus + label,
+input:not(:placeholder-shown) + label {
+	pointer-events: auto;
+	transform: translateY(-300%);
+	color: var(--clr-dark);
+	opacity: 1;
+}
+
+.current-address {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* gap: 0.5rem; */
+    margin-bottom: 1.5rem;
+    margin-left: 0.95rem;
+}	
+
+.modal-content {
+  margin-top: 2.5rem;
+}

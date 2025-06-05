@@ -1,46 +1,4 @@
 <main class="main">
-	<!-- <div class="user-panel">
-		<h2>Bienvenido, {{ user.name }}</h2>
-		<p>Email: {{ user.email }}</p>
-		<button (click)="logout()">Cerrar Sesión</button>
-	</div> -->
-
-	<!-- <div class="profile-picture">
-		<img 
-		[src]="user.profile_picture ? user.profile_picture : 'assets/default-profile.png'"
-			alt="Foto de perfil" class="profile-img" />
-		<input type="file" (change)="uploadProfilePicture($event)" />
-	</div> -->
-
-	<!-- <div class="user-details">
-		<div class="profile-picture" (mouseenter)="hovering = true" (mouseleave)="hovering = false">
-			<img [src]="user.profile_picture ? user.profile_picture : 'assets/default-profile.png'" alt="Foto de perfil"
-				class="profile-img" (click)="editingPicture = true" />
-			<input *ngIf="editingPicture" type="file" (change)="onPictureSelected($event)" class="file-input" />
-			<div *ngIf="editingPicture" class="actions">
-				<button (click)="saveProfilePicture()">Guardar</button>
-				<button (click)="cancelProfilePicture()">Cancelar</button>
-			</div>
-			<div *ngIf="hovering && !editingPicture" class="hover-text">Cambiar foto</div>
-		</div>
-
-		<div class="user-info">
-			<h2>Bienvenido, {{ user.name }}</h2>
-			<p>Email: {{ user.email }}</p>
-			<button (click)="logout()">Cerrar Sesión</button>
-			
-			<h3>Dirección de Envío</h3>
-			<div class="shipping-address">
-				<p *ngIf="!editingAddress">Dirección actual: {{ user.shipping_address || 'No tienes una dirección
-				registrada.' }}</p>
-				<input *ngIf="editingAddress" [(ngModel)]="newAddress" placeholder="Ingresa tu nueva dirección" />
-				<button *ngIf="!editingAddress" (click)="editingAddress = true">Editar Dirección</button>
-				<button *ngIf="editingAddress"
-				(click)="updateShippingAddress(newAddress); editingAddress = false">Guardar</button>
-				<button *ngIf="editingAddress" (click)="editingAddress = false">Cancelar</button>
-				</div>
-		</div>
-	</div> -->
 
 	<div *ngIf="loading" class="user-details loading-spinner">
 		<p>Cargando datos...</p>
@@ -86,15 +44,14 @@
 						<button *ngIf="!editingAddress" (click)="addNewAddress()">Añadir Dirección</button>
 					</div> -->
 				</div>
-				<input *ngIf="editingAddress" [(ngModel)]="newAddress" placeholder="Ingrese su nueva dirección" />
+				<input class="input-address" *ngIf="editingAddress" [(ngModel)]="newAddress" placeholder="Ingrese su nueva dirección" />
 				<div *ngIf="editingAddress" class="edit-actions">
-					<button (click)="updateShippingAddress(newAddress); editingAddress = false">Guardar</button>
-					<button (click)="editingAddress = false">Cancelar</button>
+					<button class="btn btn-address" (click)="updateShippingAddress(newAddress); editingAddress = false">Guardar</button>
+					<button class="btn btn-address" (click)="editingAddress = false">Cancelar</button>
 				</div>
 			</div>
-			<a routerLink="/change-password" class="btn">Cambiar Contraseña</a>
-			<br>
-			<br>
+			<a routerLink="/change-password" class="btn change-password">Cambiar Contraseña</a>
+			<br><br>
 			<button class="btn" (click)="logout()">Cerrar Sesión</button>
 		</div>
 

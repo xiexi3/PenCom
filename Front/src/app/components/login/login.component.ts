@@ -1,33 +1,40 @@
+import { ToastService } from './../../services/toast.service';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, ViewportScroller } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-login',
-  standalone: true, 
-  imports: [RouterModule, CommonModule, ReactiveFormsModule, FormsModule], // <-- IMPORTANTE
+  standalone: true,
+  imports: [RouterModule, CommonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrl: './login.component.css',
 })
+
 export class LoginComponent implements OnInit {
   loginFormVisible: boolean = true;
   name: string = '';
   email: string = '';
   password: string = '';
   passwordTwo: string = '';
+  passwordMismatch: boolean = false; // Indica si las contraseñas no coinciden
   errorMessage = '';
 
-   // Estados para mostrar/ocultar contraseñas
-   showPassword: boolean = false; // Para el primer campo de contraseña
-   showPassword2: boolean = false; // Para el segundo campo de contraseña
-   showPassword3: boolean = false; // Para el tercer campo de contraseña 
+  // Estados para mostrar/ocultar contraseñas
+  showPassword: boolean = false;
+  showPassword2: boolean = false;
+  showPassword3: boolean = false;
 
-   passwordMismatch: boolean = false; // Indica si las contraseñas no coinciden
-
-  constructor(public themeService: ThemeService, private router: Router, private authService: AuthService, private viewportScroller: ViewportScroller) {}
+  constructor(
+    public toastService: ToastService,
+    public themeService: ThemeService,
+    private router: Router,
+    private authService: AuthService,
+    private viewportScroller: ViewportScroller
+  ) {}
 
   ngOnInit(): void {
     this.viewportScroller.scrollToPosition([0, 0]); // Para que al cargar la página se vaya al inicio del scroll
@@ -41,30 +48,30 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
-    // Implement your login logic here
-    console.log('Email:', this.email);
-    console.log('Password:', this.password);
-    // Add authentication logic and navigate to the next page upon successful login
     this.authService.login(this.email, this.password).subscribe({
       next: (token) => {
-        console.log('Login exitoso. Token:', token);
-
-      // Redirige al panel de usuario
-      this.router.navigate(['/user-panel']);
+        // console.log('Login exitoso. Token:', token);
+        this.toastService.show('Inicio de sesion exitoso.', 'Cerrar');
+        this.router.navigate(['/user-panel']);
       },
       error: (err) => {
-        this.errorMessage = 'Error al iniciar sesión: ' + err.message;
-        console.error(err);
+        // console.error(err);
+        if (err.status === 404 && err.error?.error === 'El correo no existe.') {
+          this.toastService.show('El correo ingresado no está registrado.', 'Cerrar');
+        } else if (err.status === 401) {
+          this.toastService.show('La contraseña es incorrecta.', 'Cerrar');
+        } else if (err.error?.message) {
+          // Si el backend devuelve un mensaje genérico
+          this.toastService.show(err.error.message, 'Cerrar');
+        } else {
+          // Mensaje genérico para otros errores
+          this.toastService.show('Hubo un error al iniciar sesión. Inténtelo de nuevo más tarde.');
+        }
       },
     });
   }
 
   onSignup() {
-    // Implement your signup logic here
-    // console.log('Name:', this.name);
-    // console.log('Email:', this.email);
-    // console.log('Password:', this.password);
-
     // Verifica si las contraseñas coinciden
     if (this.password !== this.passwordTwo) {
       this.passwordMismatch = true; // Activa el error de contraseñas
@@ -72,23 +79,35 @@ export class LoginComponent implements OnInit {
     }
 
     this.passwordMismatch = false; // Resetea el error si las contraseñas coinciden
-    
+
     // Add authentication logic and navigate to the next page upon successful signup
     this.authService.signup(this.name, this.email, this.password).subscribe({
       next: (id) => {
         console.log('Registro exitoso. Id de usuario:', id);
-        alert('Registro exitoso, ya puede iniciar sesión.'); // Mensaje de éxito
+
+        this.toastService.show('Registro exitoso, ya puede iniciar sesión.', 'Cerrar');
+
         // Simula un clic en el botón de "Iniciar Sesión"
-      const loginButton = document.querySelector('.btn-login') as HTMLButtonElement;
-      if (loginButton) {
-        loginButton.click();
-      }
+        const loginButton = document.querySelector('.btn-login') as HTMLButtonElement;
+        if (loginButton) {
+          loginButton.click();
+        }
         // this.router.navigate(['/user-panel']);
       },
       error: (err) => {
-        this.errorMessage = 'Error al registrarse: ' + err.message;
-        console.error(err);
-        alert(this.errorMessage = err.error.message || 'Error desconocido al registrarse.');
+        if (err.error?.errors) {
+          // Muestra el primer error devuelto por el backend
+          const firstError = Object.values(err.error.errors)[0] as string;
+          this.toastService.show(firstError, 'Cerrar');
+        } else {
+          this.toastService.show(
+            'Hubo un error al registrarse. Inténtelo de nuevo más tarde.',
+            'Cerrar',
+            3000,
+            'toast-error'
+          );
+        }
+        console.error('Error al registrarse:', err);
       },
     });
   }
@@ -96,16 +115,16 @@ export class LoginComponent implements OnInit {
   // Cambia la visibilidad de los formularios
   toggleForms(isLoginForm: boolean) {
     this.loginFormVisible = isLoginForm;
-  
+
     // Cambia el título de la página
     document.title = isLoginForm ? 'Iniciar sesión' : 'Crear cuenta';
-  
+
     // Ajusta las alturas dinámicamente
     const sectLogo = document.querySelector('.section-logo') as HTMLElement;
     const loginForm = document.querySelector('.section-login') as HTMLElement;
     const signupForm = document.querySelector('.section-signup') as HTMLElement;
     const greyline = document.querySelector('.greyline') as HTMLElement;
-  
+
     if (isLoginForm) {
       // loginForm.style.display = 'block';
       signupForm.style.display = 'none';
@@ -127,64 +146,18 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  togglePassword(field: 'showPassword' | 'showPassword2' | 'showPassword3'): void {
+  togglePassword(
+    field: 'showPassword' | 'showPassword2' | 'showPassword3'
+  ): void {
     this[field] = !this[field]; // Cambia el estado del campo correspondiente
-
-    // // Cambiar la imagen según el estado y el tema
-    // const isDarkMode = this.themeService.isDarkModeEnabled();
-    // const imageId = field === 'showPassword' ? 'image--hide' :
-    //                 field === 'showPassword2' ? 'image--hide2' :
-    //                 'image--hide3';
-    // const imageElement = document.getElementById(imageId) as HTMLImageElement;
-
-    // if (imageElement) {
-    //   imageElement.src = this[field]
-    //     ? (isDarkMode ? 'assets/images/passimg/hide3.png' : 'assets/images/passimg/hide2.png')
-    //     : (isDarkMode ? 'assets/images/passimg/show3.png' : 'assets/images/passimg/show2.png');
-    // }
   }
 
-  
+  isEmailValid(): boolean {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(this.email);
+  }
 
-  // login() {
-  //   this.authService.login(this.username, this.password).subscribe({
-  //     next: (token) => {
-  //       console.log('Login exitoso. Token:', token);
-  //     },
-  //     error: (err) => {
-  //       this.errorMessage = 'Error al iniciar sesión: ' + err.message;
-  //       console.error(err);
-  //     },
-  //   });
-  // }
-
-  // loginForm!: FormGroup;
-  // errorMessage = '';
-
-  // constructor(
-  //   private fb: FormBuilder,
-  //   private authService: AuthService,
-  //   private router: Router
-  // ) {
-  //   this.loginForm = this.fb.group({
-  //     email: ['', [Validators.required, Validators.email]],
-  //     password: ['', Validators.required],
-  //   });
-  // }
-
-  // onSubmit(): void {
-  //   const { email, password } = this.loginForm.value;
-  //   if (email && password) {
-  //     this.authService.login(email, password).subscribe({
-  //       next: (token) => {
-  //         console.log('Token recibido:', token);
-  //         this.router.navigate(['/dashboard']);
-  //       },
-  //       error: (error) => {
-  //         console.error(error);
-  //         this.errorMessage = 'Credenciales incorrectas. Intenta de nuevo.';
-  //       }
-  //     });
-  //   }
-  // }
+  goToForgotPassword(): void {
+    this.router.navigate(['/forgot-password']);
+  }
 }

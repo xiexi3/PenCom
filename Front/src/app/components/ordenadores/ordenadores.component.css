@@ -18,7 +18,7 @@ main {
 }
 
 .title-carousel {
-    padding: 1rem 0.2rem 1rem 0;
+    padding: 2rem 0.2rem 1rem 0;
     font-size: 2rem;
     color: var(--clr-dark);
 }
@@ -67,7 +67,8 @@ main {
 .search-select {
 	margin-right: 2rem;
 	font-size: 1rem;
-    width: 7.5%;
+    /* width: 7.5%; */
+    width: auto;
     height: 2.75rem;
 	padding: 0.75rem;
     margin: 0.25rem;
@@ -80,7 +81,8 @@ main {
 .search-filter {
 	margin-right: 2rem;
 	font-size: 1rem;
-    width: 10%;
+    /* width: 10%; */
+    width: auto;
     height: 27px;
 	padding: 0.75rem;
     margin: 0.25rem;

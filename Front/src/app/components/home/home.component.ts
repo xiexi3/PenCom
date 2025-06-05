@@ -1,8 +1,10 @@
 import { Component, OnInit, ElementRef, AfterViewInit, ViewChild, ViewChildren, QueryList } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule, ViewportScroller } from '@angular/common';
-import { ProductService } from '../../services/product.service';
+import { AuthService } from './../../services/auth.service';
 import { CartService } from '../../services/cart.service';
+import { ProductService } from '../../services/product.service';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-home',
@@ -11,6 +13,7 @@ import { CartService } from '../../services/cart.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
+
 export class HomeComponent implements AfterViewInit, OnInit {
   @ViewChildren('itemlist') itemlists!: QueryList<ElementRef>;
   @ViewChild('scroller') scroller!: ElementRef;
@@ -19,7 +22,13 @@ export class HomeComponent implements AfterViewInit, OnInit {
   ordenadores: any[] = [];
   maxScrollLefts: number[] = [];
 
-  constructor(private productService: ProductService, private viewportScroller: ViewportScroller, private cartService: CartService) {}
+  constructor(
+    private toastService: ToastService,
+    private router: Router,
+    private authService: AuthService,
+    private productService: ProductService, 
+    private viewportScroller: ViewportScroller, 
+    private cartService: CartService) {}
 
   ngOnInit(): void {
     this.viewportScroller.scrollToPosition([0, 0]); // Para que al cargar la página se vaya al inicio del scroll
@@ -83,8 +92,15 @@ export class HomeComponent implements AfterViewInit, OnInit {
   }
 
   addToCart(productId: number): void {
+
+    if (!this.authService.isAuthenticated()) {
+      this.toastService.show('Debes iniciar sesión para añadir productos al carrito.', 'Cerrar');
+      this.router.navigate(['/login']);
+      return;
+    }
+
     this.cartService.addToCart(productId).subscribe(() => {
-      alert('Producto añadido al carrito');
+      this.toastService.show('Producto añadido al carrito.', 'Cerrar');
     });
   }
 }

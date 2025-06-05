@@ -14,4 +14,5 @@ export const routes: Routes = [
   { path: 'producto/:id', loadComponent: () => import('./components/detalles/detalles.component').then(m => m.DetallesComponent) },
   { path: 'producto', loadComponent: () => import('./components/anadir-producto/anadir-producto.component').then(m => m.AnadirProductoComponent) },
   { path: 'change-password', loadComponent: () => import('./components/change-password/change-password.component').then(m => m.ChangePasswordComponent) },
+  { path: 'forgot-password', loadComponent: () => import('./components/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent) },
 ]; 

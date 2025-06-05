@@ -58,9 +58,14 @@
 				<div *ngIf="errorMessage" class="error-message">
 					{{ errorMessage }}
 				</div>
+
+				<p *ngIf="!isEmailValid() && emailInput.touched" class="error-message">
+					Por favor, introduce un correo válido.
+				</p>
+
 				<div class="container email-container">
 					<input id="input-email" type="email" placeholder="Email*" [(ngModel)]="email" name="email"
-						required />
+						required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" #emailInput="ngModel"/>
 					<label for="user">Email*</label>
 				</div>
 				<div class="container password-container">
@@ -69,7 +74,7 @@
 					<label for="pass">Contraseña*</label>
 
 					<div class="container--hide-show">
-						<button class="btn--hide-show" (click)="togglePassword('showPassword')">
+						<button class="btn--hide-show" type="button" (click)="togglePassword('showPassword')">
 							<div class="inner-container--hide-show">
 								<img id="image--toggle"
 									[src]="showPassword ? (themeService.isDarkModeEnabled() ? 'assets/images/passimg/hide3.png' : 'assets/images/passimg/hide2.png') : (themeService.isDarkModeEnabled() ? 'assets/images/passimg/show3.png' : 'assets/images/passimg/show2.png')"
@@ -77,9 +82,8 @@
 							</div>
 						</button>
 					</div>
-
 				</div>
-				<p class="forget"><a href="#">He olvidado mi contraseña</a></p>
+				<p class="forget"><a href="javascript:void(0)" (click)="goToForgotPassword()">He olvidado mi contraseña</a></p>
 				<button class="btn btn-login" type="submit">Iniciar sesión</button>
 				<div class="span-container">
 					<hr class="hr-line" />
@@ -95,8 +99,8 @@
 			<form (ngSubmit)="onSignup()">
 				<h2 class="section-title">Crear cuenta</h2>
 				<div class="container nombre-container">
-					<input id="input-name" type="text" placeholder="Nombre" [(ngModel)]="name" name="name" required />
-					<label for="username">Nombre</label>
+					<input id="input-name" type="text" placeholder="Nombre*" [(ngModel)]="name" name="name" required />
+					<label for="username">Nombre*</label>
 				</div>
 				<div class="container email-container">
 					<input id="input-email2" type="email" placeholder="Email*" [(ngModel)]="email" name="email"
@@ -109,7 +113,7 @@
 					<label for="pass">Contraseña*</label>
 
 					<div class="container--hide-show">
-						<button class="btn--hide-show" (click)="togglePassword('showPassword2')">
+						<button class="btn--hide-show" type="button" (click)="togglePassword('showPassword2')">
 							<div class="inner-container--hide-show">
 								<img id="image--toggle"
 									[src]="showPassword2 ? (themeService.isDarkModeEnabled() ? 'assets/images/passimg/hide3.png' : 'assets/images/passimg/hide2.png') : (themeService.isDarkModeEnabled() ? 'assets/images/passimg/show3.png' : 'assets/images/passimg/show2.png')"
@@ -125,7 +129,7 @@
 						<label for="input-password3">Repetir Contraseña*</label>
 
 						<div class="container--hide-show">
-							<button class="btn--hide-show" (click)="togglePassword('showPassword3')">
+							<button class="btn--hide-show" type="button" (click)="togglePassword('showPassword3')">
 								<div class="inner-container--hide-show">
 									<img id="image--toggle"
 										[src]="showPassword3 ? (themeService.isDarkModeEnabled() ? 'assets/images/passimg/hide3.png' : 'assets/images/passimg/hide2.png') : (themeService.isDarkModeEnabled() ? 'assets/images/passimg/show3.png' : 'assets/images/passimg/show2.png')"
@@ -136,12 +140,13 @@
 
 						<!-- Mensaje de error si las contraseñas no coinciden -->
 						<p *ngIf="passwordMismatch" class="error-message">Las contraseñas no coinciden.</p>
+						<!-- <p *ngIf="!isEmailValid() && emailInput.touched" class="error-message"> -->
 						<p *ngIf="emailInput.invalid && emailInput.touched" class="error-message">
 							Por favor, introduce un correo válido.
-						  </p>
+						</p>
 					</div>
-
 				</div>
+
 				<button class="btn btn-signup" type="submit">Crear Cuenta</button>
 				<div class="span-container">
 					<hr class="hr-line" />

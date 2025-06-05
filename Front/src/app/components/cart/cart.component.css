@@ -189,3 +189,30 @@ text-overflow: ellipsis;
 .card-actions .fa-minus {
     margin-right: 10px; /* Espaciado entre los botones de sumar/restar */
 }
+
+.btn {
+    cursor: pointer;
+    position: relative;
+    width: fit-content;
+    padding: 0.5rem;
+    margin-right: 0.5rem;
+    color: var(--clr-dark);
+    background: var(--clr-slate-dark);
+    border: var(--brd-trans-half);
+    border-radius: var(--brad-std);
+}
+
+.btn:hover {
+    color: var(--clr-light);
+    background: var(--clr-primary);
+}
+
+.btn:hover {
+	border: 1px solid transparent;
+}
+
+.btn:focus {
+	border: none;
+	outline: none;
+	box-shadow: var(--bsh-secondary);
+}

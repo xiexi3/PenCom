@@ -13,15 +13,6 @@
     background: #1F2937;
 }
 
-.nav__container {
-    /* display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    max-width: 1400px;
-    margin: 0 auto; */
-}
-
 .nav__logo {
     display: flex;
     align-items: center;
@@ -97,23 +88,6 @@
     opacity: 1;
     border-radius: 2rem;
 }
-
-.cesta {
-    position: relative;
-}
-
-/* .cesta::after {
-    content: attr(data-totalitems);
-    position: absolute;
-    top: -8px;
-    right: -8px;
-    background-color: hsl(193, 50%, 45%);
-    color: white;
-    border-radius: 50%;
-    padding: 2px 6px;
-    font-size: 0.8rem;
-    font-weight: bold;
-} */ 
 
 /* Theme Toggle */
 .toggle-container {
@@ -459,12 +433,6 @@
 
     .nav__list li:hover::after {
         width: 0%;
-    }
-
-    .nav__list__anchors.cesta:before {
-        content: attr(data-totalitems);
-        top: -12px;
-        right: -12px;
     }
 
     @keyframes xAxis {

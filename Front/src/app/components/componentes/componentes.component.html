@@ -38,7 +38,7 @@
 				</div>
 
 				<div class="itemlist">
-					<div *ngIf="productosFiltrados.length === 0">No se encontraron productos...</div>
+					<div *ngIf="productosFiltrados.length === 0">Cargando productos...</div>
 
 					<div *ngFor="let producto of productosFiltrados" class="card">
 						<img [src]="'/assets/images/componentes/' + producto.imagen_url" alt="{{ producto.nombre }}"
@@ -56,20 +56,13 @@
 						</div>
 						<div *ngIf="isAdmin" class="admin-actions">
 							<i (click)="editProduct(producto)" class="admin-btn" class="fas fa-edit"></i>
-							<!-- <br> -->
 							<i (click)="deleteProduct(producto.id)" class="admin-btn" class="fas fa-remove"></i>
 						</div>
-						
+
 					</div>
-						<button *ngIf="isAdmin" (click)="addProduct()" class="admin-btn add-btn">Añadir</button>
+					<button *ngIf="isAdmin" (click)="addProduct()" class="admin-btn add-btn">Añadir</button>
 
 				</div>
-
-				<!-- <div *ngIf="isAdmin" class="admin-actions">
-					<button (click)="addProduct()" class="admin-btn">Añadir</button>
-					<button (click)="editProduct(producto.id)" class="admin-btn">Editar</button>
-					<button (click)="deleteProduct(producto.id)" class="admin-btn">Eliminar</button>
-				</div> -->
 			</div>
 		</div>
 	</section>

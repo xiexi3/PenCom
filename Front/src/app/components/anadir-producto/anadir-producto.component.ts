@@ -1,4 +1,4 @@
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -21,7 +21,10 @@ export class AnadirProductoComponent {
   isEditing: boolean = false;
   
 
-  constructor(private router: Router, private route: ActivatedRoute, private fb: FormBuilder, private productService: ProductService) {
+  constructor(
+    private router: Router,
+    private fb: FormBuilder, 
+    private productService: ProductService) {
     this.productForm = this.fb.group({
       nombre: ['', [Validators.required, Validators.minLength(3)]],
       descripcion: ['', [Validators.required, Validators.minLength(10)]],
@@ -38,8 +41,6 @@ export class AnadirProductoComponent {
     const navigation = this.router.getCurrentNavigation();
     const state = navigation?.extras.state as NavigationState;
     const producto = state?.producto;
-
-    // console.log('Producto recibido:', producto);
 
     if (producto) {
       this.productId = producto.id; // Guarda el ID del producto

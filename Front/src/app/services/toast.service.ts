@@ -10,14 +10,14 @@ export class ToastService {
 	show(
     message: string,
     action: string = 'Cerrar',
-    duration: number = 3000,
-	horizontalPosition: 'start' | 'center' | 'end' = 'center',
-    verticalPosition: 'top' |'bottom' = 'top'
+    duration: number = 5000,
+    panelClass: string = ''
 	): void {
     this.snackBar.open(message, action, {
 		duration: duration,
-		horizontalPosition: horizontalPosition, // Posición horizontal
-		verticalPosition: verticalPosition, 
+		horizontalPosition: 'center', // Posición horizontal
+		verticalPosition: 'top',
+    panelClass: panelClass,
     });
 	}
 }

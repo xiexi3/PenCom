@@ -92,7 +92,7 @@
 		<div class="cart-total">
 			<h3 *ngIf="cartItems.length != 0">Precio Total: {{ getTotalPrice() | currency }}</h3>
 		</div>
-		<button class="clear-cart" (click)="clearCart()" *ngIf="cartItems.length > 0">Vaciar Carrito</button>
-		<button class="checkout-btn" (click)="checkout()" *ngIf="cartItems.length > 0">Realizar Compra</button>
+		<button class="btn clear-cart" (click)="clearCart()" *ngIf="cartItems.length > 0">Vaciar Carrito</button>
+		<button class="btn checkout-btn" (click)="checkout()" *ngIf="cartItems.length > 0">Realizar Compra</button>
 	</div>
 </main>
