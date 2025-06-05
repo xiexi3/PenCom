@@ -78,7 +78,7 @@
 			<div class="shipping-address">
 				<div class="address-display">
 					<p *ngIf="!editingAddress">
-						{{ user.shipping_address || 'Aun no tienes una dirección registrada.' }}
+						{{ user.shipping_address || 'Aun no tiene una dirección registrada.' }}
 					</p>
 
 					<!-- <div class="address-actions">
@@ -86,7 +86,7 @@
 						<button *ngIf="!editingAddress" (click)="addNewAddress()">Añadir Dirección</button>
 					</div> -->
 				</div>
-				<input *ngIf="editingAddress" [(ngModel)]="newAddress" placeholder="Ingresa tu nueva dirección" />
+				<input *ngIf="editingAddress" [(ngModel)]="newAddress" placeholder="Ingrese su nueva dirección" />
 				<div *ngIf="editingAddress" class="edit-actions">
 					<button (click)="updateShippingAddress(newAddress); editingAddress = false">Guardar</button>
 					<button (click)="editingAddress = false">Cancelar</button>
@@ -116,7 +116,7 @@
 
 		<!-- <div *ngIf="orders.length === 0 && !errorMessage" class="no-orders"> -->
 		<div *ngIf="orders.length === 0 && !loadingOrders && !errorMessage" class="no-orders">
-			No tienes pedidos en tu historial.
+			No tiene pedidos en su historial.
 		</div>
 		<div *ngFor="let order of orders" class="order-card">
 			<h4>Pedido: {{ order.order_number }}</h4>

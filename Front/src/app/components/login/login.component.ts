@@ -61,9 +61,9 @@ export class LoginComponent implements OnInit {
 
   onSignup() {
     // Implement your signup logic here
-    console.log('Name:', this.name);
-    console.log('Email:', this.email);
-    console.log('Password:', this.password);
+    // console.log('Name:', this.name);
+    // console.log('Email:', this.email);
+    // console.log('Password:', this.password);
 
     // Verifica si las contraseñas coinciden
     if (this.password !== this.passwordTwo) {
@@ -78,6 +78,11 @@ export class LoginComponent implements OnInit {
       next: (id) => {
         console.log('Registro exitoso. Id de usuario:', id);
         alert('Registro exitoso, ya puede iniciar sesión.'); // Mensaje de éxito
+        // Simula un clic en el botón de "Iniciar Sesión"
+      const loginButton = document.querySelector('.btn-login') as HTMLButtonElement;
+      if (loginButton) {
+        loginButton.click();
+      }
         // this.router.navigate(['/user-panel']);
       },
       error: (err) => {
