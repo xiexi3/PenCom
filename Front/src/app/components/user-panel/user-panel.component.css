@@ -111,7 +111,7 @@ main {
 }
 
 .btn:hover {
-    color: var(--clr-light);
+    /* color: var(--clr-light); */
     background: var(--clr-primary);
 }
 

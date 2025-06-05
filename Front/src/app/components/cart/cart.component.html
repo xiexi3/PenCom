@@ -79,20 +79,17 @@
 						<div class="remove-item">
 							<i (click)="removeItem(item.id)" class="fa fa-trash-o" aria-hidden="true"></i>
 						</div>
-						<!-- <button (click)="updateQuantity(item.id, item.quantity + 1)"><i class="fa fa-plus"
-								aria-hidden="true"></i></button> -->
-						<!-- <button (click)="updateQuantity(item.id, item.quantity - 1)" [disabled]="item.quantity <= 1"> <i
-								class="fa fa-minus" aria-hidden="true"></i></button> -->
-						<!-- <button (click)="removeItem(item.id)">Eliminar</button> -->
 					</div>
 				</div>
 
 			</div>
 		</div>
 		<div class="cart-total">
-			<h3 *ngIf="cartItems.length != 0">Precio Total: {{ getTotalPrice() | currency }}</h3>
+			<h3 class="total-price" *ngIf="cartItems.length != 0">Precio Total: {{ getTotalPrice() | currency }}</h3>
 		</div>
-		<button class="btn clear-cart" (click)="clearCart()" *ngIf="cartItems.length > 0">Vaciar Carrito</button>
-		<button class="btn checkout-btn" (click)="checkout()" *ngIf="cartItems.length > 0">Realizar Compra</button>
+		<div class="cart-actions">
+			<button class="btn clear-cart" (click)="clearCart()" *ngIf="cartItems.length > 0">Vaciar Carrito</button>
+			<button class="btn checkout-btn" (click)="checkout()" *ngIf="cartItems.length > 0">Realizar Compra</button>
+		</div>
 	</div>
 </main>

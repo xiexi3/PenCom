@@ -91,35 +91,24 @@ h2 {
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.actions button:hover {
-    background-color: var(--clr-primary-dark);
-    box-shadow: var(--bsh-primary);
-}
-
 /* Botón de cancelar */
 
 
 .actions .btn-save {
-  /* color: var(--clr-dark);
-  background-color: var(--clr-primary); */
   color: var(--clr-dark);
   background: var(--clr-slate-dark);
 }
 
 .actions .btn-save:hover {
-  /* color: var(--clr-light);
-  background-color: var(--clr-secondary); */
-  /* color: var(--clr-light); */
     background: var(--clr-primary);
 } 
 
 .actions .btn-cancel {
   color: var(--clr-dark);
-    background-color: var(--clr-slate);
+  background-color: var(--clr-slate);
 }
 
 .actions .btn-cancel:hover {
-  /* color: var(--clr-light); */
     background: var(--clr-secondary);
 }
 

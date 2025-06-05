@@ -88,7 +88,6 @@ export class ShippingAddressModalComponent implements OnInit {
   constructor(
     public themeService: ThemeService,
     private userService: UserService,
-    private cartService: CartService,
     public dialogRef: MatDialogRef<ShippingAddressModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { address: string }
   ) {}
