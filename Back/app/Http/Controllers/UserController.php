@@ -36,27 +36,27 @@ class UserController extends Controller
 	}
 
 	public function changePassword(Request $request)
-{
-    $request->validate([
-        'current_password' => 'required',
-        'new_password' => 'required|min:8',
-    ], 
-	[
-        'current_password.required' => 'La contraseña actual es obligatoria.',
-        'new_password.required' => 'La nueva contraseña es obligatoria.',
-        'new_password.min' => 'La nueva contraseña debe tener al menos 8 caracteres.',
-    ]);
+	{
+		$request->validate([
+			'current_password' => 'required',
+			'new_password' => 'required|min:8',
+		], 
+		[
+			'current_password.required' => 'La contraseña actual es obligatoria.',
+			'new_password.required' => 'La nueva contraseña es obligatoria.',
+			'new_password.min' => 'La nueva contraseña debe tener al menos 8 caracteres.',
+		]);
 
-    $user = auth()->user();
+		$user = auth()->user();
 
-    if (!Hash::check($request->current_password, $user->password)) {
-        return response()->json(['message' => 'La contraseña actual es incorrecta.'], 400);
-    }
+		if (!Hash::check($request->current_password, $user->password)) {
+			return response()->json(['message' => 'La contraseña actual es incorrecta.'], 400);
+		}
 
-    $user->password = Hash::make($request->new_password);
-    $user->save();
+		$user->password = Hash::make($request->new_password);
+		$user->save();
 
-    return response()->json(['message' => 'Contraseña actualizada correctamente.']);
-}
+		return response()->json(['message' => 'Contraseña actualizada correctamente.']);
+	}
 }
 

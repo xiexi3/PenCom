@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
@@ -13,6 +13,13 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     return !!localStorage.getItem('token'); // Devuelve true si hay un token
+  }
+
+  getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token'); // Asegúrate de guardar el token aquí después del login
+    return new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
   }
 
   login(email: string, password: string): Observable<string> {
@@ -33,46 +40,39 @@ export class AuthService {
       );
   }
 
-  signup(name: string, email: string, password: string): Observable<string> {
-    return this.http.post<{ data: { user: { id: string } } }>(`${this.apiUrl}/register`, { name, email, password })
-      .pipe(
-        map(response => {
-          const id = response.data.user.id;
+  // signup(name: string, email: string, password: string): Observable<string> {
+  //   return this.http.post<{ data: { user: { id: string } } }>(`${this.apiUrl}/register`, { name, email, password })
+  //     .pipe(
+  //       map(response => {
+  //         const id = response.data.user.id;
 
-          // Guardamos el token en el localStorage
-          localStorage.setItem('userId', id);
-          return id;
-        }),
-        catchError(error => {
-          return throwError(() => error);
-        })
-      );
+  //         // Guardamos el token en el localStorage
+  //         localStorage.setItem('userId', id);
+  //         return id;
+  //       }),
+  //       catchError(error => {
+  //         return throwError(() => error);
+  //       })
+  //     );
+  // }
+
+  signup(name: string, email: string, password: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register`, { name, email, password }).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError((error) => {
+        return throwError(() => error);
+      })
+    );
   }
 
-  // getUserRole(): string {
-  //   const token = localStorage.getItem('token');
-  //   if (!token) return '';
-  
-  //   const payload = JSON.parse(atob(token.split('.')[1])); // Decodifica el token JWT
-  //   return payload.role || ''; // Devuelve el rol del usuario
-  // }
+  sendRecoveryCode(email: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/regenerate/code`, { email });
+  }
 
-  // getUserRole(): string {
-  //   return localStorage.getItem('role') || ''; // Recupera el rol del usuario
-  // }
-
-  // getUserDetails(): Observable<any> {
-  //   return this.http.get(`${this.apiUrl}/user-details`); // Endpoint para obtener detalles del usuario
-  // }
-
-  getUserDetails(): Observable<any> {
-    const token = localStorage.getItem('token'); // Recupera el token del localStorage
-  
-    const headers = {
-      Authorization: `Bearer ${token}` // Agrega el encabezado Authorization
-    };
-  
-    return this.http.get(`${this.apiUrl}/user-details`, { headers });
+  recoverPassword(payload: { email: string; token: string; password: string; password_confirmation: string }): Observable<any> {
+    return this.http.post(`${this.apiUrl}/regenerate/password`, payload);
   }
 
 }

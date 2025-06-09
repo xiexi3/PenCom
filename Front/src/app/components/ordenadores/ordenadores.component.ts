@@ -6,6 +6,7 @@ import { AuthService } from './../../services/auth.service';
 import { CartService } from '../../services/cart.service';
 import { ProductService } from '../../services/product.service';
 import { ToastService } from '../../services/toast.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-ordenadores',
@@ -30,6 +31,7 @@ export class OrdenadoresComponent implements OnInit {
     private productService: ProductService, 
     private viewportScroller: ViewportScroller, 
     private authService: AuthService,
+    private userService: UserService,
     private cartService: CartService, 
     private toastService: ToastService,
   ) {}
@@ -39,7 +41,7 @@ export class OrdenadoresComponent implements OnInit {
 
     if (this.authService.isAuthenticated()) {
       
-      this.authService.getUserDetails().subscribe({
+      this.userService.getUserDetails().subscribe({
         next: (response) => {
           this.isAdmin = response.data.role === 'admin'; // Valida el rol directamente desde el backend
         },

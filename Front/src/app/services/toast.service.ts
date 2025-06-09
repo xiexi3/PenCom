@@ -7,17 +7,17 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class ToastService {
   constructor(private snackBar: MatSnackBar) {}
 
-	show(
+  show(
     message: string,
     action: string = 'Cerrar',
     duration: number = 3000,
     panelClass: string = ''
-	): void {
+  ): void {
     this.snackBar.open(message, action, {
-		duration: duration,
-		horizontalPosition: 'center', // Posición horizontal
-		verticalPosition: 'top',
-    panelClass: panelClass,
+      duration: duration,
+      horizontalPosition: 'center', // Posición horizontal
+      verticalPosition: 'top',
+      panelClass: panelClass,
     });
-	}
+  }
 }

@@ -77,7 +77,7 @@ export class ShippingAddressModalComponent implements OnInit {
         this.dialogRef.close(this.fullAddress); // Cierra el modal y devuelve la dirección actualizada
       },
       error: (err) => {
-        console.error('Error al actualizar la dirección de envío:', err);
+        // console.error('Error al actualizar la dirección de envío:', err);
         this.toastService.show('Hubo un error al actualizar la dirección de envío.');
       },
     });

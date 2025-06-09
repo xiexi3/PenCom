@@ -1,79 +1,47 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = 'http://localhost:8000/api/user'; // URL del endpoint para obtener los datos del usuario
-  private apiShippingUrl = 'http://localhost:8000/api/user/shipping-address';
+  private apiUrlUser = 'http://localhost:8000/api/user'; // URL base para los endpoints del usuario
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   getUser(): Observable<any> {
-    const token = localStorage.getItem('token'); // Recupera el token del localStorage
-    const headers = { Authorization: `Bearer ${token}` }; // Agrega el encabezado Authorization
+    return this.http.get(this.apiUrlUser, { headers: this.authService.getAuthHeaders() });
+  }
 
-    return this.http.get(this.apiUrl, { headers });
+  getUserDetails(): Observable<any> {
+    const token = localStorage.getItem('token'); // Recupera el token del localStorage
+  
+    const headers = {
+      Authorization: `Bearer ${token}` // Agrega el encabezado Authorization
+    };
+  
+    return this.http.get(`${this.apiUrlUser}/details`, { headers });
   }
 
   getUserShippingAddress(): Observable<any> {
-    const token = localStorage.getItem('token'); // Recupera el token del localStorage
-    const headers = { Authorization: `Bearer ${token}` }; // Agrega el encabezado Authorization
-
-    return this.http.get(this.apiShippingUrl, { headers });
+    return this.http.get(`${this.apiUrlUser}/shipping-address`, { headers: this.authService.getAuthHeaders() });
   }
 
   updateShippingAddress(address: string): Observable<any> {
-	const token = localStorage.getItem('token'); // Recupera el token del localStorage
-	const headers = { Authorization: `Bearer ${token}` }; // Agrega el encabezado Authorization
-  
-	return this.http.put('http://localhost:8000/api/user/shipping-address', { shipping_address: address }, { headers });
+    return this.http.put(`${this.apiUrlUser}/shipping-address`, { shipping_address: address }, { headers: this.authService.getAuthHeaders() });
   }
 
   updateProfilePicture(file: File): Observable<any> {
-	const formData = new FormData();
-	formData.append('profile_picture', file);
-  
-	const token = localStorage.getItem('token'); // Recupera el token del localStorage
-	const headers = { Authorization: `Bearer ${token}` }; // Agrega el encabezado Authorization
-  
-	return this.http.post('http://localhost:8000/api/user/profile-picture', formData, { headers });
+    const formData = new FormData();
+    formData.append('profile_picture', file);
+    return this.http.post(`${this.apiUrlUser}/profile-picture`, formData, { headers: this.authService.getAuthHeaders() });
   }
 
   changePassword(currentPassword: string, newPassword: string): Observable<any> {
     const data = { current_password: currentPassword, new_password: newPassword };
-    const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` };
-  
-    return this.http.post('http://localhost:8000/api/change-password', data, { headers });
+    return this.http.post(`${this.apiUrlUser}/change-password`, data, { headers: this.authService.getAuthHeaders() });
   }
 
-  // recoverPassword(token: string, newPassword: string): Observable<any> {
-  //   return this.http.post('/api/recover-password', { token, password: newPassword });
-  // }
-
-    /**
-   * Envía un código de recuperación al correo electrónico proporcionado.
-   * @param email Correo electrónico del usuario.
-   * @returns Observable con la respuesta del servidor.
-   */
-    sendRecoveryCode(email: string): Observable<any> {
-      return this.http.post('http://localhost:8000/api/regenerate/code', { email });
-    }
-  
-    /**
-     * Cambia la contraseña utilizando el token de recuperación.
-     * @param token Token de recuperación enviado al correo.
-     * @param newPassword Nueva contraseña del usuario.
-     * @returns Observable con la respuesta del servidor.
-     */
-    // recoverPassword(token: string, newPassword: string): Observable<any> {
-    //   return this.http.post('http://localhost:8000/api/regenerate/password', { token, password: newPassword });
-    // }
-
-    recoverPassword(payload: { email: string; token: string; password: string; password_confirmation: string }): Observable<any> {
-      return this.http.post('http://localhost:8000/api/regenerate/password', payload);
-    }
-  
 }

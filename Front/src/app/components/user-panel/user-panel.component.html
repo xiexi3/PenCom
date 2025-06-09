@@ -19,12 +19,6 @@
 		<div class="user-info">
 			<h2>Bienvenido, {{ user.name }}</h2>
 			<p>Email: {{ user.email }}</p>
-
-			<!-- <h3>
-				Dirección de envío
-				<i *ngIf="!editingAddress" (click)="editingAddress = true" class="fas fa-edit"></i>
-			</h3> -->
-
 			<h3>
 				Dirección de envío
 				<i class="fas fa-edit" (click)="openAddressModal()"></i>
@@ -42,16 +36,6 @@
 					<button class="btn btn-address" (click)="editingAddress = false">Cancelar</button>
 				</div>
 			</div>
-			<!-- <div class="shipping-address">
-				<div class="address-display">
-					<p>
-						{{ user.shipping_address || 'Aún no tiene una dirección registrada.' }}
-					</p>
-				</div>
-				<div class="address-actions">
-					<button class="btn btn-address" (click)="openAddressModal()">Editar Dirección</button>
-				</div>
-			</div> -->
 			<a routerLink="/change-password" class="btn change-password">Cambiar Contraseña</a>
 			<br><br>
 			<button class="btn" (click)="logout()">Cerrar Sesión</button>
@@ -80,7 +64,6 @@
 		<div *ngFor="let order of orders" class="order-card">
 			<h4>Pedido: {{ order.order_number }}</h4>
 			<p> <strong>Fecha: </strong> {{ order.created_at | date }}</p>
-			<!-- <p>Total: {{ order.total_amount | currency }}</p> -->
 			<p><strong>Dirección: </strong> {{ order.address }}</p>
 			<h4>Productos: </h4>
 			<ul>
@@ -89,7 +72,6 @@
 				</li>
 			</ul>
 			<strong>Total: {{ order.total_amount | currency }}</strong>
-			<!-- <p>Estado: {{ order.status_history.length > 0 ? order.status_history[0].status : order.status }}</p> -->
 		</div>
 	</div>
 </main>

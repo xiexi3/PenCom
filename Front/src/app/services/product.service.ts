@@ -48,17 +48,8 @@ export class ProductService {
   }
 
   // Fetch de los productos por id
-  getProductoById(id: number): Observable<Producto> {
+  getProductById(id: number): Observable<Producto> {
     return this.http.get<Producto>(`${this.apiUrl}/${id}`);
-  }
-
-  getProductById(productId: number): Observable<Producto> {
-    return this.http.get<Producto>(`${this.apiUrl}/${productId}`).pipe(
-      catchError((error) => {
-        console.error('Error al obtener el producto:', error);
-        return throwError(() => error); // Propaga el error al componente
-      })
-    );
   }
 
   addProduct(product: any, headers: any): Observable<any> {

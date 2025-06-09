@@ -14,7 +14,7 @@ import { ThemeService } from '../../services/theme.service';
   styleUrl: './cuenta.component.css',
 })
 
-export class LoginComponent implements OnInit {
+export class CuentaComponent implements OnInit {
   loginFormVisible: boolean = true;
   name: string = '';
   email: string = '';
@@ -82,8 +82,8 @@ export class LoginComponent implements OnInit {
 
     // Add authentication logic and navigate to the next page upon successful signup
     this.authService.signup(this.name, this.email, this.password).subscribe({
-      next: (id) => {
-        console.log('Registro exitoso. Id de usuario:', id);
+      next: () => {
+        // console.log('Registro exitoso. Id de usuario:', id);
 
         this.toastService.show('Registro exitoso, ya puede iniciar sesión.');
 
@@ -102,7 +102,8 @@ export class LoginComponent implements OnInit {
         } else {
           this.toastService.show('Hubo un error al registrarse. Inténtelo de nuevo más tarde.');
         }
-        console.error('Error al registrarse:', err);
+          this.toastService.show('Error al registrarse.');
+        // console.error('Error al registrarse:', err);
       },
     });
   }

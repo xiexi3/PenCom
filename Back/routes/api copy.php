@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,8 +24,13 @@ Route::post('/cuenta', [AuthController::class, 'login']);
 Route::post('/regenerate/code', [AuthController::class, 'regenerateCode']);
 Route::post('/regenerate/password', [AuthController::class, 'regeneratePassword']);
 
+// esto aqui de mientras sino no funca sin autorizacion
 Route::get('/productos', [ProductoController::class, 'index']);
 Route::get('/productos/{id}', [ProductoController::class, 'show']);
+
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout']);
@@ -49,4 +55,14 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/user/profile-picture', [AuthController::class, 'updateProfilePicture']);
     Route::get('/user/shipping-address', [AuthController::class, 'getShippingAddress']);
     Route::post('/user/change-password', [AuthController::class, 'changePassword']);
+
+    //
 });
+
+// Route::middleware(['auth:sanctum'])->get('/user-details', [AuthController::class, 'userDetails']);
+
+// Route::middleware(['auth:sanctum', 'admin'])->group(function () {
+//     Route::post('/productos', [ProductoController::class, 'store']);
+//     Route::put('/productos/{id}', [ProductoController::class, 'update']);
+//     Route::delete('/productos/{id}', [ProductoController::class, 'destroy']);
+// });

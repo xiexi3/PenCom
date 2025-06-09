@@ -43,6 +43,45 @@ class AuthController extends Controller
         return response()->json(['data' => ['user'=>$user]]);
     }
 
+    // public function login(Request $request)
+    // {
+    //     //validaciones de campos que viajan en la request
+    //     $request->validate([
+    //         'email' => 'required|string',
+    //         'password' => 'required|string'
+    //     ]);
+
+    //     //en caso de cumplir las validaciones, se comprueban las credenciales
+    //     if (!Auth::attempt($request->only('email', 'password'))) {
+    //         return response()->json(['message' => 'Credenciales incorrectas'], 401);
+    //     }
+
+    //     //en caso de credenciales correctas, se recupera la información del usuario
+    //     $user = User::where('email', $request['email'])->firstOrFail();
+
+    //     //se crea y almacena el token de autenticación
+    //     $token = $user->createToken('auth_token')->plainTextToken;
+
+    //     //se devuelve respuesta con los datos del usuario logado 
+    //     // return response()->json(['data'=> [
+    //     //     'accessToken' => $token,
+    //     //     'toke_type' => 'Bearer',
+    //     //     'user' => $user]
+    //     // ]);
+    //     return response()->json([
+    //         'data' => [
+    //             'accessToken' => $token,
+    //             'token_type' => 'Bearer',
+    //             'user' => [
+    //                 'id' => $user->id,
+    //                 'name' => $user->name,
+    //                 'email' => $user->email,
+    //                 'role' => $user->role // Incluye el rol del usuario
+    //             ]
+    //         ]
+    //     ]);
+    // }
+
     public function login(Request $request)
     {
         $request->validate([
@@ -82,6 +121,17 @@ class AuthController extends Controller
                     'email' => $user->email,
                     'role' => $user->role // Incluye el rol del usuario
                 ]
+            ]
+        ]);
+    }
+
+    public function userDetails(Request $request) {
+        return response()->json([
+            'data' => [
+                'id' => $request->user()->id,
+                'name' => $request->user()->name,
+                'email' => $request->user()->email,
+                'role' => $request->user()->role, // Devuelve el rol del usuario
             ]
         ]);
     }
@@ -154,29 +204,26 @@ class AuthController extends Controller
         return ['message' => 'Contraseña modificada correctamente'];
     }
 
+    // public function user()
+    // {
+    //     return response()->json(['data'=>['user' => auth()->user()]]);
+    // }
+
+    // public function user() {
+    //     return response()->json(auth()->user());
+    // }
+
     public function user()
-    {
-        $user = auth()->user();
+{
+    $user = auth()->user();
 
-        return response()->json([
-            'name' => $user->name,
-            'email' => $user->email,
-            'shipping_address' => $user->shipping_address,
-            'profile_picture' => $user->profile_picture ? url('storage/profile_pictures/' . $user->profile_picture) : null,
-        ]);
-    }
-
-    public function userDetails(Request $request) {
-        return response()->json([
-            'data' => [
-                'id' => $request->user()->id,
-                'name' => $request->user()->name,
-                'email' => $request->user()->email,
-                'shipping_address' => $request->user()->shipping_address,
-                'role' => $request->user()->role, // Devuelve el rol del usuario
-            ]
-        ]);
-    }
+    return response()->json([
+        'name' => $user->name,
+        'email' => $user->email,
+        'shipping_address' => $user->shipping_address,
+        'profile_picture' => $user->profile_picture ? url('storage/profile_pictures/' . $user->profile_picture) : null,
+    ]);
+}
 
     public function updateShippingAddress(Request $request)
 	{
@@ -193,6 +240,35 @@ class AuthController extends Controller
 			'shipping_address' => $user->shipping_address,
 		]);
 	}
+
+    // public function updateProfilePicture(Request $request)
+    // {
+    //     $request->validate([
+    //         'profile_picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+    //     ]);
+
+    //     $user = auth()->user();
+
+    //     // Subir la imagen
+    //     if ($request->hasFile('profile_picture')) {
+    //         $file = $request->file('profile_picture');
+    //         $filename = time() . '_' . $file->getClientOriginalName();
+    //         $file->storeAs('public/profile_pictures', $filename);
+
+    //         // Eliminar la imagen anterior si existe
+    //         if ($user->profile_picture) {
+    //             \Storage::delete('public/profile_pictures/' . $user->profile_picture);
+    //         }
+
+    //         $user->profile_picture = $filename;
+    //         $user->save();
+    //     }
+
+    //     return response()->json([
+    //         'message' => 'Foto de perfil actualizada correctamente.',
+    //         'profile_picture' => $user->profile_picture,
+    //     ]);
+    // }
 
     public function updateProfilePicture(Request $request)
     {
@@ -223,36 +299,4 @@ class AuthController extends Controller
         ]);
     }
     
-    public function getShippingAddress()
-	{
-		$user = auth()->user();
-
-		return response()->json([
-			'shipping_address' => $user->shipping_address,
-		]);
-	}
-
-	public function changePassword(Request $request)
-	{
-		$request->validate([
-			'current_password' => 'required',
-			'new_password' => 'required|min:8',
-		], 
-		[
-			'current_password.required' => 'La contraseña actual es obligatoria.',
-			'new_password.required' => 'La nueva contraseña es obligatoria.',
-			'new_password.min' => 'La nueva contraseña debe tener al menos 8 caracteres.',
-		]);
-
-		$user = auth()->user();
-
-		if (!Hash::check($request->current_password, $user->password)) {
-			return response()->json(['message' => 'La contraseña actual es incorrecta.'], 400);
-		}
-
-		$user->password = Hash::make($request->new_password);
-		$user->save();
-
-		return response()->json(['message' => 'Contraseña actualizada correctamente.']);
-	}
 }

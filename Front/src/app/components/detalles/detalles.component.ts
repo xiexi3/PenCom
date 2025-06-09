@@ -5,6 +5,7 @@ import { CommonModule, ViewportScroller } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { CartService } from '../../services/cart.service';
 import { ToastService } from '../../services/toast.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-detalles',
@@ -21,6 +22,7 @@ export class DetallesComponent implements OnInit {
   constructor(
     private router: Router,
     private authService: AuthService,
+    private userService: UserService,
     private cartService: CartService,
     private toastService: ToastService,
     private viewportScroller: ViewportScroller,
@@ -32,7 +34,7 @@ export class DetallesComponent implements OnInit {
     this.viewportScroller.scrollToPosition([0, 0]); // Para que al cargar la página se vaya al inicio del scroll
     
     if (this.authService.isAuthenticated()) {
-      this.authService.getUserDetails().subscribe({
+      this.userService.getUserDetails().subscribe({
         next: (response) => {
           this.isAdmin = response.data.role === 'admin'; // Valida el rol directamente desde el backend
         },
@@ -47,12 +49,12 @@ export class DetallesComponent implements OnInit {
     this.id = +this.route.snapshot.paramMap.get('id')!;
 
     // Llamar al servicio para obtener el producto por ID
-    this.productService.getProductoById(this.id).subscribe(
+    this.productService.getProductById(this.id).subscribe(
       (data) => {
         this.producto = data;
       },
       (error) => {
-        console.error('Hubo un error al obtener el producto', error);
+        // console.error('Hubo un error al obtener el producto', error);
       }
     );
   }
@@ -104,7 +106,7 @@ export class DetallesComponent implements OnInit {
           this.router.navigate(['/home']); // Redirige al usuario al home después de eliminar
         },
         error: (err) => {
-          console.error('Error al eliminar el producto:', err);
+          // console.error('Error al eliminar el producto:', err);
           this.toastService.show('Hubo un error al eliminar el producto.');
         },
       });

@@ -6,6 +6,7 @@ import { AuthService } from './../../services/auth.service';
 import { CartService } from '../../services/cart.service';
 import { ProductService } from '../../services/product.service';
 import { ToastService } from '../../services/toast.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-componentes',
@@ -30,6 +31,7 @@ export class ComponentesComponent implements OnInit {
     private productService: ProductService, 
     private viewportScroller: ViewportScroller, 
     private authService: AuthService,
+    private userService: UserService,
     private cartService: CartService, 
     private toastService: ToastService ,
   ) {}
@@ -38,7 +40,7 @@ export class ComponentesComponent implements OnInit {
     this.viewportScroller.scrollToPosition([0, 0]); // Para que al cargar la página se vaya al inicio del scroll
 
     if (this.authService.isAuthenticated()) {
-      this.authService.getUserDetails().subscribe({
+      this.userService.getUserDetails().subscribe({
         next: (response) => {
           this.isAdmin = response.data.role === 'admin'; // Valida el rol directamente desde el backend
         },
@@ -119,7 +121,7 @@ export class ComponentesComponent implements OnInit {
           this.productosFiltrados = this.productosFiltrados.filter((producto) => producto.id !== productId);
         },
         error: (err) => {
-          console.error('Error al eliminar el producto:', err);
+          // console.error('Error al eliminar el producto:', err);
           this.toastService.show('Hubo un error al eliminar el producto.');
         }
       });
