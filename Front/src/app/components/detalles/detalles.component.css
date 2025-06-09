@@ -58,6 +58,27 @@
     background-color: var(--clr-light);
     border: var(--brd-trans-half);
     border-radius: var(--brad-std);
+
+    overflow: hidden; /* Evita que el contenido se salga */
+}
+
+.card p {
+    margin: 0.5rem 0;
+    word-wrap: break-word; /* Permite que las palabras largas se dividan */
+}
+
+.card img {
+    width: 80%; /* Reduce el ancho de la imagen al 80% del contenedor */
+    height: auto; /* Mantiene la proporción de la imagen */
+    margin: 0 auto; /* Centra la imagen horizontalmente */
+    object-fit: contain; /* Ajusta la imagen dentro del espacio disponible */
+    border-radius: var(--brad-std); /* Aplica bordes redondeados si es necesario */
+}
+
+.card .descripcion {
+  max-height: 150px; /* Limita la altura máxima de la descripción */
+  overflow-y: auto; /* Agrega scroll vertical si el texto excede la altura */
+  text-align: justify; /* Justifica el texto para mejor legibilidad */
 }
 
 .card:hover {
@@ -114,7 +135,7 @@ text-overflow: ellipsis;
     font-weight: 700;
     color: var(--clr-dark);
 
-    opacity: 0;
+    opacity: 1;
     background: var(--clr-slate-dark);
     border: var(--brd-trans-half);
     border-radius: var(--brad-std);
@@ -130,32 +151,6 @@ text-overflow: ellipsis;
     height:24px;
 }
 
-.add-to-cart-btn:hover .cart-item:before {
-    content:'1';
-
-    display:block;
-
-    width:24px;
-    height:24px;
-
-    font-size:1rem;
-    font-weight:600;
-    line-height:24px;
-    color:var(--clr-light);
-    text-align:center;
-
-    background:var(--clr-primary);
-    border-radius:1rem;
-}
-
-.add-to-cart-btn.sendtocart .cart-item {
-    display: block;
-    animation: yAxis 1s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-
-.add-to-cart-btn.sendtocart .cart-item:before {
-    animation: xAxis 1s cubic-bezier(0.075, 0.82, 0.165, 1);
-}
 
 .card:hover .add-to-cart-btn {
     opacity: 1;
@@ -172,6 +167,24 @@ text-overflow: ellipsis;
 
 .card:hover .add-to-cart-btn:focus {
     box-shadow: var(--bsh-secondary );
+}
+
+.admin-actions {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.25rem;
+}
+
+.fa-remove{
+    width: 0.9rem;
+    height: 0.9rem;
+}
+
+.fa-edit:hover, .fa-remove:hover {
+    color: var(--clr-primary);
 }
 /* #endregion */
 
@@ -192,6 +205,7 @@ text-overflow: ellipsis;
         height: auto; /* Ajusta la altura automáticamente */
         font-size: 1rem; /* Reduce el tamaño de fuente */
         padding: 1rem; /* Ajusta el padding */
+        margin: 2rem auto;
     }
 
 
@@ -261,8 +275,7 @@ text-overflow: ellipsis;
         font-size: 1rem; /* Ajusta el tamaño de fuente */
     }
 
-    .add-to-cart-btn {
-        width: 100%; /* Asegura que el botón ocupe todo el ancho disponible */
+    .add-to-cart-btn { /* Asegura que el botón ocupe todo el ancho disponible */
         font-size: 0.9rem; /* Reduce el tamaño de fuente */
         padding: 0.5rem; /* Ajusta el padding */
     }
@@ -348,4 +361,5 @@ text-overflow: ellipsis;
         font-size: 0.7rem; /* Reduce el tamaño de fuente */
         padding: 0.3rem; /* Ajusta el padding */
     }
+    
 }

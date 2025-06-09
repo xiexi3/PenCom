@@ -87,6 +87,7 @@ export class UserPanelComponent implements OnInit {
   logout(): void {
     localStorage.removeItem('token'); // Elimina el token de sesión
     window.location.href = '/'; // Redirige al apartado de cuenta
+    this.toastService.show('Has cerrado sesión correctamente.'); // Muestra un mensaje de éxito
   }
 
   // constructor(private router: Router) {}

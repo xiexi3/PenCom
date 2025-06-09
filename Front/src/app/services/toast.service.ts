@@ -10,7 +10,7 @@ export class ToastService {
 	show(
     message: string,
     action: string = 'Cerrar',
-    duration: number = 5000,
+    duration: number = 3000,
     panelClass: string = ''
 	): void {
     this.snackBar.open(message, action, {

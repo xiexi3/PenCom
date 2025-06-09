@@ -154,47 +154,6 @@
 }
 
 /* Responsive Design */
-/* @media (max-width: 768px) {
-    .nav__hamburger {
-        display: block;
-    }
-
-    .nav__list {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background-color: #ffffff;
-        flex-direction: column;
-        padding: 1rem 0;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .nav__list.active {
-        display: flex;
-    }
-
-    .nav__list li {
-        width: 100%;
-        text-align: center;
-    }
-
-    .nav__list__anchors {
-        display: block;
-        padding: 1rem 0;
-    }
-
-    .nav__list__anchors::after {
-        display: none;
-    }
-
-    .socials__list {
-        display: none;
-    }
-} */
-
-
 /* #region Media Queries */
 @media (min-width: 1900px) {
 

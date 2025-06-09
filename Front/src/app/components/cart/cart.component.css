@@ -29,7 +29,6 @@ h2 {
 	height: 200px;
 }
 
-/* #region Products */
 .card {
     display: flex;
     flex-direction: column;
@@ -58,6 +57,18 @@ h2 {
     border: 1px solid transparent;
     outline: none;
     box-shadow: var(--bsh-secondary);   
+}
+
+.card img {
+    width: 75%; /* Asegura que la imagen ocupe todo el ancho del contenedor */
+    height: auto; /* Mantiene la proporción de la imagen */
+    object-fit: cover; /* Ajusta la imagen para que se recorte si es necesario */
+    border-radius: var(--brad-std); /* Aplica bordes redondeados si es necesario */
+    transition: transform 0.3s ease; /* Transición para efectos hover */
+}
+
+.card img:hover {
+    transform: scale(1.05); /* Aumenta ligeramente el tamaño de la imagen al pasar el mouse */
 }
 
 .card__title {
@@ -107,47 +118,6 @@ text-overflow: ellipsis;
     border-radius: var(--brad-std);
 }
 
-.cart-item {
-    position:absolute;
-    /* z-index: 1; */
-    top: -10px;
-    right: -10px;
-
-    width:24px;
-    height:24px;
-}
-
-.add-to-cart-btn:hover .cart-item:before {
-    content:'1';
-
-    display:block;
-
-    width:24px;
-    height:24px;
-
-    font-size:1rem;
-    font-weight:600;
-    line-height:24px;
-    color:var(--clr-light);
-    text-align:center;
-
-    background:var(--clr-primary);
-    border-radius:1rem;
-}
-
-.add-to-cart-btn.sendtocart .cart-item {
-    display: block;
-    animation: yAxis 1s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-
-.add-to-cart-btn.sendtocart .cart-item:before {
-    animation: xAxis 1s cubic-bezier(0.075, 0.82, 0.165, 1);
-}
-
-.card:hover .add-to-cart-btn {
-    opacity: 1;
-}
-
 .card:hover .add-to-cart-btn:hover,
 .card:hover .add-to-cart-btn:focus {
     border: 1px solid transparent;
@@ -160,7 +130,6 @@ text-overflow: ellipsis;
 .card:hover .add-to-cart-btn:focus {
     box-shadow: var(--bsh-secondary );
 }
-/* #endregion */
 
 
 
@@ -203,7 +172,6 @@ text-overflow: ellipsis;
 }
 
 .btn:hover {
-    /* color: var(--clr-light); */
     background: var(--clr-primary);
     border: 1px solid transparent;
 }
@@ -334,16 +302,3 @@ text-overflow: ellipsis;
     }
 }
 
-/* Estilo para las imágenes dentro de las tarjetas */
-.card img {
-    width: 75%; /* Asegura que la imagen ocupe todo el ancho del contenedor */
-    height: auto; /* Mantiene la proporción de la imagen */
-    object-fit: cover; /* Ajusta la imagen para que se recorte si es necesario */
-    border-radius: var(--brad-std); /* Aplica bordes redondeados si es necesario */
-    transition: transform 0.3s ease; /* Transición para efectos hover */
-}
-
-/* Efecto hover para las imágenes */
-.card img:hover {
-    transform: scale(1.05); /* Aumenta ligeramente el tamaño de la imagen al pasar el mouse */
-}

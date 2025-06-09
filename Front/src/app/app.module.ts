@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { routes } from './app.routes';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './services/auth.service';
+// import { NotFoundComponent } from './components/not-found/not-found.component';
 // import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 // import { ChangePasswordComponent } from './components/change-password/change-password.component';
 // import { AnadirProductoComponent } from './components/anadir-producto/anadir-producto.component';

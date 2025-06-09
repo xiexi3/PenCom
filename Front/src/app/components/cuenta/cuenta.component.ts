@@ -1,4 +1,4 @@
-import { ToastService } from './../../services/toast.service';
+import { ToastService } from '../../services/toast.service';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, ViewportScroller } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -7,11 +7,11 @@ import { AuthService } from '../../services/auth.service';
 import { ThemeService } from '../../services/theme.service';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-cuenta',
   standalone: true,
   imports: [RouterModule, CommonModule, ReactiveFormsModule, FormsModule],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css',
+  templateUrl: './cuenta.component.html',
+  styleUrl: './cuenta.component.css',
 })
 
 export class LoginComponent implements OnInit {
@@ -49,20 +49,20 @@ export class LoginComponent implements OnInit {
 
   onLogin() {
     this.authService.login(this.email, this.password).subscribe({
-      next: (token) => {
+      next: () => {
         // console.log('Login exitoso. Token:', token);
-        this.toastService.show('Inicio de sesion exitoso.', 'Cerrar');
+        this.toastService.show('Inicio de sesion exitoso.');
         this.router.navigate(['/user-panel']);
       },
       error: (err) => {
         // console.error(err);
         if (err.status === 404 && err.error?.error === 'El correo no existe.') {
-          this.toastService.show('El correo ingresado no está registrado.', 'Cerrar');
+          this.toastService.show('El correo ingresado no está registrado.');
         } else if (err.status === 401) {
-          this.toastService.show('La contraseña es incorrecta.', 'Cerrar');
+          this.toastService.show('La contraseña es incorrecta.');
         } else if (err.error?.message) {
           // Si el backend devuelve un mensaje genérico
-          this.toastService.show(err.error.message, 'Cerrar');
+          this.toastService.show(err.error.message);
         } else {
           // Mensaje genérico para otros errores
           this.toastService.show('Hubo un error al iniciar sesión. Inténtelo de nuevo más tarde.');
@@ -85,7 +85,7 @@ export class LoginComponent implements OnInit {
       next: (id) => {
         console.log('Registro exitoso. Id de usuario:', id);
 
-        this.toastService.show('Registro exitoso, ya puede iniciar sesión.', 'Cerrar');
+        this.toastService.show('Registro exitoso, ya puede iniciar sesión.');
 
         // Simula un clic en el botón de "Iniciar Sesión"
         const loginButton = document.querySelector('.btn-login') as HTMLButtonElement;
@@ -98,21 +98,16 @@ export class LoginComponent implements OnInit {
         if (err.error?.errors) {
           // Muestra el primer error devuelto por el backend
           const firstError = Object.values(err.error.errors)[0] as string;
-          this.toastService.show(firstError, 'Cerrar');
+          this.toastService.show(firstError);
         } else {
-          this.toastService.show(
-            'Hubo un error al registrarse. Inténtelo de nuevo más tarde.',
-            'Cerrar',
-            3000,
-            'toast-error'
-          );
+          this.toastService.show('Hubo un error al registrarse. Inténtelo de nuevo más tarde.');
         }
         console.error('Error al registrarse:', err);
       },
     });
   }
 
-  // Cambia la visibilidad de los formularios
+  // Alterna la visibilidad de los formularios
   toggleForms(isLoginForm: boolean) {
     this.loginFormVisible = isLoginForm;
 

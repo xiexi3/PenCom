@@ -317,43 +317,6 @@ main {
     border-radius: var(--brad-std);
 }
 
-.cart-item {
-    position:absolute;
-    /* z-index: 1; */
-    top: -10px;
-    right: -10px;
-
-    width:24px;
-    height:24px;
-}
-
-.add-to-cart-btn:hover .cart-item:before {
-    content:'1';
-
-    display:block;
-
-    width:24px;
-    height:24px;
-
-    font-size:1rem;
-    font-weight:600;
-    line-height:24px;
-    color: var(--clr-dark);
-    text-align:center;
-
-    background:var(--clr-primary);
-    border-radius:1rem;
-}
-
-.add-to-cart-btn.sendtocart .cart-item {
-    display: block;
-    animation: yAxis 1s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-
-.add-to-cart-btn.sendtocart .cart-item:before {
-    animation: xAxis 1s cubic-bezier(0.075, 0.82, 0.165, 1);
-}
-
 .card:hover .add-to-cart-btn {
     opacity: 1;
 }

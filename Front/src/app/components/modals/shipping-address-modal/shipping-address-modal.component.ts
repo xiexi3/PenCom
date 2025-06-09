@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CartService } from '../../../services/cart.service';
 import { ThemeService } from '../../../services/theme.service';
+import { ToastService } from '../../../services/toast.service';
 
 @Component({
   selector: 'app-shipping-address-modal',
@@ -13,70 +14,6 @@ import { ThemeService } from '../../../services/theme.service';
   templateUrl: './shipping-address-modal.component.html',
   styleUrls: ['./shipping-address-modal.component.css'],
 })
-// export class ShippingAddressModalComponent implements OnInit {
-//   address: string = '';
-//   city: string = '';
-//   postalCode: string = '';
-//   fullAddress: string = '';
-
-
-//   constructor(
-//     private cartService: CartService,
-//     public dialogRef: MatDialogRef<ShippingAddressModalComponent>,
-//     @Inject(MAT_DIALOG_DATA) public data: { address: string }
-//   ) {}
-
-//   ngOnInit(): void {
-//     this.getUserShippingAddress(); // Obtiene la dirección al inicializar el modal
-//   }
-
-//   onCancel(): void {
-//     this.dialogRef.close();
-//   }
-
-//   // onConfirm(): void {
-//   //   this.dialogRef.close(this.data.address);
-//   // }
-
-//   onConfirm(): void {
-//     if (!this.address || this.address.trim() === '') {
-//       alert('La dirección de envío no puede estar vacía.');
-//       return;
-//     }
-  
-//     this.dialogRef.close(this.address); // Devuelve la dirección actualizada al componente padre
-//   }
-
-//   saveAddress(): void {
-//     if (!this.address || !this.city || !this.postalCode) {
-//       alert('Por favor, completa todos los campos.');
-//       return;
-//     }
-
-//     this.fullAddress = `${this.address}, ${this.city}, ${this.postalCode}`;
-//     console.log('Dirección completa:', this.fullAddress);
-
-//     // Aquí puedes enviar la dirección completa al backend o almacenarla en el estado de la aplicación.
-//     this.dialogRef.close(this.address);
-//   }
-
-//   getUserShippingAddress(): void {
-//     this.cartService.getUserShippingAddress().subscribe({
-//       next: (response) => {
-//         this.address = response.shipping_address || ''; // Asigna la dirección obtenida
-//       },
-//       error: (err) => {
-//         console.error('Error al obtener la dirección de envío:', err);
-//         alert('Hubo un error al obtener la dirección de envío.');
-//       },
-//     });
-//   }
-
-//   closeModal(): void {
-//     // Lógica para cerrar el modal (puedes usar un servicio o cambiar una variable de estado).
-//     console.log('Modal cerrado');
-//   }
-// }
 
 export class ShippingAddressModalComponent implements OnInit {
   address: string = ''; // Dirección completa actual
@@ -87,6 +24,7 @@ export class ShippingAddressModalComponent implements OnInit {
   loadingAddress: boolean = true;
 
   constructor(
+    private toastService: ToastService,
     public themeService: ThemeService,
     private userService: UserService,
     public dialogRef: MatDialogRef<ShippingAddressModalComponent>,
@@ -113,8 +51,8 @@ export class ShippingAddressModalComponent implements OnInit {
         this.loadingAddress = false;
       },
       error: (err) => {
-        console.error('Error al obtener la dirección de envío:', err);
-        alert('Hubo un error al obtener la dirección de envío.');
+        // console.error('Error al obtener la dirección de envío:', err);
+        this.toastService.show('Error al obtener la dirección de envío.');
         this.loadingAddress = false;
       },
     });
@@ -125,22 +63,22 @@ export class ShippingAddressModalComponent implements OnInit {
    */
   saveAddress(): void {
     if (!this.address || !this.city || !this.postalCode) {
-      alert('Por favor, completa todos los campos.');
+      this.toastService.show('Por favor, completa todos los campos.');
       return;
     }
 
     this.fullAddress = `${this.address}, ${this.city}, ${this.postalCode}`;
-    console.log('Dirección completa actualizada:', this.fullAddress);
+    // console.log('Dirección completa actualizada:', this.fullAddress);
 
     // Aquí puedes enviar la dirección actualizada al backend
     this.userService.updateShippingAddress(this.fullAddress).subscribe({
       next: () => {
-        alert('Dirección actualizada correctamente.');
+        this.toastService.show('Dirección actualizada correctamente.');
         this.dialogRef.close(this.fullAddress); // Cierra el modal y devuelve la dirección actualizada
       },
       error: (err) => {
         console.error('Error al actualizar la dirección de envío:', err);
-        alert('Hubo un error al actualizar la dirección de envío.');
+        this.toastService.show('Hubo un error al actualizar la dirección de envío.');
       },
     });
   }

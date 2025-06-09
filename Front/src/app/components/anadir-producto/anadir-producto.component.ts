@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { CommonModule, ViewportScroller } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ProductService } from '../../services/product.service';
 
@@ -12,7 +12,7 @@ import { ProductService } from '../../services/product.service';
   styleUrls: ['./anadir-producto.component.css']
 })
 
-export class AnadirProductoComponent {
+export class AnadirProductoComponent implements OnInit {
   productForm: FormGroup;
   successMessage: string = '';
   errorMessage: string = '';
@@ -22,6 +22,7 @@ export class AnadirProductoComponent {
   
 
   constructor(
+    private viewportScroller: ViewportScroller,
     private router: Router,
     private fb: FormBuilder, 
     private productService: ProductService) {
@@ -49,6 +50,10 @@ export class AnadirProductoComponent {
     }
   }
 
+  ngOnInit(): void {
+    this.viewportScroller.scrollToPosition([0, 0]);
+  }
+
   addProduct(): void {
     if (this.productForm.invalid) {
       this.errorMessage = 'Por favor, completa todos los campos correctamente.';
@@ -63,14 +68,12 @@ export class AnadirProductoComponent {
       categoria_id: this.productForm.value.tipo === 'componente' ? 1 : 2 // Asigna categoria_id según el tipo
     };
   
+    // Editar producto existente
     if (this.isEditing && this.productId) {
-      // Editar producto existente
       this.productService.updateProduct(this.productId, productData, headers).subscribe({
         next: () => {
           this.successMessage = 'Producto editado exitosamente.';
           this.productForm.reset();
-          // this.productId = null; // Reinicia el ID del producto
-          // this.router.navigate(['/home']);
         },
         error: (err) => {
           this.errorMessage = 'Error al editar el producto: ' + (err.error.message || 'Error desconocido.');
@@ -90,6 +93,7 @@ export class AnadirProductoComponent {
     }
   }
 
+  // Método para manejar el numero de caracteres en el campo de descripción
   updateCharacterCount(): void {
     const descripcionControl = this.productForm.get('descripcion');
     this.characterCount = descripcionControl?.value?.length || 0; // Actualiza el contador de caracteres
@@ -104,7 +108,6 @@ export class AnadirProductoComponent {
       imagen_url: product.imagen_url
     });
   
-    // Si necesitas manejar el ID del producto para la edición
-    this.productId = product.id; // Guarda el ID del producto
+    this.productId = product.id; 
   }
 }

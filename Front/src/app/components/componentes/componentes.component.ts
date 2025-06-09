@@ -37,15 +37,17 @@ export class ComponentesComponent implements OnInit {
   ngOnInit(): void {
     this.viewportScroller.scrollToPosition([0, 0]); // Para que al cargar la página se vaya al inicio del scroll
 
-    this.authService.getUserDetails().subscribe({
-      next: (response) => {
-        this.isAdmin = response.data.role === 'admin'; // Valida el rol directamente desde el backend
-      },
-      error: (err) => {
-        console.error('Error al obtener detalles del usuario:', err);
-        this.isAdmin = false; // En caso de error, asume que no es administrador
-      },
-    });
+    if (this.authService.isAuthenticated()) {
+      this.authService.getUserDetails().subscribe({
+        next: (response) => {
+          this.isAdmin = response.data.role === 'admin'; // Valida el rol directamente desde el backend
+        },
+        error: (err) => {
+          // console.error('Error al obtener detalles del usuario:', err);
+          this.isAdmin = false; // En caso de error, asume que no es administrador
+        },
+      });
+    }
 
     // Obtenemos los componentes
     this.productService.getComponentes().subscribe(
@@ -75,8 +77,14 @@ export class ComponentesComponent implements OnInit {
   }
 
   addToCart(productId: number): void {
+    if (!this.authService.isAuthenticated()) {
+      this.toastService.show('Debes iniciar sesión para añadir productos al carrito.');
+      this.router.navigate(['/cuenta']);
+      return;
+    }
+
     this.cartService.addToCart(productId).subscribe(() => {
-      this.toastService.show('Producto añadido al carrito.', 'Cerrar');    
+      this.toastService.show('Producto añadido al carrito.');    
     });
   }
 
@@ -105,14 +113,14 @@ export class ComponentesComponent implements OnInit {
     if (confirm('¿Estás seguro de que deseas eliminar este producto?')) {
       this.productService.deleteProduct(productId).subscribe({
         next: () => {
-          alert('Producto eliminado exitosamente.');
+          this.toastService.show('Producto eliminado exitosamente.');
           // Actualiza la lista de productos después de eliminar
           this.productos = this.productos.filter((producto) => producto.id !== productId);
           this.productosFiltrados = this.productosFiltrados.filter((producto) => producto.id !== productId);
         },
         error: (err) => {
           console.error('Error al eliminar el producto:', err);
-          alert('Hubo un error al eliminar el producto.');
+          this.toastService.show('Hubo un error al eliminar el producto.');
         }
       });
     }

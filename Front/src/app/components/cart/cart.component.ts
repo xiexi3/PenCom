@@ -4,8 +4,8 @@ import { CartService } from '../../services/cart.service';
 import { CommonModule, ViewportScroller  } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { ShippingAddressModalComponent } from '../modals/shipping-address-modal/shipping-address-modal.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ToastService } from '../../services/toast.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-cart',
@@ -18,6 +18,7 @@ export class CartComponent implements OnInit {
   cartItems: any[] = [];
 
   constructor(
+    private authService: AuthService,
     private toastService: ToastService,
     private router: Router, 
     private cartService: CartService, 
@@ -31,9 +32,11 @@ export class CartComponent implements OnInit {
   }
 
   loadCart(): void {
-    this.cartService.getCartItems().subscribe((items) => {
-      this.cartItems = items;
-    });
+    if (this.authService.isAuthenticated()) {
+      this.cartService.getCartItems().subscribe((items) => {
+        this.cartItems = items;
+      });
+    }
   }
 
   updateQuantity(itemId: number, quantity: number): void {
@@ -52,7 +55,7 @@ export class CartComponent implements OnInit {
     this.cartService.clearCart().subscribe(() => {
       this.cartItems = [];
     });
-    this.toastService.show('Carrito vaciado con éxito.', 'Cerrar');
+    this.toastService.show('Carrito vaciado con éxito.');
   }
 
   getTotalPrice(): number {
@@ -66,21 +69,21 @@ export class CartComponent implements OnInit {
   
     dialogRef.afterClosed().subscribe((address) => {
       if (!address) {
-        // alert('La dirección de envío es obligatoria.');
-        this.toastService.show('La dirección de envío es obligatoria.', 'Cerrar');
+        
+        this.toastService.show('La dirección de envío es obligatoria.');
         return;
       }
   
       this.cartService.checkout({ address }).subscribe({
         next: (response) => {
-          this.toastService.show('Compra realizada con éxito.', 'Cerrar');
+          this.toastService.show('Compra realizada con éxito.');
           this.cartItems = []; // Vacía el carrito en el frontend
-            // this.router.navigate(['/orders']); // Redirige a la página de pedidos
+            this.router.navigate(['/user-panel']); // Redirige a la página de pedidos
 
         },
         error: (err) => {
           console.error('Error al realizar la compra:', err);
-          this.toastService.show('Hubo un error al realizar la compra.', 'Cerrar');
+          this.toastService.show('Hubo un error al realizar la compra.');
         },
       });
     });

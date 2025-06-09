@@ -64,8 +64,7 @@
 				</p>
 
 				<div class="container email-container">
-					<input id="input-email" type="email" placeholder="Email*" [(ngModel)]="email" name="email"
-						required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" #emailInput="ngModel"/>
+					<input id="input-email" type="email" placeholder="Email*" [(ngModel)]="email" name="email" #emailInput="ngModel"/>
 					<label for="user">Email*</label>
 				</div>
 				<div class="container password-container">

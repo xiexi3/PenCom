@@ -13,8 +13,6 @@ import { ThemeService } from '../../services/theme.service';
 
 export class HeaderComponent {
   isMenuOpen = false;
-  isDarkMode = false;
-  cartItems = 0;
   constructor(private router: Router, private themeService: ThemeService) {}
   
   ngOnInit(): void {

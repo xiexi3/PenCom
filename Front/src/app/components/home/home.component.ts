@@ -94,13 +94,13 @@ export class HomeComponent implements AfterViewInit, OnInit {
   addToCart(productId: number): void {
 
     if (!this.authService.isAuthenticated()) {
-      this.toastService.show('Debes iniciar sesión para añadir productos al carrito.', 'Cerrar');
-      this.router.navigate(['/login']);
+      this.toastService.show('Debes iniciar sesión para añadir productos al carrito.');
+      this.router.navigate(['/cuenta']);
       return;
     }
 
     this.cartService.addToCart(productId).subscribe(() => {
-      this.toastService.show('Producto añadido al carrito.', 'Cerrar');
+      this.toastService.show('Producto añadido al carrito.');
     });
   }
 }

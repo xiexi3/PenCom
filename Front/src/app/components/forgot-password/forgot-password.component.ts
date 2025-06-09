@@ -48,13 +48,13 @@ export class ForgotPasswordComponent {
     this.isLoading = true; // Activa el indicador de carga
     this.userService.sendRecoveryCode(this.email).subscribe({
       next: () => {
-        this.toastService.show('Se ha enviado un código de recuperación a tu correo.', 'Cerrar', 3000, 'toast-success');
+        this.toastService.show('Se ha enviado un código de recuperación a tu correo.');
         this.step = 2; // Avanza al siguiente paso
         this.isLoading = false; // Desactiva el indicador de carga
       },
       error: (err) => {
         console.error('Error al enviar el código de recuperación:', err);
-        this.toastService.show('No se pudo enviar el código. Verifica el correo ingresado.', 'Cerrar', 3000, 'toast-error');
+        this.toastService.show('No se pudo enviar el código. Verifica el correo ingresado.');
         this.isLoading = false; // Desactiva el indicador de carga
       },
     });
@@ -66,7 +66,7 @@ export class ForgotPasswordComponent {
   changePassword(): void {
     if (this.newPassword !== this.confirmPassword) {
       this.passwordMismatch = true;
-      this.toastService.show('Las contraseñas no coinciden.', 'Cerrar');
+      this.toastService.show('Las contraseñas no coinciden.');
       return;
     }
 
@@ -82,14 +82,14 @@ export class ForgotPasswordComponent {
 
     this.userService.recoverPassword(payload).subscribe({
       next: () => {
-        this.toastService.show('Contraseña actualizada correctamente.', 'Cerrar', 3000, 'toast-success');
+        this.toastService.show('Contraseña actualizada correctamente.');
         this.resetForm(); // Limpia el formulario después de un cambio exitoso
         this.isLoading = false; // Desactiva el indicador de carga
-        this.router.navigate(['/login']); // Redirige al login
+        this.router.navigate(['/cuenta']); // Redirige al login
       },
       error: (err) => {
         console.error('Error al recuperar la contraseña:', err);
-        this.toastService.show('Error al recuperar la contraseña. Inténtelo de nuevo.', 'Cerrar', 3000, 'toast-error');
+        this.toastService.show('Error al recuperar la contraseña. Inténtelo de nuevo.');
         this.isLoading = false; // Desactiva el indicador de carga
       },
     });

@@ -4,10 +4,19 @@
 			<div *ngIf="producto">
 				<h1>{{ producto.nombre }}</h1>
 				<img [src]="getImagePath()" alt="{{ producto.nombre }}" class="item" />
-				<!-- <p>{{ producto.descripcion }}</p> -->
 				<p><strong>Precio:</strong> ${{ producto.precio }}</p>
-				<p><strong>Categoría:</strong> {{ producto.categoria.nombre }}</p>
-				<!-- <button (click)="agregarAlCarrito(producto)">Agregar al carrito</button> -->
+				<p class="descripcion"><strong>Descripción: </strong> {{ producto.descripcion }}</p>
+				<div class="card__add-to-cart">
+					<span class="card__price">${{ producto.precio }}</span>
+					<button (click)="addToCart(producto.id)" class="add-to-cart-btn">
+						+ Añadir
+						<span class="cart-item"></span>
+					</button>
+				</div>
+				<div *ngIf="isAdmin" class="admin-actions">
+					<i (click)="editProduct(producto)" class="admin-btn" class="fas fa-edit"></i>
+					<i (click)="deleteProduct(producto.id)" class="admin-btn" class="fas fa-remove"></i>
+				</div>
 			</div>
 		</div>
 	</div>

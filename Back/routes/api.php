@@ -20,7 +20,7 @@ use App\Http\Controllers\UserController;
 */
 
 Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/cuenta', [AuthController::class, 'login']);
 Route::post('/regenerate/code', [AuthController::class, 'regenerateCode']);
 Route::post('/regenerate/password', [AuthController::class, 'regeneratePassword']);
 

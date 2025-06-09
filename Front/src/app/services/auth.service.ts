@@ -16,7 +16,7 @@ export class AuthService {
   }
 
   login(email: string, password: string): Observable<string> {
-    return this.http.post<{ data: { accessToken: string, user: any } }>(`${this.apiUrl}/login`, { email, password })
+    return this.http.post<{ data: { accessToken: string, user: any } }>(`${this.apiUrl}/cuenta`, { email, password })
       .pipe(
         map(response => {
           const accessToken = response.data.accessToken;
