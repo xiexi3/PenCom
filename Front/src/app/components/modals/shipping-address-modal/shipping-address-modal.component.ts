@@ -84,6 +84,7 @@ export class ShippingAddressModalComponent implements OnInit {
   postalCode: string = ''; // Código postal actual
   fullAddress: string = ''; // Dirección concatenada final
   isDarkMode: boolean = false; 
+  loadingAddress: boolean = true;
 
   constructor(
     public themeService: ThemeService,
@@ -93,8 +94,8 @@ export class ShippingAddressModalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getUserShippingAddress(); // Obtiene la dirección al inicializar el modal
     this.isDarkMode = this.themeService.isDarkModeEnabled();
+    this.getUserShippingAddress(); // Obtiene la dirección al inicializar el modal
   }
 
   /**
@@ -109,10 +110,12 @@ export class ShippingAddressModalComponent implements OnInit {
         this.city = city || '';
         this.postalCode = postalCode || '';
         this.updateFullAddress();
+        this.loadingAddress = false;
       },
       error: (err) => {
         console.error('Error al obtener la dirección de envío:', err);
         alert('Hubo un error al obtener la dirección de envío.');
+        this.loadingAddress = false;
       },
     });
   }

@@ -206,3 +206,26 @@ input:focus {
 
 	transition: background 0.3s ease 0s, box-shadow 0.3s ease 0s, border-color 0.3s ease 0s;
 }
+
+.placeholder {
+    font-size: 1rem;
+    color: var(--clr-dark);
+    background-color: var(--clr-light);
+    border-radius: var(--brad-std);
+    padding: 0.5rem 1rem;
+    text-align: center;
+    animation: pulse 1.5s infinite;
+  }
+  
+  /* Animación de pulso para el placeholder */
+  @keyframes pulse {
+    0% {
+      background-color: var(--clr-light);
+    }
+    50% {
+      background-color: var(--clr-slate);
+    }
+    100% {
+      background-color: var(--clr-light);
+    }
+  }

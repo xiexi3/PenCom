@@ -20,29 +20,21 @@
 			<h2>Bienvenido, {{ user.name }}</h2>
 			<p>Email: {{ user.email }}</p>
 
-			<h3>
+			<!-- <h3>
 				Dirección de envío
 				<i *ngIf="!editingAddress" (click)="editingAddress = true" class="fas fa-edit"></i>
+			</h3> -->
+
+			<h3>
+				Dirección de envío
+				<i class="fas fa-edit" (click)="openAddressModal()"></i>
 			</h3>
-			<!-- <div class="shipping-address">
-				<p *ngIf="!editingAddress">Dirección actual: {{ user.shipping_address || 'No tienes una dirección registrada.' }}</p>
-				<input *ngIf="editingAddress" [(ngModel)]="newAddress" placeholder="Ingresa tu nueva dirección" />
-				<button *ngIf="!editingAddress" (click)="editingAddress = true">Editar Dirección</button>
-				<button *ngIf="editingAddress"
-					(click)="updateShippingAddress(newAddress); editingAddress = false">Guardar</button>
-				<button *ngIf="editingAddress" (click)="editingAddress = false">Cancelar</button>
-			</div> -->
 
 			<div class="shipping-address">
 				<div class="address-display">
 					<p *ngIf="!editingAddress">
 						{{ user.shipping_address || 'Aun no tiene una dirección registrada.' }}
 					</p>
-
-					<!-- <div class="address-actions">
-						<button *ngIf="!editingAddress" (click)="editingAddress = true" class="fas fa-edit"></button>
-						<button *ngIf="!editingAddress" (click)="addNewAddress()">Añadir Dirección</button>
-					</div> -->
 				</div>
 				<input class="input-address" *ngIf="editingAddress" [(ngModel)]="newAddress" placeholder="Ingrese su nueva dirección" />
 				<div *ngIf="editingAddress" class="edit-actions">
@@ -50,6 +42,16 @@
 					<button class="btn btn-address" (click)="editingAddress = false">Cancelar</button>
 				</div>
 			</div>
+			<!-- <div class="shipping-address">
+				<div class="address-display">
+					<p>
+						{{ user.shipping_address || 'Aún no tiene una dirección registrada.' }}
+					</p>
+				</div>
+				<div class="address-actions">
+					<button class="btn btn-address" (click)="openAddressModal()">Editar Dirección</button>
+				</div>
+			</div> -->
 			<a routerLink="/change-password" class="btn change-password">Cambiar Contraseña</a>
 			<br><br>
 			<button class="btn" (click)="logout()">Cerrar Sesión</button>

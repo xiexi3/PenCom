@@ -75,7 +75,8 @@ export class CartComponent implements OnInit {
         next: (response) => {
           this.toastService.show('Compra realizada con éxito.', 'Cerrar');
           this.cartItems = []; // Vacía el carrito en el frontend
-          this.router.navigate(['/orders']); // Redirige a la página de pedidos
+            // this.router.navigate(['/orders']); // Redirige a la página de pedidos
+
         },
         error: (err) => {
           console.error('Error al realizar la compra:', err);

@@ -197,3 +197,30 @@ input:not(:placeholder-shown) + label {
 .modal-content {
   margin-top: 2.5rem;
 }
+
+.loading-placeholder {
+    display: flex;
+    flex-direction: row;
+    align-items: center; /* Centra horizontalmente */
+    justify-content: center; /* Centra verticalmente */
+    height: 100%; /* Asegura que ocupe todo el espacio disponible */
+    gap: 0.5rem; /* Espaciado entre el spinner y el texto */
+  }
+  
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--clr-light);
+    border-top: 4px solid var(--clr-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }

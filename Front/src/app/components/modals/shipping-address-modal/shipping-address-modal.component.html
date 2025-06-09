@@ -87,52 +87,59 @@
 </div> -->
 
 <div class="modal-overlay"></div>
-<div class="modal-container" [ngClass]="{ 'dark-mode': isDarkMode }">
-  <h2 [ngClass]="{ 'dark-mode': isDarkMode }">Dirección de Envío</h2>
-  <p class="current-address"><strong>Dirección actual:</strong> {{ fullAddress }}</p>
-  <div class="modal-content">
-    <div class="input-container">
-      <input
-        type="text"
-        id="address"
-        placeholder=" "
-        [(ngModel)]="address"
-        (input)="updateFullAddress()"
-        [ngClass]="{ 'dark-mode': isDarkMode }"
-        name="address"
-        required
-      />
-      <label for="address">Dirección</label>
-    </div>
-    <div class="input-container">
-      <input
-        type="text"
-        id="city"
-        placeholder=" "
-        [(ngModel)]="city"
-        (input)="updateFullAddress()"
-        [ngClass]="{ 'dark-mode': isDarkMode }"
-        name="city"
-        required
-      />
-      <label for="city">Ciudad</label>
-    </div>
-    <div class="input-container">
-      <input
-        type="text"
-        id="postalCode"
-        placeholder=" "
-        [(ngModel)]="postalCode"
-        (input)="updateFullAddress()"
-        [ngClass]="{ 'dark-mode': isDarkMode }"
-        name="postalCode"
-        required
-      />
-      <label for="postalCode">Código Postal</label>
-    </div>
-  </div>
-  <div class="actions">
-    <button class="btn-save" (click)="saveAddress()" [ngClass]="{ 'dark-mode': isDarkMode }">Guardar</button>
-    <button class="btn-cancel" (click)="closeModal()" [ngClass]="{ 'dark-mode': isDarkMode }">Cancelar</button>
-  </div>
+	<div class="modal-container" [ngClass]="{ 'dark-mode': isDarkMode }">
+		<h2 [ngClass]="{ 'dark-mode': isDarkMode }">Dirección de Envío</h2>
+
+		<div *ngIf="loadingAddress" class="loading-placeholder">
+			<div class="spinner"></div>
+			<!-- <p>Cargando dirección...</p> -->
+		</div>
+
+		<p *ngIf="!loadingAddress" class="current-address"><strong>Dirección actual:</strong> {{ fullAddress }}</p>
+		
+		<div *ngIf="!loadingAddress" class="modal-content">
+			<div class="input-container">
+			<input
+				type="text"
+				id="address"
+				placeholder=" "
+				[(ngModel)]="address"
+				(input)="updateFullAddress()"
+				[ngClass]="{ 'dark-mode': isDarkMode }"
+				name="address"
+				required
+			/>
+			<label for="address">Dirección</label>
+			</div>
+			<div class="input-container">
+			<input
+				type="text"
+				id="city"
+				placeholder=" "
+				[(ngModel)]="city"
+				(input)="updateFullAddress()"
+				[ngClass]="{ 'dark-mode': isDarkMode }"
+				name="city"
+				required
+			/>
+			<label for="city">Ciudad</label>
+			</div>
+			<div class="input-container">
+			<input
+				type="text"
+				id="postalCode"
+				placeholder=" "
+				[(ngModel)]="postalCode"
+				(input)="updateFullAddress()"
+				[ngClass]="{ 'dark-mode': isDarkMode }"
+				name="postalCode"
+				required
+			/>
+			<label for="postalCode">Código Postal</label>
+			</div>
+	</div>
+	<div class="actions">
+		<button class="btn-save" (click)="saveAddress()" [ngClass]="{ 'dark-mode': isDarkMode }" [disabled]="loadingAddress">Guardar</button>
+		<button class="btn-cancel" (click)="closeModal()" [ngClass]="{ 'dark-mode': isDarkMode }">Cancelar</button>
+	</div>
 </div>

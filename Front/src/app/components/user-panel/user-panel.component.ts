@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 import { OrderService } from '../../services/order.service';
 
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormsModule } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { ShippingAddressModalComponent } from '../modals/shipping-address-modal/shipping-address-modal.component';
 
 @Component({
   selector: 'app-user-panel',
@@ -32,7 +34,12 @@ export class UserPanelComponent implements OnInit {
   selectedPicture: File | null = null; // Archivo seleccionado para la nueva foto
   loading: boolean = true;
   loadingOrders: boolean = true; 
-  constructor(private toastService: ToastService, private orderService: OrderService, private userService: UserService) {}
+
+  constructor(
+    private dialog: MatDialog,
+    private toastService: ToastService, 
+    private orderService: OrderService, 
+    private userService: UserService) {}
 
   ngOnInit(): void {
     // Aquí puedes cargar los datos del usuario desde el backend si es necesario
@@ -92,20 +99,20 @@ export class UserPanelComponent implements OnInit {
   //   }
   // }
 
-  updateShippingAddress(newAddress: string): void {
-    this.userService.updateShippingAddress(newAddress).subscribe({
-      next: (response) => {
-        this.user.shipping_address = response.shipping_address; // Actualiza la dirección en el frontend
-        // alert('Dirección de envío actualizada correctamente.');
-        this.toastService.show('Dirección de envío actualizada correctamente.');
-      },
-      error: (err) => {
-        console.error('Error al actualizar la dirección de envío:', err);
-        // alert('Hubo un error al actualizar la dirección de envío.');
-        this.toastService.show('Hubo un error al actualizar la dirección de envío.');
-      }
-    });
-  }
+  // updateShippingAddress(newAddress: string): void {
+  //   this.userService.updateShippingAddress(newAddress).subscribe({
+  //     next: (response) => {
+  //       this.user.shipping_address = response.shipping_address; // Actualiza la dirección en el frontend
+  //       // alert('Dirección de envío actualizada correctamente.');
+  //       this.toastService.show('Dirección de envío actualizada correctamente.');
+  //     },
+  //     error: (err) => {
+  //       console.error('Error al actualizar la dirección de envío:', err);
+  //       // alert('Hubo un error al actualizar la dirección de envío.');
+  //       this.toastService.show('Hubo un error al actualizar la dirección de envío.');
+  //     }
+  //   });
+  // }
 
   // uploadProfilePicture(event: any): void {
   //   const file = event.target.files[0];
@@ -179,6 +186,32 @@ export class UserPanelComponent implements OnInit {
     if (this.user && this.orders) {
       this.loading = false; // Desactiva el indicador de carga
     }
+  }
+
+  openAddressModal(): void {
+    const dialogRef = this.dialog.open(ShippingAddressModalComponent, {
+      width: '400px',
+      data: { address: this.user.shipping_address },
+    });
+
+    dialogRef.afterClosed().subscribe((updatedAddress) => {
+      if (updatedAddress) {
+        this.updateShippingAddress(updatedAddress);
+      }
+    });
+  }
+
+  updateShippingAddress(newAddress: string): void {
+    this.userService.updateShippingAddress(newAddress).subscribe({
+      next: (response) => {
+        this.user.shipping_address = response.shipping_address; // Actualiza la dirección en el frontend
+        this.toastService.show('Dirección de envío actualizada correctamente.');
+      },
+      error: (err) => {
+        console.error('Error al actualizar la dirección de envío:', err);
+        this.toastService.show('Hubo un error al actualizar la dirección de envío.');
+      },
+    });
   }
 
 }
