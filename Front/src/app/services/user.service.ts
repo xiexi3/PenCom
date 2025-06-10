@@ -7,7 +7,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrlUser = 'http://localhost:8000/api/user'; // URL base para los endpoints del usuario
+  private apiUrlUser = 'http://localhost:8080/api/user'; // URL base para los endpoints del usuario
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 

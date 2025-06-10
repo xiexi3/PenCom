@@ -7,7 +7,7 @@ import { catchError, map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8000/api'; // URL de tu API de Laravel
+  private apiUrl = 'http://localhost:8080/api'; // URL de tu API de Laravel
 
   constructor(private http: HttpClient) {}
 

@@ -24,7 +24,7 @@ interface Producto {
 })
 
 export class ProductService {
-  private apiUrl = 'http://localhost:8000/api/productos'; // URL de tu API de Laravel
+  private apiUrl = 'http://localhost:8080/api/productos'; // URL de tu API de Laravel
 
   constructor(private http: HttpClient) {}
 

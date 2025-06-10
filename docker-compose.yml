@@ -1,0 +1,27 @@
+services:
+  backend:
+    build:
+      context: ./back
+      dockerfile: docker/Dockerfile
+    container_name: laravel_backend
+    ports:
+      - "8080:80"
+    volumes:
+      - ./back:/var/www/html
+    depends_on:
+      - db
+    command: /bin/bash -c "ln -sfn /var/www/html/storage/app/public /var/www/html/public/storage && apache2-foreground"
+
+  db:
+    image: mysql:8.0
+    container_name: laravel_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: laravel
+      MYSQL_USER: laravel_user
+      MYSQL_PASSWORD: laravel_password
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:

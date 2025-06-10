@@ -6,8 +6,8 @@ import { map, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class CartService {
-  private apiUrl = 'http://localhost:8000/api/cart';
-  private apiOrdersUrl = 'http://localhost:8000/api/orders';
+  private apiUrl = 'http://localhost:8080/api/cart';
+  private apiOrdersUrl = 'http://localhost:8080/api/orders';
 
   constructor(private http: HttpClient) {}
 
