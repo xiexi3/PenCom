@@ -35,9 +35,6 @@ export class UserPanelComponent implements OnInit {
   loading: boolean = true;
   loadingOrders: boolean = true; 
 
-  profilePicture: string = 'assets/default-profile.png';
-  tempProfilePicture: string | null = null;
-
   constructor(
     private dialog: MatDialog,
     private toastService: ToastService, 
@@ -48,18 +45,12 @@ export class UserPanelComponent implements OnInit {
     this.loading = true;
     this.loadUserData();
     this.loadOrders();
-
   }
 
   loadUserData(): void {
     this.userService.getUser().subscribe({
       next: (response) => {
         this.user = response; // Carga los datos del usuario en la variable
-        if (this.user?.email) {
-          const savedPic = localStorage.getItem(`profilePicture_${this.user.email}`);
-          this.profilePicture = savedPic ? savedPic : 'assets/default-profile.png';
-        }
-
         this.checkLoadingComplete();
       },
       error: (err) => {
@@ -99,45 +90,26 @@ export class UserPanelComponent implements OnInit {
     }
   }
 
-  // saveProfilePicture(): void {
-  //   if (this.selectedPicture) {
-  //     this.userService.updateProfilePicture(this.selectedPicture).subscribe({
-  //       next: (response) => {
-  //         this.user.profile_picture = response.profile_picture; // Actualiza la foto en el frontend
-  //         this.editingPicture = false; // Salir del modo de edición
-  //         this.selectedPicture = null; // Limpiar la selección
-  //         this.toastService.show('Foto de perfil actualizada correctamente.');
-  //         window.location.reload(); 
-  //       },
-  //       error: (err) => {
-  //         // console.error('Error al actualizar la foto de perfil:', err);
-  //         this.toastService.show('Hubo un error al actualizar la foto de perfil.');
-  //       },
-  //     });
-  //   }
-  // }
-
-  // cancelProfilePicture(): void {
-  //   this.editingPicture = false; // Salir del modo de edición
-  //   this.selectedPicture = null; // Limpiar la selección
-  //   this.hovering = false; // Desactivar el estado de hover
-  // }
-
-saveProfilePicture(): void  {
-  if (this.tempProfilePicture && this.user?.email) {
-    this.profilePicture = this.tempProfilePicture;
-    localStorage.setItem(`profilePicture_${this.user.email}`, this.profilePicture);
-    this.tempProfilePicture = null;
-    this.editingPicture = false;
-    this.selectedPicture = null;
-    this.toastService.show('Foto de perfil actualizada correctamente.');
+  saveProfilePicture(): void {
+    if (this.selectedPicture) {
+      this.userService.updateProfilePicture(this.selectedPicture).subscribe({
+        next: (response) => {
+          this.user.profile_picture = response.profile_picture; // Actualiza la foto en el frontend
+          this.editingPicture = false; // Salir del modo de edición
+          this.selectedPicture = null; // Limpiar la selección
+          this.toastService.show('Foto de perfil actualizada correctamente.');
+          window.location.reload(); 
+        },
+        error: (err) => {
+          // console.error('Error al actualizar la foto de perfil:', err);
+          this.toastService.show('Hubo un error al actualizar la foto de perfil.');
+        },
+      });
+    }
   }
-}
 
-  cancelProfilePicture() {
-    this.tempProfilePicture = null;
-    this.editingPicture = false;
-
+  cancelProfilePicture(): void {
+    this.editingPicture = false; // Salir del modo de edición
     this.selectedPicture = null; // Limpiar la selección
     this.hovering = false; // Desactivar el estado de hover
   }
@@ -172,14 +144,4 @@ saveProfilePicture(): void  {
     });
   }
 
-onFileSelected(event: any) {
-  const file = event.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = (e: any) => {
-      this.tempProfilePicture = e.target.result;
-    };
-    reader.readAsDataURL(file);
-  }
-}
 }

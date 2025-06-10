@@ -6,9 +6,9 @@
 
 	<div *ngIf="!loading" class="user-details">
 		<div class="profile-picture" (mouseenter)="hovering = true" (mouseleave)="hovering = false">
-			<img [src]="profilePicture ? profilePicture : 'assets/default-profile.png'" alt="Foto de perfil"
+			<img [src]="user.profile_picture ? user.profile_picture : 'assets/default-profile.png'" alt="Foto de perfil"
 				class="profile-img" (click)="editingPicture = true" />
-			<input *ngIf="editingPicture" type="file" (change)="onFileSelected($event)" class="file-input" />
+			<input *ngIf="editingPicture" type="file" (change)="onPictureSelected($event)" class="file-input" />
 			<div *ngIf="editingPicture" class="actions">
 				<button class="btn" (click)="saveProfilePicture()">Guardar</button>
 				<button class="btn" (click)="cancelProfilePicture()">Cancelar</button>
