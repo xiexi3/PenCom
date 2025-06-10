@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ComponentesComponent } from './componentes.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing'; // Importa HttpClientTestingModule
 
 describe('ComponentesComponent', () => {
   let component: ComponentesComponent;
@@ -8,7 +8,7 @@ describe('ComponentesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ComponentesComponent]
+      imports: [ComponentesComponent, HttpClientTestingModule]
     })
     .compileComponents();
 
@@ -21,3 +21,6 @@ describe('ComponentesComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
+
+
