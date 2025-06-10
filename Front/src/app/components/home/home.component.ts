@@ -5,6 +5,7 @@ import { AuthService } from './../../services/auth.service';
 import { CartService } from '../../services/cart.service';
 import { ProductService } from '../../services/product.service';
 import { ToastService } from '../../services/toast.service';
+import { forkJoin } from 'rxjs'; // Importa forkJoin
 
 @Component({
   selector: 'app-home',
@@ -33,23 +34,18 @@ export class HomeComponent implements AfterViewInit, OnInit {
   ngOnInit(): void {
     this.viewportScroller.scrollToPosition([0, 0]); // Para que al cargar la página se vaya al inicio del scroll
     
-    // Obtenemos los componentes
-    this.productService.getComponentes().subscribe(
+    // Usamos forkJoin para esperar a que ambos observables se completen
+    forkJoin({
+      componentes: this.productService.getComponentes(),
+      ordenadores: this.productService.getOrdenadores()
+    }).subscribe(
       (data) => {
-        this.componentes = data;
+        this.componentes = data.componentes;
+        this.ordenadores = data.ordenadores;
+        // console.log('Componentes y ordenadores cargados.');
       },
       (error) => {
-        console.error('Hubo un error al obtener los componentes.', error);
-      }
-    );
-
-    // Obtenemos los ordenadores
-    this.productService.getOrdenadores().subscribe(
-      (data) => {
-        this.ordenadores = data;
-      },
-      (error) => {
-        console.error('Hubo un error al obtener los ordenadores.', error);
+        console.error('Hubo un error al obtener los datos.', error);
       }
     );
   }
