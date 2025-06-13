@@ -66,28 +66,15 @@ app-root {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  flex: 1; /* Permite que el contenido principal ocupe el espacio disponible */
+  flex: 1;
 }
 
 
 body {
-  /* height: 100%;
-  margin: 0;
-  display: flex;
-  flex-direction: column; */
   font-family: 'Montserrat', sans-serif;
-  /* background-color: var(--clr-light); */
   color: var(--clr-dark);
   line-height: 1.6;
 }
-
-/* html, body {
-   height: 100%;
-  margin: 0;
-  display: flex;
-  flex-direction: column; 
-}
-*/
 
 
 
@@ -158,15 +145,6 @@ input:focus, textarea:focus, select:focus {
   border-color: var(--clr-primary);
   box-shadow: var(--bsh-soft);
 }
-
-/* Utilidades */
-/* .container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 var(--spacing-md);
-} */
-
 .text-center {
   text-align: center;
 }
@@ -191,7 +169,6 @@ input:focus, textarea:focus, select:focus {
   --clr-slate-dark: #4a5568;
   --clr-light3: var(--clr-dark-trans);
   color: var(--clr-dark);
-  /* background-color: var(--clr-light); */
 }
 
 /* Responsive */
@@ -200,13 +177,10 @@ input:focus, textarea:focus, select:focus {
     --spacing-lg: 1.25rem;
     --spacing-xl: 1.75rem;
   }
-  
-  /* .container {
-    padding: 0 var(--spacing-sm);
-  } */
+
 }
 
-/* Ensure the header is always on top */
+/* Aseguramos que el header siempre este arriba */
 app-header {
   position: fixed;
   top: 0;
@@ -214,6 +188,3 @@ app-header {
   width: 100%;
   z-index: 1000;
 }
-/* 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */

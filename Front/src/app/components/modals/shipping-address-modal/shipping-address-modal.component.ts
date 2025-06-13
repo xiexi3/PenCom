@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CartService } from '../../../services/cart.service';
 import { ThemeService } from '../../../services/theme.service';
 import { ToastService } from '../../../services/toast.service';
 
@@ -20,7 +19,7 @@ export class ShippingAddressModalComponent implements OnInit {
   city: string = ''; // Ciudad actual
   postalCode: string = ''; // Código postal actual
   fullAddress: string = ''; // Dirección concatenada final
-  isDarkMode: boolean = false; 
+  isDarkMode: boolean = false;
   loadingAddress: boolean = true;
 
   constructor(
@@ -43,7 +42,9 @@ export class ShippingAddressModalComponent implements OnInit {
     this.userService.getUserShippingAddress().subscribe({
       next: (response) => {
         this.fullAddress = response.shipping_address || ''; // Dirección completa
-        const [address, city, postalCode] = this.fullAddress.split(',').map((part) => part.trim());
+        const [address, city, postalCode] = this.fullAddress
+          .split(',')
+          .map((part) => part.trim());
         this.address = address || '';
         this.city = city || '';
         this.postalCode = postalCode || '';
@@ -78,7 +79,9 @@ export class ShippingAddressModalComponent implements OnInit {
       },
       error: (err) => {
         // console.error('Error al actualizar la dirección de envío:', err);
-        this.toastService.show('Hubo un error al actualizar la dirección de envío.');
+        this.toastService.show(
+          'Hubo un error al actualizar la dirección de envío.'
+        );
       },
     });
   }

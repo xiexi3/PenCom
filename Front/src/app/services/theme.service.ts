@@ -3,22 +3,33 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
+
 export class ThemeService {
   private isDarkMode = false;
 
+  /**
+   * Constructor del servicio.
+   * Lee el estado del tema desde localStorage al inicializar el servicio.
+   */
   constructor() {
-    // Leer el estado del tema desde localStorage al inicializar el servicio
     const darkMode = localStorage.getItem('darkMode');
     this.isDarkMode = darkMode === 'true';
-    // this.applyDarkMode();
   }
 
+  /**
+   * Cambia el tema actual (de light a dark o viceversa).
+   * Guarda el nuevo estado del tema en localStorage.
+   */
   toggleTheme(): void {
     this.isDarkMode = !this.isDarkMode;
     localStorage.setItem('darkMode', this.isDarkMode.toString());
     this.applyDarkMode();
   }
 
+  /**
+   * Aplica el tema dark mode a la aplicación.
+   * Añade o quita la clase 'dark-mode' a los elementos correspondientes.
+   */
   applyDarkMode(): void {
     // Elementos individuales
     const themeToggleBtn = document.querySelector('.theme-toggle');
@@ -94,6 +105,10 @@ export class ThemeService {
     
   }
 
+  /**
+   * Indica si el tema dark mode está habilitado.
+   * @returns boolean - True si el tema dark mode está habilitado, false en caso contrario.
+   */
   isDarkModeEnabled(): boolean {
     return this.isDarkMode;
   }

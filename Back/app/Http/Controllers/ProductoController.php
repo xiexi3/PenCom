@@ -10,19 +10,6 @@ class ProductoController extends Controller
 {
     public function index()
     {
-        // try {
-        //     $productos = Producto::with(['categoria', 'compatibilidades'])->get();
-        //     return response()->json([
-        //         'message' => 'Productos obtenidos correctamente',
-        //         'data' => $productos
-        //     ], 200);
-        // } catch (\Exception $e) {
-        //     return response()->json([
-        //         'message' => 'Error al obtener los productos',
-        //         'error' => $e->getMessage()
-        //     ], 500);
-        // }
-
         $productos = Producto::with(['categoria', 'compatibilidades'])->get();
         return response()->json($productos);
     }
@@ -30,11 +17,6 @@ class ProductoController extends Controller
     public function show($id)
     {
         try {
-            // $producto = Producto::with(['categoria', 'compatibilidades'])->findOrFail($id);
-            // return response()->json([
-            //     'message' => 'Producto obtenido correctamente',
-            //     'data' => $producto
-            // ], 200);
             $producto = Producto::with(['categoria', 'compatibilidades'])->findOrFail($id);
             return response()->json($producto);
         } catch (\Exception $e) {

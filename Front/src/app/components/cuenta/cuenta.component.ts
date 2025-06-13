@@ -65,7 +65,9 @@ export class CuentaComponent implements OnInit {
           this.toastService.show(err.error.message);
         } else {
           // Mensaje genérico para otros errores
-          this.toastService.show('Hubo un error al iniciar sesión. Inténtelo de nuevo más tarde.');
+          this.toastService.show(
+            'Hubo un error al iniciar sesión. Inténtelo de nuevo más tarde.'
+          );
         }
       },
     });
@@ -88,7 +90,9 @@ export class CuentaComponent implements OnInit {
         this.toastService.show('Registro exitoso, ya puede iniciar sesión.');
 
         // Simula un clic en el botón de "Iniciar Sesión"
-        const loginButton = document.querySelector('.btn-login') as HTMLButtonElement;
+        const loginButton = document.querySelector(
+          '.btn-login'
+        ) as HTMLButtonElement;
         if (loginButton) {
           loginButton.click();
         }
@@ -100,9 +104,11 @@ export class CuentaComponent implements OnInit {
           const firstError = Object.values(err.error.errors)[0] as string;
           this.toastService.show(firstError);
         } else {
-          this.toastService.show('Hubo un error al registrarse. Inténtelo de nuevo más tarde.');
+          this.toastService.show(
+            'Hubo un error al registrarse. Inténtelo de nuevo más tarde.'
+          );
         }
-          this.toastService.show('Error al registrarse.');
+        // this.toastService.show('Error al registrarse.');
         // console.error('Error al registrarse:', err);
       },
     });

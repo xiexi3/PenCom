@@ -6,13 +6,11 @@ import { ToastService } from '../../services/toast.service';
   selector: 'app-not-found',
   standalone: true,
   templateUrl: './not-found.component.html',
-  styleUrl: './not-found.component.css'
+  styleUrl: './not-found.component.css',
 })
+
 export class NotFoundComponent {
-  constructor(
-    private router: Router, 
-    private toastService: ToastService
-  ) {}
+  constructor(private router: Router, private toastService: ToastService) {}
 
   ngOnInit(): void {
     this.toastService.show('La ruta solicitada no existe.');

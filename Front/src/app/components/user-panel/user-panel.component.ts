@@ -3,10 +3,8 @@ import { UserService } from './../../services/user.service';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { Router } from '@angular/router';
 import { OrderService } from '../../services/order.service';
-
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ShippingAddressModalComponent } from '../modals/shipping-address-modal/shipping-address-modal.component';
 
@@ -15,12 +13,10 @@ import { ShippingAddressModalComponent } from '../modals/shipping-address-modal/
   standalone: true,
   imports: [RouterModule, CommonModule, FormsModule],
   templateUrl: './user-panel.component.html',
-  styleUrl: './user-panel.component.css'
+  styleUrl: './user-panel.component.css',
 })
+
 export class UserPanelComponent implements OnInit {
-
-    // user: any;
-
   user: any = {}; // Información del usuario
   orders: any[] = []; // Lista de pedidos
 
@@ -32,23 +28,24 @@ export class UserPanelComponent implements OnInit {
   hovering: boolean = false; // Estado para mostrar el texto de hover
   editingPicture: boolean = false; // Estado para editar la foto de perfil
   selectedPicture: File | null = null; // Archivo seleccionado para la nueva foto
+
   loading: boolean = true;
-  loadingOrders: boolean = true; 
+  loadingOrders: boolean = true;
 
   profilePicture: string = 'assets/default-profile.png';
   tempProfilePicture: string | null = null;
 
   constructor(
     private dialog: MatDialog,
-    private toastService: ToastService, 
-    private orderService: OrderService, 
-    private userService: UserService) {}
+    private toastService: ToastService,
+    private orderService: OrderService,
+    private userService: UserService
+  ) {}
 
   ngOnInit(): void {
     this.loading = true;
     this.loadUserData();
     this.loadOrders();
-
   }
 
   loadUserData(): void {
@@ -56,8 +53,12 @@ export class UserPanelComponent implements OnInit {
       next: (response) => {
         this.user = response; // Carga los datos del usuario en la variable
         if (this.user?.email) {
-          const savedPic = localStorage.getItem(`profilePicture_${this.user.email}`);
-          this.profilePicture = savedPic ? savedPic : 'assets/default-profile.png';
+          const savedPic = localStorage.getItem(
+            `profilePicture_${this.user.email}`
+          );
+          this.profilePicture = savedPic
+            ? savedPic
+            : 'assets/default-profile.png';
         }
 
         this.checkLoadingComplete();
@@ -66,7 +67,7 @@ export class UserPanelComponent implements OnInit {
         // console.error('Error al cargar los datos del usuario:', err);
         this.errorMessage = 'Hubo un error al cargar los datos del usuario.';
         this.checkLoadingComplete();
-      }
+      },
     });
   }
 
@@ -83,7 +84,7 @@ export class UserPanelComponent implements OnInit {
         this.errorMessage = 'Hubo un error al cargar el historial de pedidos.';
         this.checkLoadingComplete();
         this.loadingOrders = false; // Desactiva el estado de carga
-      }
+      },
     });
   }
 
@@ -99,16 +100,19 @@ export class UserPanelComponent implements OnInit {
     }
   }
 
-saveProfilePicture(): void  {
-  if (this.tempProfilePicture && this.user?.email) {
-    this.profilePicture = this.tempProfilePicture;
-    localStorage.setItem(`profilePicture_${this.user.email}`, this.profilePicture);
-    this.tempProfilePicture = null;
-    this.editingPicture = false;
-    this.selectedPicture = null;
-    this.toastService.show('Foto de perfil actualizada correctamente.');
+  saveProfilePicture(): void {
+    if (this.tempProfilePicture && this.user?.email) {
+      this.profilePicture = this.tempProfilePicture;
+      localStorage.setItem(
+        `profilePicture_${this.user.email}`,
+        this.profilePicture
+      );
+      this.tempProfilePicture = null;
+      this.editingPicture = false;
+      this.selectedPicture = null;
+      this.toastService.show('Foto de perfil actualizada correctamente.');
+    }
   }
-}
 
   cancelProfilePicture() {
     this.tempProfilePicture = null;
@@ -148,14 +152,14 @@ saveProfilePicture(): void  {
     });
   }
 
-onFileSelected(event: any) {
-  const file = event.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = (e: any) => {
-      this.tempProfilePicture = e.target.result;
-    };
-    reader.readAsDataURL(file);
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.tempProfilePicture = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
   }
-}
 }

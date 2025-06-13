@@ -13,7 +13,7 @@ import { UserService } from '../../services/user.service';
   standalone: true,
   imports: [RouterModule, CommonModule, FormsModule],
   templateUrl: './componentes.component.html',
-  styleUrl: './componentes.component.css'
+  styleUrl: './componentes.component.css',
 })
 
 export class ComponentesComponent implements OnInit {
@@ -24,16 +24,16 @@ export class ComponentesComponent implements OnInit {
   marcaSeleccionada: string = ''; // Marca seleccionada para filtrar
   precioMin: number | null = null; // Precio mínimo para filtrar
   precioMax: number | null = null; // Precio máximo para filtrar
-  isAdmin: boolean = false; 
+  isAdmin: boolean = false;
 
   constructor(
-    private router: Router, 
-    private productService: ProductService, 
-    private viewportScroller: ViewportScroller, 
+    private router: Router,
+    private productService: ProductService,
+    private viewportScroller: ViewportScroller,
     private authService: AuthService,
     private userService: UserService,
-    private cartService: CartService, 
-    private toastService: ToastService ,
+    private cartService: CartService,
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -70,23 +70,31 @@ export class ComponentesComponent implements OnInit {
 
     this.productosFiltrados = this.productos.filter((producto) => {
       const coincideTexto = producto.nombre.toLowerCase().includes(texto);
-      const coincideMarca = marca ? producto.nombre.toLowerCase().includes(marca) : true;
-      const coincidePrecioMin = this.precioMin !== null ? producto.precio >= this.precioMin : true;
-      const coincidePrecioMax = this.precioMax !== null ? producto.precio <= this.precioMax : true;
+      const coincideMarca = marca
+        ? producto.nombre.toLowerCase().includes(marca)
+        : true;
+      const coincidePrecioMin =
+        this.precioMin !== null ? producto.precio >= this.precioMin : true;
+      const coincidePrecioMax =
+        this.precioMax !== null ? producto.precio <= this.precioMax : true;
 
-      return coincideTexto && coincideMarca && coincidePrecioMin && coincidePrecioMax;
+      return (
+        coincideTexto && coincideMarca && coincidePrecioMin && coincidePrecioMax
+      );
     });
   }
 
   addToCart(productId: number): void {
     if (!this.authService.isAuthenticated()) {
-      this.toastService.show('Debes iniciar sesión para añadir productos al carrito.');
+      this.toastService.show(
+        'Debes iniciar sesión para añadir productos al carrito.'
+      );
       this.router.navigate(['/cuenta']);
       return;
     }
 
     this.cartService.addToCart(productId).subscribe(() => {
-      this.toastService.show('Producto añadido al carrito.');    
+      this.toastService.show('Producto añadido al carrito.');
     });
   }
 
@@ -99,10 +107,10 @@ export class ComponentesComponent implements OnInit {
       console.error('Producto no encontrado:', producto);
       return;
     }
-  
+
     // Redirige al formulario de añadir producto con los datos del producto seleccionado
     this.router.navigate(['/producto'], {
-      state: { producto }
+      state: { producto },
     });
   }
 
@@ -111,19 +119,23 @@ export class ComponentesComponent implements OnInit {
       console.error('ID del producto no válido:', productId);
       return;
     }
-  
+
     if (confirm('¿Estás seguro de que deseas eliminar este producto?')) {
       this.productService.deleteProduct(productId).subscribe({
         next: () => {
           this.toastService.show('Producto eliminado exitosamente.');
           // Actualiza la lista de productos después de eliminar
-          this.productos = this.productos.filter((producto) => producto.id !== productId);
-          this.productosFiltrados = this.productosFiltrados.filter((producto) => producto.id !== productId);
+          this.productos = this.productos.filter(
+            (producto) => producto.id !== productId
+          );
+          this.productosFiltrados = this.productosFiltrados.filter(
+            (producto) => producto.id !== productId
+          );
         },
         error: (err) => {
           // console.error('Error al eliminar el producto:', err);
           this.toastService.show('Hubo un error al eliminar el producto.');
-        }
+        },
       });
     }
   }

@@ -29,7 +29,9 @@ export class ChangePasswordComponent {
     private toastService: ToastService
   ) {}
 
-  togglePassword(field: 'showCurrentPassword' | 'showNewPassword' | 'showConfirmPassword'): void {
+  togglePassword(
+    field: 'showCurrentPassword' | 'showNewPassword' | 'showConfirmPassword'
+  ): void {
     this[field] = !this[field];
   }
 
@@ -42,27 +44,29 @@ export class ChangePasswordComponent {
 
     this.passwordMismatch = false;
 
-    this.userService.changePassword(this.currentPassword, this.newPassword).subscribe({
-      next: () => {
-        this.toastService.show('Contraseña actualizada correctamente.');
-        this.currentPassword = '';
-        this.newPassword = '';
-        this.confirmPassword = '';
-      },
-      error: (err) => {
-        // console.error('Error al cambiar la contraseña:', err);
-        // Si el backend devuelve un array de errores, muestra el primer error
-        if (err.error?.errors) {
-          const firstError = Object.values(err.error.errors)[0] as string;
-          this.toastService.show(firstError);
-        } else if (err.error?.message) {
-          // Si el backend devuelve un mensaje único
-          this.toastService.show(err.error.message);
-        } else {
-          // Mensaje genérico para otros errores
-          this.toastService.show('Hubo un error al cambiar la contraseña.');
-        }
-      },
-    });
+    this.userService
+      .changePassword(this.currentPassword, this.newPassword)
+      .subscribe({
+        next: () => {
+          this.toastService.show('Contraseña actualizada correctamente.');
+          this.currentPassword = '';
+          this.newPassword = '';
+          this.confirmPassword = '';
+        },
+        error: (err) => {
+          // console.error('Error al cambiar la contraseña:', err);
+          // Si el backend devuelve un array de errores, muestra el primer error
+          if (err.error?.errors) {
+            const firstError = Object.values(err.error.errors)[0] as string;
+            this.toastService.show(firstError);
+          } else if (err.error?.message) {
+            // Si el backend devuelve un mensaje único
+            this.toastService.show(err.error.message);
+          } else {
+            // Mensaje genérico para otros errores
+            this.toastService.show('Hubo un error al cambiar la contraseña.');
+          }
+        },
+      });
   }
 }

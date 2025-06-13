@@ -8,13 +8,12 @@ import { ThemeService } from '../../services/theme.service';
   standalone: true,
   imports: [RouterModule, CommonModule],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  styleUrl: './header.component.css',
 })
-
 export class HeaderComponent {
   isMenuOpen = false;
   constructor(private router: Router, private themeService: ThemeService) {}
-  
+
   ngOnInit(): void {
     // Aplicar el tema oscuro al cargar la aplicación
     this.themeService.applyDarkMode();
@@ -26,7 +25,7 @@ export class HeaderComponent {
       }
     });
   }
-  
+
   // Función para el menu hamburguesa en el diseno responsivo
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
@@ -36,5 +35,4 @@ export class HeaderComponent {
   toggleTheme(): void {
     this.themeService.toggleTheme();
   }
-
 }

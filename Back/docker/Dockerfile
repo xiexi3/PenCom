@@ -21,6 +21,9 @@ RUN ln -sfn /var/www/html/storage/app/public /var/www/html/public/storage
 # Establecer permisos para Laravel
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
+# Nuevooo Cambiar los permisos para que el grupo www-data pueda escribir
+# RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+
 # Instalar Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 RUN composer install --no-dev --optimize-autoloader

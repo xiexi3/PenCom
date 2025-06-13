@@ -8,10 +8,10 @@ use Illuminate\Support\Facades\Hash;
 
 class UpdateAdminPasswordSeeder extends Seeder
 {
-    public function run()
-    {
-        DB::table('users')
-            ->where('email', 'admin@example.com')
-            ->update(['password' => Hash::make('nueva_contrasena')]);
-    }
+    // public function run()
+    // {
+    //     DB::table('users')
+    //         ->where('email', 'admin@example.com')
+    //         ->update(['password' => Hash::make('nueva_contrasena')]);
+    // }
 }

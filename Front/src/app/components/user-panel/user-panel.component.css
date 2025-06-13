@@ -215,17 +215,17 @@ input:focus {
     padding: 0.5rem 1rem;
     text-align: center;
     animation: pulse 1.5s infinite;
-  }
-  
-  /* Animación de pulso para el placeholder */
-  @keyframes pulse {
+}
+
+/* Animación de pulso para el placeholder */
+@keyframes pulse {
     0% {
-      background-color: var(--clr-light);
+        background-color: var(--clr-light);
     }
     50% {
-      background-color: var(--clr-slate);
+        background-color: var(--clr-slate);
     }
     100% {
-      background-color: var(--clr-light);
+        background-color: var(--clr-light);
     }
-  }
+}

@@ -1,7 +1,13 @@
 import { Router } from '@angular/router';
 import { CommonModule, ViewportScroller } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ProductService } from '../../services/product.service';
 
 @Component({
@@ -9,29 +15,29 @@ import { ProductService } from '../../services/product.service';
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './anadir-producto.component.html',
-  styleUrls: ['./anadir-producto.component.css']
+  styleUrls: ['./anadir-producto.component.css'],
 })
 
 export class AnadirProductoComponent implements OnInit {
   productForm: FormGroup;
   successMessage: string = '';
   errorMessage: string = '';
-  characterCount: number = 0; 
-  productId: number | null = null; 
+  characterCount: number = 0;
+  productId: number | null = null;
   isEditing: boolean = false;
-  
 
   constructor(
     private viewportScroller: ViewportScroller,
     private router: Router,
-    private fb: FormBuilder, 
-    private productService: ProductService) {
+    private fb: FormBuilder,
+    private productService: ProductService
+  ) {
     this.productForm = this.fb.group({
       nombre: ['', [Validators.required, Validators.minLength(3)]],
       descripcion: ['', [Validators.required, Validators.minLength(10)]],
       precio: ['', [Validators.required, Validators.min(0)]],
       tipo: ['', [Validators.required]],
-      imagen_url: ['', [Validators.required]]
+      imagen_url: ['', [Validators.required]],
     });
 
     interface NavigationState {
@@ -59,26 +65,30 @@ export class AnadirProductoComponent implements OnInit {
       this.errorMessage = 'Por favor, completa todos los campos correctamente.';
       return;
     }
-  
+
     const token = localStorage.getItem('token'); // Recupera el token del localStorage
     const headers = { Authorization: `Bearer ${token}` }; // Agrega el encabezado Authorization
-  
+
     const productData = {
       ...this.productForm.value,
-      categoria_id: this.productForm.value.tipo === 'componente' ? 1 : 2 // Asigna categoria_id según el tipo
+      categoria_id: this.productForm.value.tipo === 'componente' ? 1 : 2, // Asigna categoria_id según el tipo
     };
-  
+
     // Editar producto existente
     if (this.isEditing && this.productId) {
-      this.productService.updateProduct(this.productId, productData, headers).subscribe({
-        next: () => {
-          this.successMessage = 'Producto editado exitosamente.';
-          this.productForm.reset();
-        },
-        error: (err) => {
-          this.errorMessage = 'Error al editar el producto: ' + (err.error.message || 'Error desconocido.');
-        }
-      });
+      this.productService
+        .updateProduct(this.productId, productData, headers)
+        .subscribe({
+          next: () => {
+            this.successMessage = 'Producto editado exitosamente.';
+            this.productForm.reset();
+          },
+          error: (err) => {
+            this.errorMessage =
+              'Error al editar el producto: ' +
+              (err.error.message || 'Error desconocido.');
+          },
+        });
     } else {
       // Añadir nuevo producto
       this.productService.addProduct(productData, headers).subscribe({
@@ -87,8 +97,10 @@ export class AnadirProductoComponent implements OnInit {
           this.productForm.reset();
         },
         error: (err) => {
-          this.errorMessage = 'Error al añadir el producto: ' + (err.error.message || 'Error desconocido.');
-        }
+          this.errorMessage =
+            'Error al añadir el producto: ' +
+            (err.error.message || 'Error desconocido.');
+        },
       });
     }
   }
@@ -105,9 +117,9 @@ export class AnadirProductoComponent implements OnInit {
       descripcion: product.descripcion,
       precio: product.precio,
       tipo: product.tipo,
-      imagen_url: product.imagen_url
+      imagen_url: product.imagen_url,
     });
-  
-    this.productId = product.id; 
+
+    this.productId = product.id;
   }
 }

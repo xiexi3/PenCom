@@ -17,8 +17,6 @@
     align-items: center;
     justify-content: center;
 	position: relative;
-    /* margin-bottom: 2rem; */
-    /* padding: 1rem 0px; */
     max-width: 500px;
 }
 
@@ -27,8 +25,6 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-	/* width: 250px;
-	height: 250px; */
     max-width: 100%; /* Evita que la imagen exceda el ancho del contenedor */
     max-height: 100%; /* Evita que la imagen exceda la altura del contenedor */
     object-fit: contain;
