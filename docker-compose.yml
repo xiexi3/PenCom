@@ -1,13 +1,13 @@
 services:
   backend:
     build:
-      context: ./back
+      context: ./Back
       dockerfile: docker/Dockerfile
     container_name: laravel_backend
     ports:
       - "8080:80"
     volumes:
-      - ./back:/var/www/html
+      - ./Back:/var/www/html
     depends_on:
       - db
     command: /bin/bash -c "ln -sfn /var/www/html/storage/app/public /var/www/html/public/storage && apache2-foreground"
