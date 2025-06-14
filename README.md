@@ -11,7 +11,7 @@ Esta aplicación se despliega fácilmente utilizando Docker para el backend y un
 - [Docker Desktop](https://www.docker.com/products/docker-desktop): Para la gestión de contenedores. Incluye:
   - Docker Engine (versión 20.0 o superior recomendada)
   - Docker Compose (versión 2.0 o superior recomendada)
-- [Node.js](https://nodejs.org/en/download) (>= 16.x): Necesario para el frontend. Se recomienda utilizar [NVM (Node Version Manager)](https://github.com/coreybutler/nvm-windows#readme) para gestionar las versiones de Node.js y npm.
+- [Node.js](https://nodejs.org/en/download) (>= 18.3.0 || >= 20.9.0): Necesario para el frontend. Se recomienda utilizar [NVM (Node Version Manager)](https://github.com/coreybutler/nvm-windows#readme) para gestionar las versiones de Node.js y npm.
 
 ### 1. Clonar el Repositorio
 
@@ -73,6 +73,12 @@ cd PenCom
   cd front
   ```
 
+  Podemos comprobar que la versión de node cumpla con los requisitos anteriores:
+
+  ```
+  node --version
+  ```
+
   Luego ejecuta:
 
   ```bash
@@ -83,6 +89,10 @@ cd PenCom
 - Verificar la versión de Angular:
 
   Asegúrate de que estás utilizando Angular 19.
+
+  ```bash
+  ng version
+  ```
 
 - Desplegar el frontend:
 
